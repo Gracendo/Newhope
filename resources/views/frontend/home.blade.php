@@ -13,27 +13,27 @@
 	<!-- Page Title -->
     <title>Lenity - Charity & Donation HTML Template</title>
 	<!-- Favicon Icon -->
-	<link rel="shortcut icon" type="image/x-icon" href="frontend/images/favicon.png">
+	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
 	<!-- Google Fonts Css-->
 	<link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;family=Onest:wght@100..900&amp;display=swap" rel="stylesheet">
 	<!-- Bootstrap Css -->
-	<link href="frontend/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<!-- SlickNav Css -->
-	<link href="frontend/css/slicknav.min.css" rel="stylesheet">
+	<link href="css/slicknav.min.css" rel="stylesheet">
 	<!-- Swiper Css -->
-	<link rel="stylesheet" href="frontend/css/swiper-bundle.min.css">
+	<link rel="stylesheet" href="css/swiper-bundle.min.css">
 	<!-- Font Awesome Icon Css-->
-	<link href="frontend/css/all.min.css" rel="stylesheet" media="screen">
+	<link href="css/all.min.css" rel="stylesheet" media="screen">
 	<!-- Animated Css -->
-	<link href="frontend/css/animate.css" rel="stylesheet">
+	<link href="css/animate.css" rel="stylesheet">
     <!-- Magnific Popup Core Css File -->
-	<link rel="stylesheet" href="frontend/css/magnific-popup.css">
+	<link rel="stylesheet" href="css/magnific-popup.css">
 	<!-- Mouse Cursor Css File -->
-	<link rel="stylesheet" href="frontend/css/mousecursor.css">
+	<link rel="stylesheet" href="css/mousecursor.css">
 	<!-- Main Custom Css -->
-	<link href="frontend/css/custom.css" rel="stylesheet" media="screen">
+	<link href="css/custom.css" rel="stylesheet" media="screen">
 </head>
 <body>
 
@@ -41,7 +41,7 @@
 	<div class="preloader">
 		<div class="loading-container">
 			<div class="loading"></div>
-			<div id="loading-icon"><img src="frontend/images/loader.svg" alt=""></div>
+			<div id="loading-icon"><img src="images/loader.svg" alt=""></div>
 		</div>
 	</div>
 	<!-- Preloader End -->
@@ -53,7 +53,7 @@
 				<div class="container">
 					<!-- Logo Start -->
 					<a class="navbar-brand" href="index-2.html">
-						<img src="frontend/images/logo.svg" alt="Logo">
+						<img src="images/logo.svg" alt="Logo">
 					</a>
 					<!-- Logo End -->
 
@@ -93,7 +93,7 @@
                         <!-- Contact Now Box Start -->
                         <div class="contact-now-box">
                             <div class="icon-box">
-                                <img src="frontend/images/icon-phone.svg" alt="">
+                                <img src="images/icon-phone.svg" alt="">
                             </div>
                             <div class="contact-now-box-content">
                                 <p>need help !</p>
@@ -178,7 +178,7 @@
                         <!-- About Image 1 Start -->
                         <div class="about-img-1">
                             <figure class="image-anime">
-                                <img src="frontend/images/about-img-1.jpg" alt="">
+                                <img src="images/about-img-1.jpg" alt="">
                             </figure>
                         </div>
                         <!-- About Image 1 End -->
@@ -186,14 +186,14 @@
                         <!-- About Image 2 Start -->
                         <div class="about-img-2">
                             <figure class="image-anime">
-                                <img src="frontend/images/about-img-2.jpg" alt="">
+                                <img src="images/about-img-2.jpg" alt="">
                             </figure>
                         </div>
                         <!-- About Image 2 End -->
 
                         <!-- Need Fund Box Start -->
                         <div class="need-fund-box">
-                            <img src="frontend/images/icon-funded-dollar.svg" alt="">
+                            <img src="images/icon-funded-dollar.svg" alt="">
                             <p>We've funded <span class="counter">75</span>k Dollars</p>
                         </div>
                         <!-- Need Fund Box End -->
@@ -218,7 +218,7 @@
                                 <!-- About Support Box Start -->
                                 <div class="about-support-box wow fadeInUp" data-wow-delay="0.4s">
                                     <div class="icon-box">
-                                        <img src="frontend/images/icon-about-support.svg" alt="">
+                                        <img src="images/icon-about-support.svg" alt="">
                                     </div>
                                     <!-- About Support Content Start -->
                                     <div class="about-support-content">
@@ -240,7 +240,7 @@
                             <div class="helped-fund-item">
                                 <div class="helped-fund-img">
                                     <figure class="image-anime">
-                                        <img src="frontend/images/helped-fund-img.jpg" alt="">
+                                        <img src="images/helped-fund-img.jpg" alt="">
                                     </figure>
                                 </div>
                                 <div class="helped-fund-content">
@@ -285,7 +285,7 @@
                         </div>
                         <div class="service-image">
                             <figure class="image-anime">
-                                <img src="frontend/images/services-image-1.jpg" alt="">
+                                <img src="images/services-image-1.jpg" alt="">
                             </figure>
                         </div>
                         <div class="service-btn">
@@ -304,7 +304,7 @@
                         </div>
                         <div class="service-image">
                             <figure class="image-anime">
-                                <img src="frontend/images/services-image-2.jpg" alt="">
+                                <img src="images/services-image-2.jpg" alt="">
                             </figure>
                         </div>
                         <div class="service-btn">
@@ -323,7 +323,7 @@
                         </div>
                         <div class="service-image">
                             <figure class="image-anime">
-                                <img src="frontend/images/services-image-3.jpg" alt="">
+                                <img src="images/services-image-3.jpg" alt="">
                             </figure>
                         </div>
                         <div class="service-btn">
@@ -364,7 +364,7 @@
                             <!-- What We Item Start -->
                             <div class="what-we-item wow fadeInUp" data-wow-delay="0.2s">
                                 <div class="icon-box">
-                                    <img src="frontend/images/icon-what-we-1.svg" alt="">
+                                    <img src="images/icon-what-we-1.svg" alt="">
                                 </div>
                                 <div class="what-we-item-content">
                                     <h3>economic empowerment</h3>
@@ -376,7 +376,7 @@
                             <!-- What We Item Start -->
                             <div class="what-we-item wow fadeInUp" data-wow-delay="0.4s">
                                 <div class="icon-box">
-                                    <img src="frontend/images/icon-what-we-2.svg" alt="">
+                                    <img src="images/icon-what-we-2.svg" alt="">
                                 </div>
                                 <div class="what-we-item-content">
                                     <h3>clean water and sanitation</h3>
@@ -388,7 +388,7 @@
                             <!-- What We Item Start -->
                             <div class="what-we-item wow fadeInUp" data-wow-delay="0.6s">
                                 <div class="icon-box">
-                                    <img src="frontend/images/icon-what-we-3.svg" alt="">
+                                    <img src="images/icon-what-we-3.svg" alt="">
                                 </div>
                                 <div class="what-we-item-content">
                                     <h3>economic empowerment</h3>
@@ -407,7 +407,7 @@
                         <!-- What We Do Image 1 Start -->
                         <div class="what-we-do-img-1">
                             <figure class="image-anime reveal">
-                                <img src="frontend/images/what-we-do-image-1.jpg" alt="">
+                                <img src="images/what-we-do-image-1.jpg" alt="">
                             </figure>
                         </div>
                         <!-- What We Do Image 1 End -->
@@ -415,14 +415,14 @@
                         <!-- What We Do Image 2 Start -->
                         <div class="what-we-do-img-2">
                             <figure class="image-anime">
-                                <img src="frontend/images/what-we-do-image-2.jpg" alt="">
+                                <img src="images/what-we-do-image-2.jpg" alt="">
                             </figure>
                         </div>
                         <!-- What We Do Image 2 End -->
 
                         <!-- Donate Now Box Start -->
                         <div class="donate-now-box">
-                            <a href="donation.html"><img src="frontend/images/icon-donate-now.svg" alt="">donate now</a>
+                            <a href="donation.html"><img src="images/icon-donate-now.svg" alt="">donate now</a>
                         </div>
                         <!-- Donate Now Box End -->
                     </div>
@@ -454,7 +454,7 @@
                     <div class="causes-item wow fadeInUp">
                         <div class="causes-image">
                             <figure class="image-anime">
-                                <img src="frontend/images/causes-img-1.jpg" alt="">
+                                <img src="images/causes-img-1.jpg" alt="">
                             </figure>
                         </div>
                         <div class="causes-body">
@@ -475,7 +475,7 @@
                     <div class="causes-item wow fadeInUp" data-wow-delay="0.2s">
                         <div class="causes-image">
                             <figure class="image-anime">
-                                <img src="frontend/images/causes-img-2.jpg" alt="">
+                                <img src="images/causes-img-2.jpg" alt="">
                             </figure>
                         </div>
                         <div class="causes-body">
@@ -496,7 +496,7 @@
                     <div class="causes-item wow fadeInUp" data-wow-delay="0.4s">
                         <div class="causes-image">
                             <figure class="image-anime">
-                                <img src="frontend/images/causes-img-3.jpg" alt="">
+                                <img src="images/causes-img-3.jpg" alt="">
                             </figure>
                         </div>
                         <div class="causes-body">
@@ -525,12 +525,12 @@
                     <div class="why-choose-images">
                         <div class="why-choose-image-1">
                             <figure class="image-anime">
-                                <img src="frontend/images/why-choose-img-1.jpg" alt="">
+                                <img src="images/why-choose-img-1.jpg" alt="">
                             </figure>
                         </div>
                         <div class="why-choose-image-2">
                             <figure class="image-anime">
-                                <img src="frontend/images/why-choose-img-2.jpg" alt="">
+                                <img src="images/why-choose-img-2.jpg" alt="">
                             </figure>
                         </div>
                     </div>
@@ -613,7 +613,7 @@
                         <div class="program-image">
                             <a href="program-single.html" data-cursor-text="View">
                                 <figure class="image-anime">
-                                    <img src="frontend/images/program-1.jpg" alt="">
+                                    <img src="images/program-1.jpg" alt="">
                                 </figure>
                             </a>
                         </div>
@@ -636,7 +636,7 @@
                         <div class="program-image">
                             <a href="program-single.html" data-cursor-text="View">
                                 <figure class="image-anime">
-                                    <img src="frontend/images/program-2.jpg" alt="">
+                                    <img src="images/program-2.jpg" alt="">
                                 </figure>
                             </a>
                         </div>
@@ -659,7 +659,7 @@
                         <div class="program-image">
                             <a href="program-single.html" data-cursor-text="View">
                                 <figure class="image-anime">
-                                    <img src="frontend/images/program-3.jpg" alt="">
+                                    <img src="images/program-3.jpg" alt="">
                                 </figure>
                             </a>
                         </div>
@@ -692,21 +692,21 @@
     <div class="scrolling-ticker">
         <div class="scrolling-ticker-box">
             <div class="scrolling-content">
-                <span><img src="frontend/images/icon-asterisk.svg" alt="">Health Support</span>
-                <span><img src="frontend/images/icon-asterisk.svg" alt="">Education Support</span>
-                <span><img src="frontend/images/icon-asterisk.svg" alt="">Food Support</span>
-                <span><img src="frontend/images/icon-asterisk.svg" alt="">Health Support</span>
-                <span><img src="frontend/images/icon-asterisk.svg" alt="">Education Support</span>
-                <span><img src="frontend/images/icon-asterisk.svg" alt="">Food Support</span>
+                <span><img src="images/icon-asterisk.svg" alt="">Health Support</span>
+                <span><img src="images/icon-asterisk.svg" alt="">Education Support</span>
+                <span><img src="images/icon-asterisk.svg" alt="">Food Support</span>
+                <span><img src="images/icon-asterisk.svg" alt="">Health Support</span>
+                <span><img src="images/icon-asterisk.svg" alt="">Education Support</span>
+                <span><img src="images/icon-asterisk.svg" alt="">Food Support</span>
             </div>
 
             <div class="scrolling-content">
-                <span><img src="frontend/images/icon-asterisk.svg" alt="">Health Support</span>
-                <span><img src="frontend/images/icon-asterisk.svg" alt="">Education Support</span>
-                <span><img src="frontend/images/icon-asterisk.svg" alt="">Food Support</span>
-                <span><img src="frontend/images/icon-asterisk.svg" alt="">Health Support</span>
-                <span><img src="frontend/images/icon-asterisk.svg" alt="">Education Support</span>
-                <span><img src="frontend/images/icon-asterisk.svg" alt="">Food Support</span>
+                <span><img src="images/icon-asterisk.svg" alt="">Health Support</span>
+                <span><img src="images/icon-asterisk.svg" alt="">Education Support</span>
+                <span><img src="images/icon-asterisk.svg" alt="">Food Support</span>
+                <span><img src="images/icon-asterisk.svg" alt="">Health Support</span>
+                <span><img src="images/icon-asterisk.svg" alt="">Education Support</span>
+                <span><img src="images/icon-asterisk.svg" alt="">Food Support</span>
             </div>
         </div>
     </div>
@@ -736,7 +736,7 @@
                             <!-- Our Features Image Start -->
                             <div class="our-features-image">
                                 <figure class="image-anime reveal">
-                                    <img src="frontend/images/our-features-img-1.jpg" alt="">
+                                    <img src="images/our-features-img-1.jpg" alt="">
                                 </figure>
                             </div>
                             <!-- Our Features Image End -->
@@ -749,7 +749,7 @@
                                     <p>Provide essential healthcare services and resources to communities.</p>
                                 </div>
                                 <div class="icon-box">
-                                    <img src="frontend/images/icon-our-features-1.svg" alt="">
+                                    <img src="images/icon-our-features-1.svg" alt="">
                                 </div>
                             </div>
                             <!-- Our Features Content End -->
@@ -761,7 +761,7 @@
                             <!-- Our Features Image Start -->
                             <div class="our-features-image">
                                 <figure class="image-anime reveal">
-                                    <img src="frontend/images/our-features-img-2.jpg" alt="">
+                                    <img src="images/our-features-img-2.jpg" alt="">
                                 </figure>
                             </div>
                             <!-- Our Features Image End -->
@@ -774,7 +774,7 @@
                                     <p>Provide essential healthcare services and resources to communities.</p>
                                 </div>
                                 <div class="icon-box">
-                                    <img src="frontend/images/icon-our-features-2.svg" alt="">
+                                    <img src="images/icon-our-features-2.svg" alt="">
                                 </div>
                             </div>
                             <!-- Our Features Content End -->
@@ -786,7 +786,7 @@
                             <!-- Our Features Image Start -->
                             <div class="our-features-image">
                                 <figure class="image-anime reveal">
-                                    <img src="frontend/images/our-features-img-3.jpg" alt="">
+                                    <img src="images/our-features-img-3.jpg" alt="">
                                 </figure>
                             </div>
                             <!-- Our Features Image End -->
@@ -799,7 +799,7 @@
                                     <p>Provide essential healthcare services and resources to communities.</p>
                                 </div>
                                 <div class="icon-box">
-                                    <img src="frontend/images/icon-our-features-3.svg" alt="">
+                                    <img src="images/icon-our-features-3.svg" alt="">
                                 </div>
                             </div>
                             <!-- Our Features Content End -->
@@ -834,7 +834,7 @@
                                     <!-- Client Logo Start -->
                                     <div class="swiper-slide">
                                         <div class="donar-company-logo">
-                                            <img src="frontend/images/donar-company-logo-1.png" alt="">
+                                            <img src="images/donar-company-logo-1.png" alt="">
                                         </div>
                                     </div>
                                     <!-- Client Logo End -->
@@ -842,7 +842,7 @@
                                     <!-- Client Logo Start -->
                                     <div class="swiper-slide">
                                         <div class="donar-company-logo">
-                                            <img src="frontend/images/donar-company-logo-2.png" alt="">
+                                            <img src="images/donar-company-logo-2.png" alt="">
                                         </div>
                                     </div>
                                     <!-- Client Logo End -->
@@ -850,7 +850,7 @@
                                     <!-- Client Logo Start -->
                                     <div class="swiper-slide">
                                         <div class="donar-company-logo">
-                                            <img src="frontend/images/donar-company-logo-3.png" alt="">
+                                            <img src="images/donar-company-logo-3.png" alt="">
                                         </div>
                                     </div>
                                     <!-- Client Logo End -->
@@ -858,7 +858,7 @@
                                     <!-- Client Logo Start -->
                                     <div class="swiper-slide">
                                         <div class="donar-company-logo">
-                                            <img src="frontend/images/donar-company-logo-1.png" alt="">
+                                            <img src="images/donar-company-logo-1.png" alt="">
                                         </div>
                                     </div>
                                     <!-- Client Logo End -->
@@ -866,7 +866,7 @@
                                     <!-- Client Logo Start -->
                                     <div class="swiper-slide">
                                         <div class="donar-company-logo">
-                                            <img src="frontend/images/donar-company-logo-2.png" alt="">
+                                            <img src="images/donar-company-logo-2.png" alt="">
                                         </div>
                                     </div>
                                     <!-- Client Logo End -->
@@ -874,7 +874,7 @@
                                     <!-- Client Logo Start -->
                                     <div class="swiper-slide">
                                         <div class="donar-company-logo">
-                                            <img src="frontend/images/donar-company-logo-3.png" alt="">
+                                            <img src="images/donar-company-logo-3.png" alt="">
                                         </div>
                                     </div>
                                     <!-- Client Logo End -->
@@ -971,7 +971,7 @@
                             <!-- How It Work Image Start -->
                             <div class="how-it-work-image">
                                 <figure class="image-anime reveal">
-                                    <img src="frontend/images/how-it-work-img-1.jpg" alt="">
+                                    <img src="images/how-it-work-img-1.jpg" alt="">
                                 </figure>
                             </div>
                             <!-- How It Work Image End -->
@@ -979,7 +979,7 @@
                             <!-- How It Work Content Start -->
                             <div class="how-it-work-content wow fadeInUp" data-wow-delay="0.4s">
                                 <div class="icon-box">
-                                    <img src="frontend/images/icon-how-it-work-1.svg" alt="">
+                                    <img src="images/icon-how-it-work-1.svg" alt="">
                                 </div>
                                 <div class="how-it-work-body">
                                     <h3>healthcare support</h3>
@@ -995,7 +995,7 @@
                             <!-- How It Work Image Start -->
                             <div class="how-it-work-image">
                                 <figure class="image-anime reveal">
-                                    <img src="frontend/images/how-it-work-img-2.jpg" alt="">
+                                    <img src="images/how-it-work-img-2.jpg" alt="">
                                 </figure>
                             </div>
                             <!-- How It Work Image End -->
@@ -1003,7 +1003,7 @@
                             <!-- How It Work Content Start -->
                             <div class="how-it-work-content wow fadeInUp" data-wow-delay="0.4s">
                                 <div class="icon-box">
-                                    <img src="frontend/images/icon-how-it-work-2.svg" alt="">
+                                    <img src="images/icon-how-it-work-2.svg" alt="">
                                 </div>
                                 <div class="how-it-work-body">
                                     <h3>Plan and design</h3>
@@ -1019,7 +1019,7 @@
                             <!-- How It Work Image Start -->
                             <div class="how-it-work-image">
                                 <figure class="image-anime reveal">
-                                    <img src="frontend/images/how-it-work-img-3.jpg" alt="">
+                                    <img src="images/how-it-work-img-3.jpg" alt="">
                                 </figure>
                             </div>
                             <!-- How It Work Image End -->
@@ -1027,7 +1027,7 @@
                             <!-- How It Work Content Start -->
                             <div class="how-it-work-content wow fadeInUp" data-wow-delay="0.6s">
                                 <div class="icon-box">
-                                    <img src="frontend/images/icon-how-it-work-3.svg" alt="">
+                                    <img src="images/icon-how-it-work-3.svg" alt="">
                                 </div>
                                 <div class="how-it-work-body">
                                     <h3>Implement solutions</h3>
@@ -1043,7 +1043,7 @@
                             <!-- How It Work Image Start -->
                             <div class="how-it-work-image">
                                 <figure class="image-anime reveal">
-                                    <img src="frontend/images/how-it-work-img-4.jpg" alt="">
+                                    <img src="images/how-it-work-img-4.jpg" alt="">
                                 </figure>
                             </div>
                             <!-- How It Work Image End -->
@@ -1051,7 +1051,7 @@
                             <!-- How It Work Content Start -->
                             <div class="how-it-work-content wow fadeInUp" data-wow-delay="0.6s">
                                 <div class="icon-box">
-                                    <img src="frontend/images/icon-how-it-work-4.svg" alt="">
+                                    <img src="images/icon-how-it-work-4.svg" alt="">
                                 </div>
                                 <div class="how-it-work-body">
                                     <h3>Report and share</h3>
@@ -1086,13 +1086,13 @@
                     <div class="testimonials-image">
                         <div class="testimonials-img">
                             <figure class="image-anime reveal">
-                                <img src="frontend/images/testimonials-image.jpg" alt="">
+                                <img src="images/testimonials-image.jpg" alt="">
                             </figure>
                         </div>
 
                         <div class="helthcare-support-circle">
                             <a href="contact.html">
-                                <img src="frontend/images/healthcare-support-circle.svg" alt="">
+                                <img src="images/healthcare-support-circle.svg" alt="">
                             </a>
                         </div>
 
@@ -1129,7 +1129,7 @@
                                                     <!-- Author Image Start -->
                                                     <div class="author-image">
                                                         <figure class="image-anime">
-                                                            <img src="frontend/images/author-1.jpg" alt="">
+                                                            <img src="images/author-1.jpg" alt="">
                                                         </figure>
                                                     </div>    
                                                     <!-- Author Image End -->
@@ -1176,7 +1176,7 @@
                                                     <!-- Author Image Start -->
                                                     <div class="author-image">
                                                         <figure class="image-anime">
-                                                            <img src="frontend/images/author-2.jpg" alt="">
+                                                            <img src="images/author-2.jpg" alt="">
                                                         </figure>
                                                     </div>    
                                                     <!-- Author Image End -->
@@ -1223,7 +1223,7 @@
                                                     <!-- Author Image Start -->
                                                     <div class="author-image">
                                                         <figure class="image-anime">
-                                                            <img src="frontend/images/author-3.jpg" alt="">
+                                                            <img src="images/author-3.jpg" alt="">
                                                         </figure>
                                                     </div>    
                                                     <!-- Author Image End -->
@@ -1305,7 +1305,7 @@
                         <!-- Gallery Item Box Start -->
                         <div class="gallery-item-box health food">
                             <figure class="image-anime">
-                                <img src="frontend/images/gallery-1.jpg" alt="">
+                                <img src="images/gallery-1.jpg" alt="">
                             </figure>
                         </div>
                         <!-- Gallery Item Box End -->
@@ -1313,7 +1313,7 @@
                         <!-- Gallery Item Box Start -->
                         <div class="gallery-item-box food">
                             <figure class="image-anime">
-                                <img src="frontend/images/gallery-2.jpg" alt="">
+                                <img src="images/gallery-2.jpg" alt="">
                             </figure>
                         </div>
                         <!-- Gallery Item Box End -->
@@ -1321,7 +1321,7 @@
                         <!-- Gallery Item Box Start -->
                         <div class="gallery-item-box food education">
                             <figure class="image-anime">
-                                <img src="frontend/images/gallery-3.jpg" alt="">
+                                <img src="images/gallery-3.jpg" alt="">
                             </figure>
                         </div>
                         <!-- Gallery Item Box End -->
@@ -1329,7 +1329,7 @@
                         <!-- Gallery Item Box Start -->
                         <div class="gallery-item-box health education">
                             <figure class="image-anime">
-                                <img src="frontend/images/gallery-4.jpg" alt="">
+                                <img src="images/gallery-4.jpg" alt="">
                             </figure>
                         </div>
                         <!-- Gallery Item Box End -->
@@ -1337,7 +1337,7 @@
                         <!-- Gallery Item Box Start -->
                         <div class="gallery-item-box health">
                             <figure class="image-anime">
-                                <img src="frontend/images/gallery-5.jpg" alt="">
+                                <img src="images/gallery-5.jpg" alt="">
                             </figure>
                         </div>
                         <!-- Gallery Item Box End -->
@@ -1345,7 +1345,7 @@
                         <!-- Gallery Item Box Start -->
                         <div class="gallery-item-box food education">
                             <figure class="image-anime">
-                                <img src="frontend/images/gallery-6.jpg" alt="">
+                                <img src="images/gallery-6.jpg" alt="">
                             </figure>
                         </div>
                         <!-- Gallery Item Box End -->
@@ -1353,7 +1353,7 @@
                         <!-- Gallery Item Box Start -->
                         <div class="gallery-item-box health">
                             <figure class="image-anime">
-                                <img src="frontend/images/gallery-7.jpg" alt="">
+                                <img src="images/gallery-7.jpg" alt="">
                             </figure>
                         </div>
                         <!-- Gallery Item Box End -->
@@ -1361,7 +1361,7 @@
                         <!-- Gallery Item Box Start -->
                         <div class="gallery-item-box food">
                             <figure class="image-anime">
-                                <img src="frontend/images/gallery-8.jpg" alt="">
+                                <img src="images/gallery-8.jpg" alt="">
                             </figure>
                         </div>
                         <!-- Gallery Item Box End -->
@@ -1369,7 +1369,7 @@
                         <!-- Gallery Item Box Start -->
                         <div class="gallery-item-box education">
                             <figure class="image-anime">
-                                <img src="frontend/images/gallery-9.jpg" alt="">
+                                <img src="images/gallery-9.jpg" alt="">
                             </figure>
                         </div>
                         <!-- Gallery Item Box End -->
@@ -1377,7 +1377,7 @@
                         <!-- Gallery Item Box Start -->
                         <div class="gallery-item-box health education">
                             <figure class="image-anime">
-                                <img src="frontend/images/gallery-10.jpg" alt="">
+                                <img src="images/gallery-10.jpg" alt="">
                             </figure>
                         </div>
                         <!-- Gallery Item Box End -->
@@ -1430,7 +1430,7 @@
                         <div class="post-featured-image">
                             <a href="blog-single.html" data-cursor-text="View">
                                 <figure class="image-anime">
-                                    <img src="frontend/images/post-1.jpg" alt="">
+                                    <img src="images/post-1.jpg" alt="">
                                 </figure>
                             </a>
                         </div>
@@ -1470,7 +1470,7 @@
                         <div class="post-featured-image">
                             <a href="blog-single.html" data-cursor-text="View">
                                 <figure class="image-anime">
-                                    <img src="frontend/images/post-2.jpg" alt="">
+                                    <img src="images/post-2.jpg" alt="">
                                 </figure>
                             </a>
                         </div>
@@ -1510,7 +1510,7 @@
                         <div class="post-featured-image">
                             <a href="blog-single.html" data-cursor-text="View">
                                 <figure class="image-anime">
-                                    <img src="frontend/images/post-3.jpg" alt="">
+                                    <img src="images/post-3.jpg" alt="">
                                 </figure>
                             </a>
                         </div>
@@ -1540,7 +1540,7 @@
                         <div class="footer-about">
                             <!-- Footer Logo Start -->
                             <div class="footer-logo">
-                                <img src="frontend/images/footer-logo.svg" alt="">
+                                <img src="images/footer-logo.svg" alt="">
                             </div>
                             <!-- Footer Logo End -->
                             
@@ -1647,38 +1647,38 @@
     <!-- Main Footer Section End -->
 
     <!-- Jquery Library File -->
-    <script src="frontend/js/jquery-3.7.1.min.js"></script>
+    <script src="js/jquery-3.7.1.min.js"></script>
     <!-- Bootstrap js file -->
-    <script src="frontend/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <!-- Validator js file -->
-    <script src="frontend/js/validator.min.js"></script>
+    <script src="js/validator.min.js"></script>
     <!-- SlickNav js file -->
-    <script src="frontend/js/jquery.slicknav.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
     <!-- Swiper js file -->
-    <script src="frontend/js/swiper-bundle.min.js"></script>
+    <script src="js/swiper-bundle.min.js"></script>
     <!-- Counter js file -->
-    <script src="frontend/js/jquery.waypoints.min.js"></script>
-    <script src="frontend/js/jquery.counterup.min.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>
     <!-- Isotop js file -->
-	<script src="frontend/js/isotope.min.js"></script>
+	<script src="js/isotope.min.js"></script>
     <!-- Magnific js file -->
-    <script src="frontend/js/jquery.magnific-popup.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
     <!-- SmoothScroll -->
-    <script src="frontend/js/SmoothScroll.js"></script>
+    <script src="js/SmoothScroll.js"></script>
     <!-- Parallax js -->
-    <script src="frontend/js/parallaxie.js"></script>
+    <script src="js/parallaxie.js"></script>
     <!-- MagicCursor js file -->
-    <script src="frontend/js/gsap.min.js"></script>
-    <script src="frontend/js/magiccursor.js"></script>
+    <script src="js/gsap.min.js"></script>
+    <script src="js/magiccursor.js"></script>
     <!-- Text Effect js file -->
-    <script src="frontend/js/SplitText.js"></script>
-    <script src="frontend/js/ScrollTrigger.min.js"></script>
+    <script src="js/SplitText.js"></script>
+    <script src="js/ScrollTrigger.min.js"></script>
     <!-- YTPlayer js File -->
-    <script src="frontend/js/jquery.mb.YTPlayer.min.js"></script>
+    <script src="js/jquery.mb.YTPlayer.min.js"></script>
     <!-- Wow js file -->
-    <script src="frontend/js/wow.min.js"></script>
+    <script src="js/wow.min.js"></script>
     <!-- Main Custom js file -->
-    <script src="frontend/js/function.js"></script>
+    <script src="js/function.js"></script>
 </body>
 
 <!-- Mirrored from demo.awaikenthemes.com/html-preview/lenity/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 27 Feb 2025 03:33:47 GMT -->
