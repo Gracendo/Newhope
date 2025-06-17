@@ -11,29 +11,29 @@
 	<meta name="keywords" content="">
 	<meta name="author" content="Awaiken">
 	<!-- Page Title -->
-    <title>Lenity - Charity & Donation HTML Template</title>
+    <title>Newhope-contact</title>
 	<!-- Favicon Icon -->
-	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
+	<link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/frontend/images/favicon.png')}}">
 	<!-- Google Fonts Css-->
 	<link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;family=Onest:wght@100..900&amp;display=swap" rel="stylesheet">
 	<!-- Bootstrap Css -->
-	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="{{asset('assets/frontend/css/bootstrap.min.css')}}" rel="stylesheet" media="screen">
 	<!-- SlickNav Css -->
-	<link href="css/slicknav.min.css" rel="stylesheet">
+	<link href="{{asset('assets/frontend/css/slicknav.min.css')}}" rel="stylesheet">
 	<!-- Swiper Css -->
-	<link rel="stylesheet" href="css/swiper-bundle.min.css">
+	<link rel="stylesheet" href="{{asset('assets/frontend/css/swiper-bundle.min.css')}}">
 	<!-- Font Awesome Icon Css-->
-	<link href="css/all.min.css" rel="stylesheet" media="screen">
+	<link href="{{asset('assets/frontend/css/all.min.css')}}" rel="stylesheet" media="screen">
 	<!-- Animated Css -->
-	<link href="css/animate.css" rel="stylesheet">
+	<link href="{{asset('assets/frontend/css/animate.css')}}" rel="stylesheet">
     <!-- Magnific Popup Core Css File -->
-	<link rel="stylesheet" href="css/magnific-popup.css">
+	<link rel="stylesheet" href="{{asset('assets/frontend/css/magnific-popup.css')}}">
 	<!-- Mouse Cursor Css File -->
-	<link rel="stylesheet" href="css/mousecursor.css">
+	<link rel="stylesheet" href="{{asset('assets/frontend/css/mousecursor.css')}}">
 	<!-- Main Custom Css -->
-	<link href="css/custom.css" rel="stylesheet" media="screen">
+	<link href="{{asset('assets/frontend/css/custom.css')}}" rel="stylesheet" media="screen">
 </head>
 <body>
 
@@ -41,7 +41,7 @@
 	<div class="preloader">
 		<div class="loading-container">
 			<div class="loading"></div>
-			<div id="loading-icon"><img src="images/loader.svg" alt=""></div>
+			<div id="loading-icon"><img src="{{asset('assets/frontend/images/loader.svg')}}" alt=""></div>
 		</div>
 	</div>
 	<!-- Preloader End -->
@@ -53,7 +53,7 @@
 				<div class="container">
 					<!-- Logo Start -->
 					<a class="navbar-brand" href="index-2.html">
-						<img src="images/logo.svg" alt="Logo">
+						<img src="{{asset('assets/frontend/images/logo.svg')}}" alt="Logo">
 					</a>
 					<!-- Logo End -->
 
@@ -93,7 +93,7 @@
                         <!-- Contact Now Box Start -->
                         <div class="contact-now-box">
                             <div class="icon-box">
-                                <img src="images/icon-phone.svg" alt="">
+                                <img src="{{asset('assets/frontend/images/icon-phone.svg')}}" alt="">
                             </div>
                             <div class="contact-now-box-content">
                                 <p>need help !</p>
@@ -143,7 +143,7 @@
                         <!-- Contact Info Item Start -->
                         <div class="contact-info-item wow fadeInUp">
                             <div class="icon-box">
-                                <img src="images/icon-phone-primary.svg" alt="">
+                                <img src="{{asset('assets/frontend/images/icon-phone-primary.svg')}}" alt="">
                             </div>
                             <div class="contact-info-content">
                                 <h3>contact us</h3>
@@ -156,7 +156,7 @@
                         <!-- Contact Info Item Start -->
                         <div class="contact-info-item wow fadeInUp" data-wow-delay="0.2s">
                             <div class="icon-box">
-                                <img src="images/icon-mail.svg" alt="">
+                                <img src="{{asset('assets/frontend/images/icon-mail.svg')}}" alt="">
                             </div>
                             <div class="contact-info-content">
                                 <h3>e-mail us</h3>
@@ -169,7 +169,7 @@
                         <!-- Contact Info Item Start -->
                         <div class="contact-info-item wow fadeInUp" data-wow-delay="0.4s">
                             <div class="icon-box">
-                                <img src="images/icon-location.svg" alt="">
+                                <img src="{{asset('assets/frontend/images/icon-location.svg')}}" alt="">
                             </div>
                             <div class="contact-info-content">
                                 <h3>location</h3>
@@ -261,7 +261,7 @@
                         <div class="footer-about">
                             <!-- Footer Logo Start -->
                             <div class="footer-logo">
-                                <img src="images/footer-logo.svg" alt="">
+                                <img src="{{asset('assets/frontend/images/footer-logo.svg')}}" alt="">
                             </div>
                             <!-- Footer Logo End -->
                             
@@ -368,38 +368,38 @@
     <!-- Main Footer Section End -->
 
     <!-- Jquery Library File -->
-    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="{{asset('assets/frontend/js/jquery-3.7.1.min.js')}}"></script>
     <!-- Bootstrap js file -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="{{asset('assets/frontend/js/bootstrap.min.js')}}"></script>
     <!-- Validator js file -->
-    <script src="js/validator.min.js"></script>
+    <script src="{{asset('assets/frontend/js/validator.min.js')}}"></script>
     <!-- SlickNav js file -->
-    <script src="js/jquery.slicknav.js"></script>
+    <script src="{{asset('assets/frontend/js/jquery.slicknav.js')}}"></script>
     <!-- Swiper js file -->
-    <script src="js/swiper-bundle.min.js"></script>
+    <script src="{{asset('assets/frontend/js/swiper-bundle.min.js')}}"></script>
     <!-- Counter js file -->
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.counterup.min.js"></script>
+    <script src="{{asset('assets/frontend/js/jquery.waypoints.min.js')}}"></script>
+    <script src="{{asset('assets/frontend/js/jquery.counterup.min.js')}}"></script>
     <!-- Isotop js file -->
-	<script src="js/isotope.min.js"></script>
+	<script src="{{asset('assets/frontend/js/isotope.min.js')}}"></script>
     <!-- Magnific js file -->
-    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="{{asset('assets/frontend/js/jquery.magnific-popup.min.js')}}"></script>
     <!-- SmoothScroll -->
-    <script src="js/SmoothScroll.js"></script>
+    <script src="{{asset('assets/frontend/js/SmoothScroll.js')}}"></script>
     <!-- Parallax js -->
-    <script src="js/parallaxie.js"></script>
+    <script src="{{asset('assets/frontend/js/parallaxie.js')}}"></script>
     <!-- MagicCursor js file -->
-    <script src="js/gsap.min.js"></script>
-    <script src="js/magiccursor.js"></script>
+    <script src="{{asset('assets/frontend/js/gsap.min.js')}}"></script>
+    <script src="{{asset('assets/frontend/js/magiccursor.js')}}"></script>
     <!-- Text Effect js file -->
-    <script src="js/SplitText.js"></script>
-    <script src="js/ScrollTrigger.min.js"></script>
+    <script src="{{asset('assets/frontend/js/SplitText.js')}}"></script>
+    <script src="{{asset('assets/frontend/js/ScrollTrigger.min.js')}}"></script>
     <!-- YTPlayer js File -->
-    <script src="js/jquery.mb.YTPlayer.min.js"></script>
+    <script src="{{asset('assets/frontend/js/jquery.mb.YTPlayer.min.js')}}"></script>
     <!-- Wow js file -->
-    <script src="js/wow.min.js"></script>
+    <script src="{{asset('assets/frontend/js/wow.min.js')}}"></script>
     <!-- Main Custom js file -->
-    <script src="js/function.js"></script>
+    <script src="{{asset('assets/frontend/js/function.js')}}"></script>
 </body>
 
 <!-- Mirrored from demo.awaikenthemes.com/html-preview/lenity/contact.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 27 Feb 2025 03:35:03 GMT -->
