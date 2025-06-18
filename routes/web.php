@@ -37,6 +37,7 @@ Route::get('/signin', [SigninController::class, 'index'])->name('signin');
 //Auth Admin
 Route::middleware(['setlanguage:backend'])->group(function (){
     Route::get('/auth/admin',[LoginController::class, 'showAdminLoginForm'])->name('admin.login');
+    Route::post('/auth/admin',[LoginController::class, 'adminLogin']);
 });
 
 //Admin Dashboard

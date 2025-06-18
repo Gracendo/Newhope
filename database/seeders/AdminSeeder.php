@@ -35,7 +35,7 @@ class AdminSeeder extends Seeder
                 'last_name' => 'MBIA',
                 'username' => 'lefmyh',
                 'email' => 'cyrille@itdreamtech.com',
-                'email_verified' => 0,
+                'email_verified' => 1,
                 'role' => 'admin',
                 'image' => null,
                 'password' => Hash::make('12345678'),
