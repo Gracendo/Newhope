@@ -69,15 +69,15 @@
                   </div>
                   <div class="col-12">
                     <div class="mb-3">
-                      <label for="username" class="form-label">Username</label>
-                      <input type="text" class="form-control" placeholder="Enter Your Username" id="username">
+                      <label for="username"  class="form-label" >Username</label>
+                      <input type="text"  name="username"class="form-control" placeholder="Enter Your Username" id="username">
                     </div>
                   </div>
                   <div class="col-12">
                     <div class="mb-3">
                       <label for="password" class="form-label">Password</label>
                       <a href="#" class="link-primary float-end">Forgot Password ?</a>
-                      <input type="password" class="form-control" placeholder="Enter Your Password" id="password">
+                      <input type="password" name="password" class="form-control" placeholder="Enter Your Password" id="password">
                     </div>
                   </div>
                   <div class="col-12">
