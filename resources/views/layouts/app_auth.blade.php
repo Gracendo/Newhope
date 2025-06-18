@@ -48,6 +48,7 @@
 
   <!-- Bootstrap js-->
   <script src="{{asset('assets/backend/vendor/bootstrap/bootstrap.bundle.min.js')}}"></script>
+  @yield('scripts')
 
 </body>
 
