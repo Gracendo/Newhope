@@ -76,7 +76,7 @@
                   <div class="col-12">
                     <div class="mb-3">
                       <label for="password" class="form-label">Password</label>
-                      <a href="{{ route('forgotpassword.request')}}" class="link-primary float-end">Forgot Password ?</a>
+                      <a href="#" class="link-primary float-end">Forgot Password ?</a>
                       <input type="password" class="form-control" placeholder="Enter Your Password" id="password">
                     </div>
                   </div>

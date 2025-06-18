@@ -18,3 +18,5 @@ yarn-error.log
 /.idea
 /.vscode
 clear_all.sh
+clear_all.bat
+
