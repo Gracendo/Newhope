@@ -18,3 +18,6 @@ use App\Http\Controllers\ContactController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', [ContactController::class, 'index'])->name('Contact');
 
+Route::prefix('admin-dash')->middleware(['setlang:backend','adminglobalVariable'])->group(function () {
+
+}); //End admin-home
