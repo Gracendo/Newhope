@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
@@ -21,7 +22,15 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', [ContactController::class, 'index'])->name('Contact');
 Route::get('/profile', [ProfileController::class, 'index'])->name('Proofile');
 
+//Auth Admin
+Route::middleware(['setlanguage:backend'])->group(function (){
+    Route::get('/auth/admin',[LoginController::class, 'showAdminLoginForm'])->name('admin.login');
+});
 
+//Admin Dashboard
 Route::prefix('admin-dash')->middleware(['setlang:backend','adminglobalVariable'])->group(function () {
 
 }); //End admin-home
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -12,7 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('langs', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('slug');
+            $table->string('direction')->nullable();
+            $table->string('status')->nullable();
+            $table->integer('default',false,true)->nullable();
             $table->timestamps();
         });
     }

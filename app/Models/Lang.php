@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Lang extends Model
 {
     use HasFactory;
+    
     protected $fillable = [
         'name',
+        'slug',
+        'direction',
         'status',
-        'default',
-        
+        'default'
     ];
 }
