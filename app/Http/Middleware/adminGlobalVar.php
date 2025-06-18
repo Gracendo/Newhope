@@ -16,10 +16,10 @@ class adminGlobalVar
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $lang = !empty(session()->get('lang')) ? session()->get('lang') : Language::where('default',1)->first()->slug;
-        $all_languages = Language::all();
+        $lang = !empty(session()->get('lang')) ? session()->get('lang') : Lang::where('default',1)->first()->slug;
+        $all_languages = Lang::all();
 
-        $admin_languages = Language::where(['default'=>1,'status'=>'publish'])->first();
+        $admin_languages = Lang::where(['default'=>1,'status'=>'publish'])->first();
         $admin_default_lang = $admin_languages->slug;
 
         $data = [
