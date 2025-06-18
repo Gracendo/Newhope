@@ -42,6 +42,9 @@ Route::middleware(['setlanguage:backend'])->group(function (){
 
 //Admin Dashboard
 Route::prefix('admin-dash')->middleware(['setlang:backend','adminglobalVariable'])->group(function () {
+    Route::group(['namespace'=>'Admin'],function () {
+        Route::get('/', [AdminDashboardController::class, 'adminIndex'])->name('admin.home');
+    });
 
 }); //End admin-home
 Auth::routes();
