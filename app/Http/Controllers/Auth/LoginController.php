@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -55,5 +56,30 @@ class LoginController extends Controller
     public function showAdminLoginForm()
     {
         return view('auth.admin.login');
+    }
+
+    public function adminLogin(Request $request)
+    {
+        $this->validate($request, [
+            'username' => 'required|string',
+            'password' => 'required|min:6'
+        ], [
+            'username.required' => __('username required'),
+            'password.required' => __('password required')
+        ]);
+
+        if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password], $request->get('remember'))) {
+
+            return response()->json([
+                'msg' => __('Login Success Redirecting'),
+                'type' => 'success',
+                'status' => 'ok'
+            ]);
+        }
+        return response()->json([
+            'msg' => __('Your Username or Password Is Wrong !!'),
+            'type' => 'danger',
+            'status' => 'not_ok',
+        ]);
     }
 }
