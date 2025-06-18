@@ -9,6 +9,6 @@ class AdminDashboardController extends Controller
 {
     public function adminIndex()
     {
-        dd('You are Connected');
+        return view('backend.admin_dashboard');
     }
 }

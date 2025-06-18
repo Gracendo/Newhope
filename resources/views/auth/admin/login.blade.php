@@ -1,4 +1,4 @@
-@extends('layouts.app_auth')
+@extends('layouts.backend.app_auth')
 @section('content')
     <div class="main-container">
       <!-- Body main section starts -->
@@ -33,8 +33,8 @@
                   <div class="error-message"></div>
                   <div class="col-12">
                     <div class="mb-3">
-                      <label for="username" class="form-label">Username/Email</label>
-                      <input type="text" name="username" class="form-control" placeholder="Enter Your Username or Email" id="username">
+                      <label for="username" class="form-label">Username</label>
+                      <input type="text" name="username" class="form-control" placeholder="Enter Your Username " id="username">
                     </div>
                   </div>
                   <div class="col-12">

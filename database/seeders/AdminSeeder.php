@@ -20,7 +20,7 @@ class AdminSeeder extends Seeder
                 'first_name' => 'Emie',
                 'last_name' => 'Nyangono',
                 'username' => 'emie',
-                'email' => 'graycendo96@gmail.com',
+                'email' => 'gracendo96@gmail.com',
                 'email_verified' => 1,
                 'role' => 'admin',
                 'image' => null,
