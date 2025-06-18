@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -41,7 +42,7 @@ Route::middleware(['setlanguage:backend'])->group(function (){
 });
 
 //Admin Dashboard
-Route::prefix('admin-dash')->middleware(['setlang:backend','adminglobalVariable'])->group(function () {
+Route::prefix('admin-dash')->middleware(['setlanguage:backend','adminGlobalVar'])->group(function () {
     Route::group(['namespace'=>'Admin'],function () {
         Route::get('/', [AdminDashboardController::class, 'adminIndex'])->name('admin.home');
     });
