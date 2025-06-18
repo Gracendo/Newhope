@@ -7,7 +7,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\SigninController;
-use App\Http\Controllers\ForgotPasswordController;
+
 
 
 
@@ -29,7 +29,7 @@ Route::get('/contact', [ContactController::class, 'index'])->name('Contact');
 Route::get('/profile', [ProfileController::class, 'index'])->name('Proofile');
 Route::get('/signup', [SignupController::class, 'index'])->name('signup');
 Route::get('/signin', [SigninController::class, 'index'])->name('signin');
-Route::get('/signin', [ForgotPasswordController::class, 'index'])->name('forgotpassword');
+
 
 
 
