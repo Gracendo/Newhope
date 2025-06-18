@@ -64,7 +64,7 @@
                   <div class="col-12">
                     <div class="mb-5 text-center text-lg-start">
                       <h2 class="text-primary f-w-600">Welcome To RA-ADMIN! </h2>
-                      <p>Sign in with your data that you enterd during your registration</p>
+                      <p>WELCOME BACK ,CHANGE MAKER !</p>
                     </div>
                   </div>
                   <div class="col-12">
