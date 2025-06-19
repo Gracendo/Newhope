@@ -13,12 +13,12 @@
                       <table id="example" class="display app-data-table default-data-table">
                         <thead>
                           <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>User Name</th>
+                            <th>Status</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>City</th>
                             <th>Action</th>
                           </tr>
                         </thead>

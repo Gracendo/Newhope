@@ -17,6 +17,6 @@ class AdminDashboardController extends Controller
     }
      public function addUsers()
     {
-        return view('backend.add_user_form');
+        return view('backend.forms.add_user_form');
     }
 }
