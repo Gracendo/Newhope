@@ -1,4 +1,4 @@
-@extends('layouts.app_auth')
+@extends('layouts.backend.app_auth')
 @section('content')
     <div class="main-container">
       <!-- Body main section starts -->
@@ -26,7 +26,7 @@
                   <div class="col-12">
                     <div class="mb-5 text-center text-lg-start">
                       <h2 class="text-primary f-w-600">Welcome To NEWHOPE  </h2>
-                      <p>Sign in with your data that you enterd during your registration</p>
+                       <p>WELCOME BACK ,CHANGE MAKER !</p>
                     </div>
                   </div>
                   @include('backend.partials.message')
@@ -34,14 +34,14 @@
                   <div class="col-12">
                     <div class="mb-3">
                       <label for="username" class="form-label">Username</label>
-                      <input type="text" class="form-control" placeholder="Enter Your Username" id="username">
+                      <input type="text" name="username" class="form-control" placeholder="Enter Your Username " id="username">
                     </div>
                   </div>
                   <div class="col-12">
                     <div class="mb-3">
                       <label for="password" class="form-label">Password</label>
                       <a href="#" class="link-primary float-end">Forgot Password ?</a>
-                      <input type="password" class="form-control" placeholder="Enter Your Password" id="password">
+                      <input type="password" class="form-control"  name="password" placeholder="Enter Your Password" id="password">
                     </div>
                   </div>
                   <div class="col-12">

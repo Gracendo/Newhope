@@ -23,6 +23,14 @@ class AdminDashboardController extends Controller
         $total_admin = Admin::count();
         $total_user = User::count();
 
-        dd('You are Connected');
+        return view('backend.admin_dashboard');
+    }
+     public function manageUsers()
+    {
+        return view('backend.manage_users');
+    }
+     public function addUsers()
+    {
+        return view('backend.forms.add_user_form');
     }
 }

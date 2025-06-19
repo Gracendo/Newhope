@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
-	<meta name="author" content="Awaiken">
+	<meta name="author" content="">
 	<!-- Page Title -->
     <title>Newhope</title>
 	<!-- Favicon Icon -->
@@ -53,7 +53,7 @@
 				<div class="container">
 					<!-- Logo Start -->
 					<a class="navbar-brand" href="index-2.html">
-						<img src="{{asset('assets/frontend/images/logo.svg')}}" alt="Logo">
+                         <img src="{{asset('assets/frontend/images/loader.svg')}}" alt="Logo" ><span  style="margin-left:10px;color :white;"> Newhope </span>
 					</a>
 					<!-- Logo End -->
 
@@ -61,37 +61,27 @@
 					<div class="collapse navbar-collapse main-menu">
                         <div class="nav-menu-wrapper">
                             <ul class="navbar-nav mr-auto" id="menu">
-                                <li class="nav-item submenu"><a class="nav-link" href="index-2.html">Home</a></li>                                
+                                <li class="nav-item "><a class="nav-link" href="#">Home</a></li>                                
                                 <li class="nav-item"><a class="nav-link" href="about.html">About Us</a>
-                                <li class="nav-item"><a class="nav-link" href="services.html">Campaigns</a></li>
+                                <li class="nav-item"><a class="nav-link" href="programmes.html">Campaigns</a></li>
+                                <li class="nav-item"><a class="nav-link" href="services.html">Orphanages</a></li>
                                 <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                                <li class="nav-item submenu"><a class="nav-link" href="#">Pages</a>
-                                    <ul>                                        
-                                        <li class="nav-item"><a class="nav-link" href="service-single.html">Service Details</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="blog-single.html">Blog Details</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="programmes.html">Our Programmes</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="program-single.html">Program Details</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="team.html">Our Team</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="team-single.html">Team Details</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="testimonials.html">Testimonials</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="image-gallery.html">Image Gallery</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="video-gallery.html">Video Gallery</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="donation.html">Donation</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="faqs.html">FAQs</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="404.html">404</a></li>
-                                    </ul>
-                                </li>
                                 <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>                         
                             </ul>
                         </div>
                         <!-- Contact Now Box Start -->
                         <div class="contact-now-box">
                             <div class="icon-box">
-                                <img src="{{asset('assets/frontend/images/icon-phone.svg')}}" alt="">
+                                <!-- <img src="{{asset('assets/frontend/images/icon-about-support.svg')}}"  alt=""> -->
+                                 <img 
+                                     src="{{asset('assets/frontend/images/icon-about-support.svg')}}" 
+                                     alt="Support Icon"
+                                     style="filter: brightness(0) invert(1);"
+                                    >
                             </div>
                             <div class="contact-now-box-content">
-                                <p>need help !</p>
-                                <h3><a href="tel:789987645">(+01) 789 987 645</a></h3>                                
+                                <p>Join us !</p>
+                                <h3><a href="#" >LOG IN</a></h3>                                
                             </div>
                         </div>
                         <!-- Contact Now Box End -->
@@ -114,9 +104,10 @@
                     <div class="hero-content">
                         <!-- Section Title Start -->
                         <div class="section-title">
-                            <h3 class="wow fadeInUp">welcome our charity</h3>
+                            <h3 class="wow fadeInUp">welcome Changemaker </h3>
                             <h1 class="text-anime-style-2" data-cursor="-opaque"><span>Empower change</span>, one act of kindness at a time</h1>
-                            <p class="wow fadeInUp" data-wow-delay="0.2s">Join us in creating brighter futures by providing hope, delivering help, and fostering lasting change for communities in need around the world.</p>
+                            <p class="wow fadeInUp" data-wow-delay="0.2s">Join us in creating brighter futures by providing hope, delivering help,
+                                 and fostering lasting change for Cameroon orphanages</p>
                         </div>
                         <!-- Section Title End -->
 
@@ -126,16 +117,7 @@
                             <div class="hero-btn">
                                 <a href="donation.html" class="btn-default">donate now</a>
                             </div>
-                            <!-- Hero Button End -->
-
-                            <!-- Video Play Button Start -->
-                            <div class="video-play-button">
-                                <p>play video</p>
-                                <a href="https://www.youtube.com/watch?v=Y-x0efG1seA" class="popup-video" data-cursor-text="Play">
-                                    <i class="fa-solid fa-play"></i>
-                                </a>
-                            </div>
-                            <!-- Video Play Button End -->
+                            
                         </div>
                         <!-- Hero Content Body End -->  
                         
@@ -149,8 +131,8 @@
                             </div>
 
                             <div class="hero-help-families">
-                                <h3>help lorem families</h3>
-                                <p>Your gift of $235 can feed 40 children</p>
+                                <h3>help Cameroon orphanages</h3>
+                                <p>Your gift of 10,000 FCFA can feed 40 children</p>
                             </div>
                         </div>
                         <!-- Hero Footer End -->
@@ -188,7 +170,7 @@
                         <!-- Need Fund Box Start -->
                         <div class="need-fund-box">
                             <img src="{{asset('assets/frontend/images/icon-funded-dollar.svg')}}" alt="">
-                            <p>We've funded <span class="counter">75</span>k Dollars</p>
+                            <p>We've funded <span class="counter">1</span>M FCFA</p>
                         </div>
                         <!-- Need Fund Box End -->
                     </div>
@@ -202,7 +184,7 @@
                         <div class="section-title">
                             <h3 class="wow fadeInUp">about us</h3>
                             <h2 class="text-anime-style-2" data-cursor="-opaque">United in compassion, changing lives</h2>
-                            <p class="wow fadeInUp" data-wow-delay="0.2s">Driven by compassion and a shared vision, we work hand-in-hand with communities to create meaningful change.</p>
+                            <p class="wow fadeInUp" data-wow-delay="0.2s">Driven by compassion and a shared vision, we work hand-in-hand with orphanages to create meaningful change.</p>
                         </div>
                         <!-- Section Title End -->
 
@@ -216,8 +198,8 @@
                                     </div>
                                     <!-- About Support Content Start -->
                                     <div class="about-support-content">
-                                        <h3>Healthcare Support</h3>
-                                        <p>Providing essential healthcare services and resources to communities.</p>
+                                        <h3>Project Support</h3>
+                                        <p>Providing financial aid and expert assistnce to orphanages.</p>
                                     </div>
                                     <!-- About Support Content End -->
                                 </div>
@@ -238,9 +220,9 @@
                                     </figure>
                                 </div>
                                 <div class="helped-fund-content">
-                                    <h2><span class="counter">75,958</span></h2>
+                                    <h2><span class="counter">5,958</span></h2>
                                     <h3>helped fund</h3>
-                                    <p>Supporting growth through community- funding.</p>
+                                    <p>Supporting growth through orphanage- funding.</p>
                                 </div>
                             </div>
                             <!-- Helped Fund Item End -->
@@ -252,94 +234,7 @@
             </div>
         </div>
     </div>
-    <!-- About Us Section End -->
-
-    <!-- Our Services Section Start -->
-    <div class="our-services">
-        <div class="container">
-            <div class="row section-row align-items-center">
-                <div class="col-lg-12">
-                    <!-- Section Title Start -->
-                    <div class="section-title">
-                        <h3 class="wow fadeInUp">services</h3>
-                        <h2 class="text-anime-style-2" data-cursor="-opaque">Our comprehensive services</h2>
-                        <p class="wow fadeInUp" data-wow-delay="0.2s">Our services are focused on creating lasting change through community development, healthcare access, educational support, and emergency relief.</p>
-                    </div>
-                    <!-- Section Title End -->
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <!-- Services Item Start -->
-                    <div class="service-item wow fadeInUp">
-                        <div class="service-content">
-                            <h3><a href="service-single.html">food security initiatives</a></h3>
-                            <p>Addressing hunger and malnutrition by providing nutritious meals</p>
-                        </div>
-                        <div class="service-image">
-                            <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/services-image-1.jpg')}}" alt="">
-                            </figure>
-                        </div>
-                        <div class="service-btn">
-                            <a href="service-single.html" class="readmore-btn">read more</a>
-                        </div>
-                    </div>
-                    <!-- Services Item End -->
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <!-- Services Item Start -->
-                    <div class="service-item wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="service-content">
-                            <h3><a href="service-single.html">healthcare access</a></h3>
-                            <p>Addressing hunger and malnutrition by providing nutritious meals</p>
-                        </div>
-                        <div class="service-image">
-                            <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/services-image-2.jpg')}}" alt="">
-                            </figure>
-                        </div>
-                        <div class="service-btn">
-                            <a href="service-single.html" class="readmore-btn">read more</a>
-                        </div>
-                    </div>
-                    <!-- Services Item End -->
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <!-- Services Item Start -->
-                    <div class="service-item wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="service-content">
-                            <h3><a href="service-single.html">educational support</a></h3>
-                            <p>Addressing hunger and malnutrition by providing nutritious meals</p>
-                        </div>
-                        <div class="service-image">
-                            <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/services-image-3.jpg')}}" alt="">
-                            </figure>
-                        </div>
-                        <div class="service-btn">
-                            <a href="service-single.html" class="readmore-btn">read more</a>
-                        </div>
-                    </div>
-                    <!-- Services Item End -->
-                </div>
-
-                <div class="col-lg-12">
-                    <!-- Service Contact Text Start -->
-                    <div class="section-footer-text wow fadeInUp" data-wow-delay="0.6s">
-                        <p>You will be satisfy with our work. Contact us today <a href="tel:+91123456789">(+91) 123 456 789</a></p>
-                    </div>
-                    <!-- Service Contact Text End -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Our Services Section End -->
-
-    <!-- What We Do Section Start -->
+     <!-- What We Do Section Start -->
     <div class="what-we-do">
         <div class="container">
             <div class="row align-items-center">
@@ -362,7 +257,18 @@
                                 </div>
                                 <div class="what-we-item-content">
                                     <h3>economic empowerment</h3>
-                                    <p>Empowering individuals through job training, financial literacy, and small business support to create sustainable livelihoods.</p>
+                                    <p>Empowering individuals orphanages by, financing their  small businesses  to create sustainable livelihoods.</p>
+                                </div>
+                            </div>
+                            <!-- What We Item End -->
+                             <!-- What We Item Start -->
+                            <div class="what-we-item wow fadeInUp" data-wow-delay="0.6s">
+                                <div class="icon-box">
+                                    <img src="{{asset('assets/frontend/images/icon-what-we-3.svg')}}" alt="">
+                                </div>
+                                <div class="what-we-item-content">
+                                    <h3>expert assistance</h3>
+                                    <p>Providing free expert guidance in their business, to create lifelong businesses.</p>
                                 </div>
                             </div>
                             <!-- What We Item End -->
@@ -373,23 +279,13 @@
                                     <img src="{{asset('assets/frontend/images/icon-what-we-2.svg')}}" alt="">
                                 </div>
                                 <div class="what-we-item-content">
-                                    <h3>clean water and sanitation</h3>
-                                    <p>Empowering individuals through job training, financial literacy, and small business support to create sustainable livelihoods.</p>
+                                    <h3>financial aid</h3>
+                                    <p>Provide financial assistance to orphanages to support them in order to create sustainable livelihoods.</p>
                                 </div>
                             </div>
                             <!-- What We Item End -->
 
-                            <!-- What We Item Start -->
-                            <div class="what-we-item wow fadeInUp" data-wow-delay="0.6s">
-                                <div class="icon-box">
-                                    <img src="{{asset('assets/frontend/images/icon-what-we-3.svg')}}" alt="">
-                                </div>
-                                <div class="what-we-item-content">
-                                    <h3>economic empowerment</h3>
-                                    <p>Empowering individuals through job training, financial literacy, and small business support to create sustainable livelihoods.</p>
-                                </div>
-                            </div>
-                            <!-- What We Item End -->
+                            
                         </div>
                         <!-- what We List End -->
                     </div>
@@ -426,8 +322,7 @@
         </div>
     </div>
     <!-- What We Do Section End -->
-
-    <!-- Our Causes Section Start -->
+      <!-- Our Causes Section Start -->
    <div class="our-causes">
         <div class="container">
             <div class="row section-row align-items-center">
@@ -509,6 +404,28 @@
         </div>
    </div>
    <!-- Our Causes Section End -->
+    <!-- About Us Section End -->
+
+    
+            
+                
+                
+
+                <div class="col-lg-12">
+                    <!-- Service Contact Text Start -->
+                    <div class="section-footer-text wow fadeInUp" data-wow-delay="0.6s">
+                        <p>You will be satisfy with our work. Contact us today <a href="tel:+237698696114">(+237) 698 696 114</a></p>
+                    </div>
+                    <!-- Service Contact Text End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Our Services Section End -->
+
+   
+
+   
     
    <!-- Why Choose Us Section Start -->
    <div class="why-choose-us">
@@ -682,29 +599,6 @@
     </div>
     <!-- Our Program Section End -->
 
-    <!-- Scrolling Ticker Start -->
-    <div class="scrolling-ticker">
-        <div class="scrolling-ticker-box">
-            <div class="scrolling-content">
-                <span><img src="{{asset('assets/frontend/images/icon-asterisk.svg')}}" alt="">Health Support</span>
-                <span><img src="{{asset('assets/frontend/images/icon-asterisk.svg')}}" alt="">Education Support</span>
-                <span><img src="{{asset('assets/frontend/images/icon-asterisk.svg')}}" alt="">Food Support</span>
-                <span><img src="{{asset('assets/frontend/images/icon-asterisk.svg')}}" alt="">Health Support</span>
-                <span><img src="{{asset('assets/frontend/images/icon-asterisk.svg')}}" alt="">Education Support</span>
-                <span><img src="{{asset('assets/frontend/images/icon-asterisk.svg')}}" alt="">Food Support</span>
-            </div>
-
-            <div class="scrolling-content">
-                <span><img src="{{asset('assets/frontend/images/icon-asterisk.svg')}}" alt="">Health Support</span>
-                <span><img src="{{asset('assets/frontend/images/icon-asterisk.svg')}}" alt="">Education Support</span>
-                <span><img src="{{asset('assets/frontend/images/icon-asterisk.svg')}}" alt="">Food Support</span>
-                <span><img src="{{asset('assets/frontend/images/icon-asterisk.svg')}}" alt="">Health Support</span>
-                <span><img src="{{asset('assets/frontend/images/icon-asterisk.svg')}}" alt="">Education Support</span>
-                <span><img src="{{asset('assets/frontend/images/icon-asterisk.svg')}}" alt="">Food Support</span>
-            </div>
-        </div>
-    </div>
-	<!-- Scrolling Ticker End -->
 
     <!-- Our Features Section Start -->
     <div class="our-features">
@@ -941,447 +835,6 @@
     </div>
     <!-- Donate Now Section End -->
 
-    <!-- How It Work Section Start -->
-    <div class="how-it-work">
-        <div class="container">
-            <div class="row section-row">
-                <div class="col-lg-12">
-                    <!-- Section Title Start -->
-                    <div class="section-title">
-                        <h3 class="wow fadeInUp">How it work</h3>
-                        <h2 class="text-anime-style-2" data-cursor="-opaque">Step by step working process</h2>
-                        <p class="wow fadeInUp" data-wow-delay="0.2s">Our step-by-step process ensures meaningful change: identifying community needs, designing tailored programs, implementing sustainable solutions.</p>
-                    </div>
-                    <!-- Section Title End -->
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- How It Work List Start -->
-                    <div class="how-it-work-list">
-                        <!-- How It Work Item Start -->
-                        <div class="how-it-work-item">
-                            <!-- How It Work Image Start -->
-                            <div class="how-it-work-image">
-                                <figure class="image-anime reveal">
-                                    <img src="{{asset('assets/frontend/images/how-it-work-img-1.jpg')}}" alt="">
-                                </figure>
-                            </div>
-                            <!-- How It Work Image End -->
-
-                            <!-- How It Work Content Start -->
-                            <div class="how-it-work-content wow fadeInUp" data-wow-delay="0.4s">
-                                <div class="icon-box">
-                                    <img src="{{asset('assets/frontend/images/icon-how-it-work-1.svg')}}" alt="">
-                                </div>
-                                <div class="how-it-work-body">
-                                    <h3>healthcare support</h3>
-                                    <p>Provide essential healthcare service and resources to communities.</p>
-                                </div>
-                            </div>
-                            <!-- How It Work Content End -->
-                        </div>
-                        <!-- How It Work Item End -->
-
-                        <!-- How It Work Item Start -->
-                        <div class="how-it-work-item">
-                            <!-- How It Work Image Start -->
-                            <div class="how-it-work-image">
-                                <figure class="image-anime reveal">
-                                    <img src="{{asset('assets/frontend/images/how-it-work-img-2.jpg')}}" alt="">
-                                </figure>
-                            </div>
-                            <!-- How It Work Image End -->
-
-                            <!-- How It Work Content Start -->
-                            <div class="how-it-work-content wow fadeInUp" data-wow-delay="0.4s">
-                                <div class="icon-box">
-                                    <img src="{{asset('assets/frontend/images/icon-how-it-work-2.svg')}}" alt="">
-                                </div>
-                                <div class="how-it-work-body">
-                                    <h3>Plan and design</h3>
-                                    <p>Provide essential healthcare service and resources to communities.</p>
-                                </div>
-                            </div>
-                            <!-- How It Work Content End -->
-                        </div>
-                        <!-- How It Work Item End -->
-
-                        <!-- How It Work Item Start -->
-                        <div class="how-it-work-item">
-                            <!-- How It Work Image Start -->
-                            <div class="how-it-work-image">
-                                <figure class="image-anime reveal">
-                                    <img src="{{asset('assets/frontend/images/how-it-work-img-3.jpg')}}" alt="">
-                                </figure>
-                            </div>
-                            <!-- How It Work Image End -->
-
-                            <!-- How It Work Content Start -->
-                            <div class="how-it-work-content wow fadeInUp" data-wow-delay="0.6s">
-                                <div class="icon-box">
-                                    <img src="{{asset('assets/frontend/images/icon-how-it-work-3.svg')}}" alt="">
-                                </div>
-                                <div class="how-it-work-body">
-                                    <h3>Implement solutions</h3>
-                                    <p>Provide essential healthcare service and resources to communities.</p>
-                                </div>
-                            </div>
-                            <!-- How It Work Content End -->
-                        </div>
-                        <!-- How It Work Item End -->
-                        
-                        <!-- How It Work Item Start -->
-                        <div class="how-it-work-item">
-                            <!-- How It Work Image Start -->
-                            <div class="how-it-work-image">
-                                <figure class="image-anime reveal">
-                                    <img src="{{asset('assets/frontend/images/how-it-work-img-4.jpg')}}" alt="">
-                                </figure>
-                            </div>
-                            <!-- How It Work Image End -->
-
-                            <!-- How It Work Content Start -->
-                            <div class="how-it-work-content wow fadeInUp" data-wow-delay="0.6s">
-                                <div class="icon-box">
-                                    <img src="{{asset('assets/frontend/images/icon-how-it-work-4.svg')}}" alt="">
-                                </div>
-                                <div class="how-it-work-body">
-                                    <h3>Report and share</h3>
-                                    <p>Provide essential healthcare service and resources to communities.</p>
-                                </div>
-                            </div>
-                            <!-- How It Work Content End -->
-                        </div>
-                        <!-- How It Work Item End -->
-                    </div>
-                    <!-- How It Work List End -->
-                </div>
-                
-                <div class="col-lg-12">
-                    <!-- Service Contact Text Start -->
-                    <div class="section-footer-text how-work-footer-text wow fadeInUp" data-wow-delay="0.8s">
-                        <p><span>$250</span> Help Our Kids with Education, Food, Health Support. <a href="donation.html">Donate now</a></p>
-                    </div>
-                    <!-- Service Contact Text End -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- How It Work Section End -->
-
-    <!-- Our Testimonials Section Start -->
-    <div class="our-testimonials">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <!-- Testimonials Image Start -->
-                    <div class="testimonials-image">
-                        <div class="testimonials-img">
-                            <figure class="image-anime reveal">
-                                <img src="{{asset('assets/frontend/images/testimonials-image.jpg')}}" alt="">
-                            </figure>
-                        </div>
-
-                        <div class="helthcare-support-circle">
-                            <a href="contact.html">
-                                <img src="{{asset('assets/frontend/images/healthcare-support-circle.svg')}}" alt="">
-                            </a>
-                        </div>
-
-                        <div class="client-review-box">
-                            <h2><span class="counter">20</span>k</h2>
-                            <p>customer review</p>
-                        </div> 
-                    </div>
-                    <!-- Testimonials Image End -->
-                </div>
-
-                <div class="col-lg-6">
-                    <!-- Testimonials Content Start -->
-                    <div class="testimonials-content">
-                        <!-- Section Title Start -->
-                        <div class="section-title">
-                            <h3 class="wow fadeInUp">testimonials</h3>
-                            <h2 class="text-anime-style-2" data-cursor="-opaque">What people say about us</h2>
-                        </div>
-                        <!-- Section Title End -->
-
-                        <!-- Testimonial Slider Start -->
-                        <div class="testimonial-slider">
-                            <div class="swiper">
-                                <div class="swiper-wrapper" data-cursor-text="Drag">
-                                    <!-- Testimonial Slide Start -->
-                                    <div class="swiper-slide">
-                                        <!-- Testimonial Item Start -->
-                                        <div class="testimonial-item">
-                                            <!-- Testimonial Header Start -->
-                                            <div class="testimonial-header">
-                                                <!-- Author Info Start -->
-                                                <div class="author-info">
-                                                    <!-- Author Image Start -->
-                                                    <div class="author-image">
-                                                        <figure class="image-anime">
-                                                            <img src="{{asset('assets/frontend/images/author-1.jpg')}}" alt="">
-                                                        </figure>
-                                                    </div>    
-                                                    <!-- Author Image End -->
-
-                                                    <!-- Author Content Start -->
-                                                    <div class="author-content">
-                                                        <h3>eleanor pena</h3>
-                                                        <p>volunteer coordinator</p>
-                                                    </div>
-                                                    <!-- Author Content End -->
-                                                </div>
-                                                <!-- Author Info Author End -->
-                                                
-                                                <!-- Testimonial Rating Start -->
-                                                <div class="testimonial-rating">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                </div>
-                                                <!-- Testimonial Rating End -->
-                                            </div>
-                                            <!-- Testimonial Header End -->
-                                            
-                                            <!-- Testimonial Content Start -->
-                                            <div class="testimonial-content">
-                                                <p>"Working with [NGO Name] has been a truly inspiring experience. Their dedication to uplifting communities and creating sustainable change is unmatched. Through their programs, I've seen lives transformed and hope restored"</p>
-                                            </div>
-                                            <!-- Testimonial Content End -->
-                                        </div>
-                                        <!-- Testimonial Item End -->
-                                    </div>
-                                    <!-- Testimonial Slide End -->
-
-                                    <!-- Testimonial Slide Start -->
-                                    <div class="swiper-slide">
-                                        <!-- Testimonial Item Start -->
-                                        <div class="testimonial-item">
-                                            <!-- Testimonial Header Start -->
-                                            <div class="testimonial-header">
-                                                <!-- Author Info Start -->
-                                                <div class="author-info">
-                                                    <!-- Author Image Start -->
-                                                    <div class="author-image">
-                                                        <figure class="image-anime">
-                                                            <img src="{{asset('assets/frontend/images/author-2.jpg')}}" alt="">
-                                                        </figure>
-                                                    </div>    
-                                                    <!-- Author Image End -->
-
-                                                    <!-- Author Content Start -->
-                                                    <div class="author-content">
-                                                        <h3>michael carter</h3>
-                                                        <p>program manager</p>
-                                                    </div>
-                                                    <!-- Author Content End -->
-                                                </div>
-                                                <!-- Author Info Author End -->
-                                                
-                                                <!-- Testimonial Rating Start -->
-                                                <div class="testimonial-rating">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                </div>
-                                                <!-- Testimonial Rating End -->
-                                            </div>
-                                            <!-- Testimonial Header End -->
-                                            
-                                            <!-- Testimonial Content Start -->
-                                            <div class="testimonial-content">
-                                                <p>"Working with [NGO Name] has been a truly inspiring experience. Their dedication to uplifting communities and creating sustainable change is unmatched. Through their programs, I've seen lives transformed and hope restored"</p>
-                                            </div>
-                                            <!-- Testimonial Content End -->
-                                        </div>
-                                        <!-- Testimonial Item End -->
-                                    </div>
-                                    <!-- Testimonial Slide End -->
-
-                                    <!-- Testimonial Slide Start -->
-                                    <div class="swiper-slide">
-                                        <!-- Testimonial Item Start -->
-                                        <div class="testimonial-item">
-                                            <!-- Testimonial Header Start -->
-                                            <div class="testimonial-header">
-                                                <!-- Author Info Start -->
-                                                <div class="author-info">
-                                                    <!-- Author Image Start -->
-                                                    <div class="author-image">
-                                                        <figure class="image-anime">
-                                                            <img src="{{asset('assets/frontend/images/author-3.jpg')}}" alt="">
-                                                        </figure>
-                                                    </div>    
-                                                    <!-- Author Image End -->
-
-                                                    <!-- Author Content Start -->
-                                                    <div class="author-content">
-                                                        <h3>sophi martinez</h3>
-                                                        <p>communications director</p>
-                                                    </div>
-                                                    <!-- Author Content End -->
-                                                </div>
-                                                <!-- Author Info Author End -->
-                                                
-                                                <!-- Testimonial Rating Start -->
-                                                <div class="testimonial-rating">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                </div>
-                                                <!-- Testimonial Rating End -->
-                                            </div>
-                                            <!-- Testimonial Header End -->
-                                            
-                                            <!-- Testimonial Content Start -->
-                                            <div class="testimonial-content">
-                                                <p>"Working with [NGO Name] has been a truly inspiring experience. Their dedication to uplifting communities and creating sustainable change is unmatched. Through their programs, I've seen lives transformed and hope restored"</p>
-                                            </div>
-                                            <!-- Testimonial Content End -->
-                                        </div>
-                                        <!-- Testimonial Item End -->
-                                    </div>
-                                    <!-- Testimonial Slide End -->
-                                </div>
-                                <div class="testimonial-pagination"></div>
-                            </div>
-                        </div>
-                        <!-- Testimonial Slider End -->
-                    </div>
-                    <!-- Testimonials Content End -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Our Testimonials Section End -->
-
-    <!-- Our Gallery Section Start -->
-    <div class="our-gallery">
-        <div class="container-fluid">
-            <div class="row section-row no-gutters">
-                <div class="col-lg-12">
-                    <!-- Section Title Start -->
-                    <div class="section-title">
-                        <h3 class="wow fadeInUp">gallery</h3>
-                        <h2 class="text-anime-style-2" data-cursor="-opaque">Our image gallery</h2>
-                    </div>
-                    <!-- Section Title End -->
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- Our Gallery Nav start -->
-                    <div class="our-gallery-nav wow fadeInUp" data-wow-delay="0.2s">
-                        <ul>
-                            <li><a href="#" class="active-btn" data-filter="*">all</a></li>
-                            <li><a href="#" data-filter=".health">health</a></li>
-                            <li><a href="#" data-filter=".education">education</a></li>
-                            <li><a href="#" data-filter=".food">food</a></li>
-                        </ul>
-                    </div>
-                    <!-- Our Gallery Nav End -->
-                </div>
-
-                <div class="col-lg-12">
-                    <!-- Gallery Item Boxes Start -->
-                    <div class="gallery-item-boxes">
-                        <!-- Gallery Item Box Start -->
-                        <div class="gallery-item-box health food">
-                            <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/gallery-1.jpg')}}" alt="">
-                            </figure>
-                        </div>
-                        <!-- Gallery Item Box End -->
-                        
-                        <!-- Gallery Item Box Start -->
-                        <div class="gallery-item-box food">
-                            <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/gallery-2.jpg')}}" alt="">
-                            </figure>
-                        </div>
-                        <!-- Gallery Item Box End -->
-                        
-                        <!-- Gallery Item Box Start -->
-                        <div class="gallery-item-box food education">
-                            <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/gallery-3.jpg')}}" alt="">
-                            </figure>
-                        </div>
-                        <!-- Gallery Item Box End -->
-                        
-                        <!-- Gallery Item Box Start -->
-                        <div class="gallery-item-box health education">
-                            <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/gallery-4.jpg')}}" alt="">
-                            </figure>
-                        </div>
-                        <!-- Gallery Item Box End -->
-                        
-                        <!-- Gallery Item Box Start -->
-                        <div class="gallery-item-box health">
-                            <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/gallery-5.jpg')}}" alt="">
-                            </figure>
-                        </div>
-                        <!-- Gallery Item Box End -->
-                        
-                        <!-- Gallery Item Box Start -->
-                        <div class="gallery-item-box food education">
-                            <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/gallery-6.jpg')}}" alt="">
-                            </figure>
-                        </div>
-                        <!-- Gallery Item Box End -->
-                        
-                        <!-- Gallery Item Box Start -->
-                        <div class="gallery-item-box health">
-                            <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/gallery-7.jpg')}}" alt="">
-                            </figure>
-                        </div>
-                        <!-- Gallery Item Box End -->
-                        
-                        <!-- Gallery Item Box Start -->
-                        <div class="gallery-item-box food">
-                            <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/gallery-8.jpg')}}" alt="">
-                            </figure>
-                        </div>
-                        <!-- Gallery Item Box End -->
-                        
-                        <!-- Gallery Item Box Start -->
-                        <div class="gallery-item-box education">
-                            <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/gallery-9.jpg')}}" alt="">
-                            </figure>
-                        </div>
-                        <!-- Gallery Item Box End -->
-                        
-                        <!-- Gallery Item Box Start -->
-                        <div class="gallery-item-box health education">
-                            <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/gallery-10.jpg')}}" alt="">
-                            </figure>
-                        </div>
-                        <!-- Gallery Item Box End -->
-                    </div>
-                    <!-- Gallery Item Boxes End -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Our Gallery Section End -->
 
     <!-- Our Blog Section Start -->
     <div class="our-blog">
@@ -1534,7 +987,7 @@
                         <div class="footer-about">
                             <!-- Footer Logo Start -->
                             <div class="footer-logo">
-                                <img src="{{asset('assets/frontend/images/footer-logo.svg')}}" alt="">
+                                <img src="{{asset('assets/frontend/images/loader.svg')}}" style="width:55px" alt="Logo" ><span  style="margin-left:10px;color :white; font-size:20"> Newhope </span>
                             </div>
                             <!-- Footer Logo End -->
                             
