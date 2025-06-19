@@ -19,4 +19,8 @@ class AdminDashboardController extends Controller
     {
         return view('backend.forms.add_user_form');
     }
+     public function profilePersonalInfo()
+    {
+        return view('backend.profile');
+    }
 }
