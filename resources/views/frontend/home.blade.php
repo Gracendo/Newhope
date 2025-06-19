@@ -987,7 +987,7 @@
                         <div class="footer-about">
                             <!-- Footer Logo Start -->
                             <div class="footer-logo">
-                                                        <img src="{{asset('assets/frontend/images/loader.svg')}}" style="width:55px" alt="Logo" ><span  style="margin-left:10px;color :white; font-size:20"> Newhope </span>
+                                <img src="{{asset('assets/frontend/images/loader.svg')}}" style="width:55px" alt="Logo" ><span  style="margin-left:10px;color :white; font-size:20"> Newhope </span>
                             </div>
                             <!-- Footer Logo End -->
                             

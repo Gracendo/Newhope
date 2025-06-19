@@ -6,13 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="Multipurpose, super Feb, powerful, clean modern responsive bootstrap 5 admin template">
+    content="">
   <meta name="keywords"
-    content="admin template, ra-admin admin template, dashboard template, flat admin template, responsive admin template, web app">
-  <meta name="author" content="la-themes">
-  <link rel="icon" href="{{asset('assets/backend/images/logo/favicon.png')}}" type="image/x-icon">
-  <link rel="shortcut icon" href="{{asset('assets/backend/images/logo/favicon.png')}}" type="image/x-icon">
-  <title>Project Dashboard | ra-admin - Premium Admin Template</title>
+    content="">
+  <meta name="author" content="">
+	<link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/frontend/images/favicon.png')}}">
+  <title>admin_dasboard</title>
   <!--font-awesome-css-->
   <link rel="stylesheet" href="{{asset('assets/backend/vendor/fontawesome/css/all.css')}}">
 
