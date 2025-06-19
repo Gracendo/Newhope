@@ -100,7 +100,7 @@
               <!-- order 1 -->
               <div class="col-xxl-9 order-1-md">
                 <div class="card">
-                        <h5 class="header-title-text" style="margin-left=20px">Campaign List</h5>
+                      
                   <div class="card-body p-0">
                     <!-- <h5>Projects</h5> -->
 
@@ -114,7 +114,7 @@
                               <span class="checkmark outline-secondary ms-2"></span>
                             </label>
                           </th>
-                          <th>Name</th>
+                          <th>Campaign</th>
                           <th>Status</th>
                           <th>Objectif</th>
                           <th>Volunteers</th>
@@ -481,9 +481,7 @@
                         </tbody>
                       </table>
                     </div>
-                     <br>
-                     <button type="button" class="btn btn-outline-primary" style="float:left;">Create Campaign</button>
-                 
+                     
                      </div>
                     
                 </div>

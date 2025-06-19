@@ -23,4 +23,12 @@ class AdminDashboardController extends Controller
     {
         return view('backend.profile');
     }
+     public function Campaign()
+    {
+        return view('backend.campaign');
+    }
+    public function campaignDetails()
+    {
+        return view('backend.campaign_details');
+    }
 }
