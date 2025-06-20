@@ -713,11 +713,15 @@
                     </div>
 
                   </li>
-
+                  @php
+                    $profile_img = get_attachment_image_by_id(auth()->user()->image,null,true);
+                  @endphp
                   <li class="header-profile">
                     <a href="#" class="d-block head-icon" role="button" data-bs-toggle="offcanvas"
                        data-bs-target="#profilecanvasRight" aria-controls="profilecanvasRight">
-                      <img src="../assets/images/avtar/woman.jpg" alt="avtar" class="b-r-10 h-35 w-35">
+                      @if (!empty($profile_img))
+                        <img src="{{$profile_img['img_url']}}" alt="{{auth()->user()->first_name}}" class="b-r-10 h-35 w-35">
+                      @endif
                     </a>
 
                     <div class="offcanvas offcanvas-end header-profile-canvas" tabindex="-1" id="profilecanvasRight"
@@ -725,21 +729,23 @@
                       <div class="offcanvas-body app-scroll">
                         <ul class="">
                           <li>
-                            <div class="d-flex-center">
-                              <span class="h-45 w-45 d-flex-center b-r-10 position-relative">
-                                <img src="../assets/images/avtar/woman.jpg" alt="" class="img-fluid b-r-10">
-                              </span>
-                            </div>
+                            @if (!empty($profile_img))
+                              <div class="d-flex-center">
+                                <span class="h-45 w-45 d-flex-center b-r-10 position-relative">
+                                  <img src="{{$profile_img['img_url']}}" alt="{{auth()->user()->first_name}}" class="img-fluid b-r-10">
+                                </span>
+                              </div>
+                            @endif
                             <div class="text-center mt-2">
-                              <h6 class="mb-0"> Laura Monaldo</h6>
-                              <p class="f-s-12 mb-0 text-secondary">lauradesign@gmail.com</p>
+                              <h6 class="mb-0"> {{ Auth::user()->first_name }}</h6>
+                              <p class="f-s-12 mb-0 text-secondary">{{ Auth::user()->email }}</p>
                             </div>
                           </li>
 
                           <li class="app-divider-v dotted py-1"></li>
                           <li>
                             <a class="f-w-500" href="./profile.html" target="_blank">
-                              <i class="ph-duotone  ph-user-circle pe-1 f-s-20"></i> Profile Details
+                              <i class="ph-duotone  ph-user-circle pe-1 f-s-20"></i> {{__('Edit Profile')}}
                             </a>
                           </li>
                           <li>
@@ -824,8 +830,8 @@
                           <li class="app-divider-v dotted py-1"></li>
 
                           <li>
-                            <a class="mb-0 text-danger" href="./sign_in.html" target="_blank">
-                              <i class="ph-duotone  ph-sign-out pe-1 f-s-20"></i> Log Out
+                            <a class="mb-0 text-danger" href="{{ route('admin.logout') }}">
+                              <i class="ph-duotone  ph-sign-out pe-1 f-s-20"></i> {{ __('Logout') }}
                             </a>
                           </li>
                         </ul>

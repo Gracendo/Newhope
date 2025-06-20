@@ -23,16 +23,25 @@ class AdminDashboardController extends Controller
         $total_admin = Admin::count();
         $total_user = User::count();
 
-        return view('backend.admin_dashboard');
+        return view('backend.admin_dashboard')->with([
+            'total_admin' => $total_admin,
+            'total_user' => $total_user
+        ]);
     }
 
      public function manageUsers()
     {
         return view('backend.manage_users');
     }
-    
+
      public function addUsers()
     {
         return view('backend.forms.add_user_form');
+    }
+
+    public function adminLogout()
+    {
+        Auth::logout();
+        return redirect()->route('admin.login')->with(['msg' => __('You Logged Out !!'), 'type' => 'danger']);
     }
 }

@@ -39,6 +39,7 @@ Route::get('/signin', [SigninController::class, 'index'])->name('signin');
 Route::middleware(['setlanguage:backend'])->group(function (){
     Route::get('/auth/admin',[LoginController::class, 'showAdminLoginForm'])->name('admin.login');
     Route::post('/auth/admin',[LoginController::class, 'adminLogin']);
+    Route::get('/logout/admin',[AdminDashboardController::class, 'adminLogout'])->name('admin.logout');
 });
 
 //Admin Dashboard
@@ -58,4 +59,4 @@ Route::prefix('admin-dash')->middleware(['setlanguage:backend','adminGlobalVar']
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');

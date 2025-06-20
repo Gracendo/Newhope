@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class,
             LangSeeder::class,
+            StaticOptionsSeeder::class,
+            MediaUploadsSeeder::class,
         ]);
     }
 }

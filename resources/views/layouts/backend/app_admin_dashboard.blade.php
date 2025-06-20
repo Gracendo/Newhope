@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{get_default_language()}}">
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -9,9 +9,21 @@
     content="">
   <meta name="keywords"
     content="">
-  <meta name="author" content="">
-	<link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/frontend/images/favicon.png')}}">
-  <title>admin_dasboard</title>
+  <meta name="author" content="Grace Emie">
+  @php
+      $site_favicon = get_attachment_image_by_id(get_static_option('site_favicon'),"full",false);
+  @endphp
+  @if (!empty($site_favicon))
+	  <link rel="shortcut icon" type="image/x-icon" href="{{$site_favicon['img_url']}}">
+  @endif
+  <title>
+    {{get_static_option('site_title')}} -
+      @if(request()->path() == 'admin-dash')
+          {{get_static_option('site_tag_line')}}
+      @else
+          @yield('site-title')
+      @endif
+  </title>
   <!--font-awesome-css-->
   <link rel="stylesheet" href="{{asset('assets/backend/vendor/fontawesome/css/all.css')}}">
 
@@ -54,6 +66,7 @@
 
   <!-- Responsive css-->
   <link rel="stylesheet" type="text/css" href="{{asset('assets/backend/css/responsive.css')}}">
+  @yield('style')
 </head>
 
 <body>
