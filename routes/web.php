@@ -61,6 +61,9 @@ Route::prefix('admin-dash')->middleware(['setlanguage:backend','adminGlobalVar']
         Route::get('/campaign', [AdminDashboardController::class, 'Campaign'])->name('admin.campaign');
         Route::get('/campaign_details', [AdminDashboardController::class, 'campaignDetails'])->name('admin.campaignDetails');
 
+        Route::get('/profile-update', [AdminDashboardController::class, 'admin_profile'])->name('admin.profile.update');
+        Route::post('/profile-update', [AdminDashboardController::class, 'admin_profile_update']);
+
 
 
 
