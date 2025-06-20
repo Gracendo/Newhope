@@ -61,4 +61,19 @@ class AdminDashboardController extends Controller
     {
         return view('auth.admin.edit-profile');
     }
+
+    public function admin_profile_update(Request $request)
+    {
+        $user = Auth::guard('admin')->user()->id;
+        $this->validate($request, [
+            'first_name' => 'required|string|max:191',
+            'last_name' => 'required|string|max:191',
+            'email' => 'required|max:191|email|unique:admins,email,'.$user,
+            'username' => 'nullable|string|max:191',
+            'image' => 'nullable|string|max:191'
+        ]);
+        Admin::find(Auth::user()->id)->update(['first_name' => $request->first_name,'last_name' => $request->last_name, 'email' => $request->email, 'image' => $request->image]);
+
+        return redirect()->back()->with(['msg' => __('Profil mis à jour'), 'type' => 'success']);
+    }
 }
