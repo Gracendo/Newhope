@@ -35370,8 +35370,9 @@ input[type=range]::-webkit-slider-thumb {
 .project-status-box {
   display: flex;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: 2rem;
   margin-top: 1rem;
+  width:100%
 }
 .project-status-box .project-status-card {
   width: 100%;

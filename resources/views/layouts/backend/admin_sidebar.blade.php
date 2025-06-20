@@ -25,31 +25,19 @@
               <span class="badge text-bg-success badge-notification ms-2">4</span>
             </a>
             <ul class="collapse" id="dashboard">
-              <li><a href="index.html">Ecommerce</a></li>
               <li><a href="project_dashboard.html">Project</a></li>
-              <li><a href="crypto_dashboard.html">Crypto</a></li>
-              <li><a href="education.html">Education</a></li>
             </ul>
           </li>
           <li>
             <a class="" data-bs-toggle="collapse" href="#apps" aria-expanded="false">
               <i class="ph-duotone  ph-stack"></i>
-              Apps
+              Campaign management
             </a>
             <ul class="collapse" id="apps">
-              <li><a href="calendar.html">Calender</a></li>
-              <li class="another-level">
-                <a class="" data-bs-toggle="collapse" href="#Profile-page" aria-expanded="false">
-                  Profile
-                </a>
-                <ul class="collapse" id="Profile-page">
-                  <li><a href="profile.html">Profile</a></li>
-                  <li><a href="setting.html">Setting</a></li>
-                </ul>
-              </li>
+             
               <li class="another-level">
                 <a class="" data-bs-toggle="collapse" href="#projects-page" aria-expanded="false">
-                  Projects Page
+                   Page
                 </a>
                 <ul class="collapse" id="projects-page">
                   <li><a href="project_app.html">projects</a></li>

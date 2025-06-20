@@ -44,4 +44,16 @@ class AdminDashboardController extends Controller
         Auth::logout();
         return redirect()->route('admin.login')->with(['msg' => __('You Logged Out !!'), 'type' => 'danger']);
     }
+     public function profilePersonalInfo()
+    {
+        return view('backend.profile');
+    }
+     public function Campaign()
+    {
+        return view('backend.campaign');
+    }
+    public function campaignDetails()
+    {
+        return view('backend.campaign_details');
+    }
 }
