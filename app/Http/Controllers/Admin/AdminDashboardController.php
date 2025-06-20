@@ -56,4 +56,9 @@ class AdminDashboardController extends Controller
     {
         return view('backend.campaign_details');
     }
+
+    public function admin_profile()
+    {
+        return view('auth.admin.edit-profile');
+    }
 }
