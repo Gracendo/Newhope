@@ -73,7 +73,7 @@ Route::prefix('admin-dash')->middleware(['setlanguage:backend','adminGlobalVar']
 }); 
 
 //End admin-dashboard
-
+ 
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
