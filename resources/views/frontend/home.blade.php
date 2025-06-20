@@ -1,99 +1,5 @@
-<!DOCTYPE html>
-<html lang="zxx">
-
-<!-- Mirrored from demo.awaikenthemes.com/html-preview/lenity/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 27 Feb 2025 03:32:32 GMT -->
-<head>
-	<!-- Meta -->
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-	<meta name="description" content="">
-	<meta name="keywords" content="">
-	<meta name="author" content="">
-	<!-- Page Title -->
-    <title>Newhope</title>
-	<!-- Favicon Icon -->
-	<link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/frontend/images/favicon.png')}}">
-	<!-- Google Fonts Css-->
-	<link rel="preconnect" href="https://fonts.googleapis.com/">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;family=Onest:wght@100..900&amp;display=swap" rel="stylesheet">
-	<!-- Bootstrap Css -->
-	<link href="{{asset('assets/frontend/css/bootstrap.min.css')}}" rel="stylesheet" media="screen">
-	<!-- SlickNav Css -->
-	<link href="{{asset('assets/frontend/css/slicknav.min.css')}}" rel="stylesheet">
-	<!-- Swiper Css -->
-	<link rel="stylesheet" href="{{asset('assets/frontend/css/swiper-bundle.min.css')}}">
-	<!-- Font Awesome Icon Css-->
-	<link href="{{asset('assets/frontend/css/all.min.css')}}" rel="stylesheet" media="screen">
-	<!-- Animated Css -->
-	<link href="{{asset('assets/frontend/css/animate.css')}}" rel="stylesheet">
-    <!-- Magnific Popup Core Css File -->
-	<link rel="stylesheet" href="{{asset('assets/frontend/css/magnific-popup.css')}}">
-	<!-- Mouse Cursor Css File -->
-	<link rel="stylesheet" href="{{asset('assets/frontend/css/mousecursor.css')}}">
-	<!-- Main Custom Css -->
-	<link href="{{asset('assets/frontend/css/custom.css')}}" rel="stylesheet" media="screen">
-</head>
-<body>
-
-    <!-- Preloader Start -->
-	<div class="preloader">
-		<div class="loading-container">
-			<div class="loading"></div>
-			<div id="loading-icon"><img src="{{asset('assets/frontend/images/loader.svg')}}" alt=""></div>
-		</div>
-	</div>
-	<!-- Preloader End -->
-
-    <!-- Header Start -->
-	<header class="main-header">
-		<div class="header-sticky">
-			<nav class="navbar navbar-expand-lg">
-				<div class="container">
-					<!-- Logo Start -->
-					<a class="navbar-brand" href="index-2.html">
-                         <img src="{{asset('assets/frontend/images/loader.svg')}}" alt="Logo" ><span  style="margin-left:10px;color :white;"> Newhope </span>
-					</a>
-					<!-- Logo End -->
-
-					<!-- Main Menu Start -->
-					<div class="collapse navbar-collapse main-menu">
-                        <div class="nav-menu-wrapper">
-                            <ul class="navbar-nav mr-auto" id="menu">
-                                <li class="nav-item "><a class="nav-link" href="#">Home</a></li>                                
-                                <li class="nav-item"><a class="nav-link" href="about.html">About Us</a>
-                                <li class="nav-item"><a class="nav-link" href="programmes.html">Campaigns</a></li>
-                                <li class="nav-item"><a class="nav-link" href="services.html">Orphanages</a></li>
-                                <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                                <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>                         
-                            </ul>
-                        </div>
-                        <!-- Contact Now Box Start -->
-                        <div class="contact-now-box">
-                            <div class="icon-box">
-                                <!-- <img src="{{asset('assets/frontend/images/icon-about-support.svg')}}"  alt=""> -->
-                                 <img 
-                                     src="{{asset('assets/frontend/images/icon-about-support.svg')}}" 
-                                     alt="Support Icon"
-                                     style="filter: brightness(0) invert(1);"
-                                    >
-                            </div>
-                            <div class="contact-now-box-content">
-                                <p>Join us !</p>
-                                <h3><a href="#" >LOG IN</a></h3>                                
-                            </div>
-                        </div>
-                        <!-- Contact Now Box End -->
-					</div>
-					<!-- Main Menu End -->
-					<div class="navbar-toggle"></div>
-				</div>
-			</nav>
-			<div class="responsive-menu"></div>
-		</div>
-	</header>
-	<!-- Header End -->
+@extends('layouts.frontend.header')
+@section('home')
 
     <!-- Hero Section Start -->
     <div class="hero parallaxie">
@@ -1128,5 +1034,5 @@
     <script src="{{asset('assets/frontend/js/function.js')}}"></script>
 </body>
 
-<!-- Mirrored from demo.awaikenthemes.com/html-preview/lenity/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 27 Feb 2025 03:33:47 GMT -->
 </html>
+@endsection
