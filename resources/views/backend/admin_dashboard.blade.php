@@ -19,8 +19,9 @@
                           <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between" draggable="false">
                               <div class="">
-                                <h6 class="mb-0 text-dark">Wilson Terry</h6>
-                                <p class="mb-0 text-secondary f-s-12">Product Demo and Review</p>
+                                
+                                <h6 class="mb-0 text-dark">Total number of adnimistrators:{{$total_admin}}</h6>
+                                <p class="mb-0 text-secondary f-s-12">Total number of users:{{$total_user}}</p>
                               </div>
                               
                               
