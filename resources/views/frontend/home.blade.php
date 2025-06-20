@@ -235,9 +235,9 @@
                 <div class="col-lg-12">
                     <!-- Section Title Start -->
                     <div class="section-title">
-                        <h3 class="wow fadeInUp">our causes</h3>
-                        <h2 class="text-anime-style-2" data-cursor="-opaque">Supporting communities causes</h2>
-                        <p class="wow fadeInUp" data-wow-delay="0.2s">We focus on impactful causes that address urgent community needs, from healthcare and education to food security and for lasting change.</p>
+                        <h3 class="wow fadeInUp">our orpanages</h3>
+                        <h2 class="text-anime-style-2" data-cursor="-opaque">Supporting local orphanages</h2>
+                        <p class="wow fadeInUp" data-wow-delay="0.2s">We focus on providing a meaningful aid to local orphanages.Each fcfa you give can impact a child's life;from healthcare and education to food security and for lasting change.</p>
                     </div>
                     <!-- Section Title End -->
                 </div>
@@ -249,13 +249,13 @@
                     <div class="causes-item wow fadeInUp">
                         <div class="causes-image">
                             <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/causes-img-1.jpg')}}" alt="">
+                                <img src="{{asset('assets/frontend/images/causes-img-1.jpeg')}}" alt="">
                             </figure>
                         </div>
                         <div class="causes-body">
                             <div class="causes-content">
-                                <h3>Healthcare access</h3>
-                                <p>Ensuring quality education and resources for underserved communitie.</p>
+                                <h3>Saint Therese Orphanage</h3>
+                                <p>Founded in 2003, run by the Sisters of the Catholic Religious Congregation "SŒURS MISSIONNAIRES DE LA RESURRECTION</p>
                             </div>
                             <div class="causes-button">
                                 <a href="donation.html" class="btn-default">donate now</a>
@@ -270,13 +270,13 @@
                     <div class="causes-item wow fadeInUp" data-wow-delay="0.2s">
                         <div class="causes-image">
                             <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/causes-img-2.jpg')}}" alt="">
+                                <img src="{{asset('assets/frontend/images/causes-img-2.jpeg')}}" alt="">
                             </figure>
                         </div>
                         <div class="causes-body">
                             <div class="causes-content">
-                                <h3>Education for all</h3>
-                                <p>Ensuring quality education and resources for underserved communitie.</p>
+                                <h3>Mah Di's Orphanage</h3>
+                                <p>One of two community schools and orphanages supported by GlobalGiving project, serving 250 children in total</p>
                             </div>
                             <div class="causes-button">
                                 <a href="donation.html" class="btn-default">donate now</a>
@@ -291,13 +291,13 @@
                     <div class="causes-item wow fadeInUp" data-wow-delay="0.4s">
                         <div class="causes-image">
                             <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/causes-img-3.jpg')}}" alt="">
+                                <img src="{{asset('assets/frontend/images/causes-img-3.jpeg')}}" alt="">
                             </figure>
                         </div>
                         <div class="causes-body">
                             <div class="causes-content">
-                                <h3>Hunger and food security</h3>
-                                <p>Ensuring quality education and resources for underserved communitie.</p>
+                                <h3>Hope Alive Orphanage</h3>
+                                <p>Part of the same project as Mah Di's, helping children in conflict areas</p>
                             </div>
                             <div class="causes-button">
                                 <a href="donation.html" class="btn-default">donate now</a>
@@ -342,12 +342,12 @@
                     <div class="why-choose-images">
                         <div class="why-choose-image-1">
                             <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/why-choose-img-1.jpg')}}" alt="">
+                                <img src="{{asset('assets/frontend/images/why-choose-img-1.jpeg')}}" alt="">
                             </figure>
                         </div>
                         <div class="why-choose-image-2">
                             <figure class="image-anime">
-                                <img src="{{asset('assets/frontend/images/why-choose-img-2.jpg')}}" alt="">
+                                <img src="{{asset('assets/frontend/images/why-choose-img-2.jpeg')}}" alt="">
                             </figure>
                         </div>
                     </div>
@@ -394,8 +394,8 @@
                             
                             <!-- Why Choose Counters Item Start -->
                             <div class="why-choose-counter-item">
-                                <h2><span class="counter">400</span>+</h2>
-                                <p>Word wide office</p>
+                                <h2><span class="counter">100</span>+</h2>
+                                <p>Cameroon orphanages</p>
                             </div>
                             <!-- Why Choose Counters Item End -->
                         </div>
@@ -415,9 +415,9 @@
                 <div class="col-lg-12">
                     <!-- Section Title Start -->
                     <div class="section-title">
-                        <h3 class="wow fadeInUp">our program</h3>
+                        <h3 class="wow fadeInUp">our campaigns</h3>
                         <h2 class="text-anime-style-2" data-cursor="-opaque">Empowering our programs</h2>
-                        <p class="wow fadeInUp" data-wow-delay="0.2s">Our programs are designed to create sustainable change by addressing community needs, empowering individuals, long-term development through education.</p>
+                        <p class="wow fadeInUp" data-wow-delay="0.2s">Our programs are designed to create sustainable change by addressing community needs, empowering orphanages, long-term development through crowdfunding.</p>
                     </div>
                     <!-- Section Title End -->
                 </div>
@@ -436,8 +436,8 @@
                         </div>
                         <div class="program-body">
                             <div class="program-content">
-                                <h3><a href="program-single.html">Women's empowerment</a></h3>
-                                <p>Providing resources, education, and advocacy for women's rights.</p>
+                                <h3><a href="program-single.html">Aqua farm </a></h3>
+                                <p>We aim at rairing about 200 fish in a 400m squared or more man made lakes</p>
                             </div>
                             <div class="program-button">
                                 <a href="program-single.html" class="readmore-btn">read more</a>
@@ -459,8 +459,8 @@
                         </div>
                         <div class="program-body">
                             <div class="program-content">
-                                <h3><a href="program-single.html">Housing assistance</a></h3>
-                                <p>Providing resources, education, and advocacy for women's rights.</p>
+                                <h3><a href="program-single.html">Hope pig farm</a></h3>
+                                <p>With low amount of resources, we aim at producing a large amount of pigs.</p>
                             </div>
                             <div class="program-button">
                                 <a href="program-single.html" class="readmore-btn">read more</a>
@@ -482,8 +482,8 @@
                         </div>
                         <div class="program-body">
                             <div class="program-content">
-                                <h3><a href="program-single.html">Development and Job Training</a></h3>
-                                <p>Providing resources, education, and advocacy for women's rights.</p>
+                                <h3><a href="program-single.html">Chicken farming prooject</a></h3>
+                                <p>We aim first toincrease our base of 23 chickens to a hundred ,then supply to clients.</p>
                             </div>
                             <div class="program-button">
                                 <a href="program-single.html" class="readmore-btn">read more</a>
@@ -496,7 +496,7 @@
                 <div class="col-lg-12">
                     <!-- Service Contact Text Start -->
                     <div class="section-footer-text wow fadeInUp" data-wow-delay="0.6s">
-                        <p>Your monthly <a href="#">gift of $36</a> ensures that kids living in poverty have access to life - changing benefits</p>
+                        <p>Your monthly <a href="#">gift of 1000FCFA</a> ensures that kids living in poverty have access to life - changing benefits</p>
                     </div>
                     <!-- Service Contact Text End -->
                 </div>
@@ -506,106 +506,7 @@
     <!-- Our Program Section End -->
 
 
-    <!-- Our Features Section Start -->
-    <div class="our-features">
-        <div class="container">
-            <div class="row section-row">
-                <div class="col-lg-12">
-                    <!-- Section Title Start -->
-                    <div class="section-title">
-                        <h3 class="wow fadeInUp">our feature</h3>
-                        <h2 class="text-anime-style-2" data-cursor="-opaque">Highlights our impactful work</h2>
-                        <p class="wow fadeInUp" data-wow-delay="0.2s">Discover the positive change we've created through our programs, partnerships, and dedicated efforts. From healthcare and education to environmental sustainability.</p>
-                    </div>
-                    <!-- Section Title End -->
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- Our Features List Start -->
-                    <div class="our-features-list">
-                        <!-- Our Features Item Start -->
-                        <div class="our-features-item">
-                            <!-- Our Features Image Start -->
-                            <div class="our-features-image">
-                                <figure class="image-anime reveal">
-                                    <img src="{{asset('assets/frontend/images/our-features-img-1.jpg')}}" alt="">
-                                </figure>
-                            </div>
-                            <!-- Our Features Image End -->
-
-                            <!-- Our Features Content Start -->
-                            <div class="our-features-content">
-                                <div class="our-features-body">
-                                    <h2><span class="counter">96</span>%</h2>
-                                    <h3>healthcare support</h3>
-                                    <p>Provide essential healthcare services and resources to communities.</p>
-                                </div>
-                                <div class="icon-box">
-                                    <img src="{{asset('assets/frontend/images/icon-our-features-1.svg')}}" alt="">
-                                </div>
-                            </div>
-                            <!-- Our Features Content End -->
-                        </div>
-                        <!-- Our Features Item End -->
-
-                        <!-- Our Features Item Start -->
-                        <div class="our-features-item">
-                            <!-- Our Features Image Start -->
-                            <div class="our-features-image">
-                                <figure class="image-anime reveal">
-                                    <img src="{{asset('assets/frontend/images/our-features-img-2.jpg')}}" alt="">
-                                </figure>
-                            </div>
-                            <!-- Our Features Image End -->
-
-                            <!-- Our Features Content Start -->
-                            <div class="our-features-content">
-                                <div class="our-features-body">
-                                    <h2><span class="counter">94</span>%</h2>
-                                    <h3>education support</h3>
-                                    <p>Provide essential healthcare services and resources to communities.</p>
-                                </div>
-                                <div class="icon-box">
-                                    <img src="{{asset('assets/frontend/images/icon-our-features-2.svg')}}" alt="">
-                                </div>
-                            </div>
-                            <!-- Our Features Content End -->
-                        </div>
-                        <!-- Our Features Item End -->
-
-                        <!-- Our Features Item Start -->
-                        <div class="our-features-item">
-                            <!-- Our Features Image Start -->
-                            <div class="our-features-image">
-                                <figure class="image-anime reveal">
-                                    <img src="{{asset('assets/frontend/images/our-features-img-3.jpg')}}" alt="">
-                                </figure>
-                            </div>
-                            <!-- Our Features Image End -->
-
-                            <!-- Our Features Content Start -->
-                            <div class="our-features-content">
-                                <div class="our-features-body">
-                                    <h2><span class="counter">95</span>%</h2>
-                                    <h3>food support</h3>
-                                    <p>Provide essential healthcare services and resources to communities.</p>
-                                </div>
-                                <div class="icon-box">
-                                    <img src="{{asset('assets/frontend/images/icon-our-features-3.svg')}}" alt="">
-                                </div>
-                            </div>
-                            <!-- Our Features Content End -->
-                        </div>
-                        <!-- Our Features Item End -->
-                    </div>
-                    <!-- Our Features List End -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Our Features Section End -->
+    
 
     <!-- Donate Now Section Start -->
     <div class="donate-now parallaxie">
@@ -900,13 +801,13 @@
                             <!-- Footer Contact Detail Start -->
                             <div class="footer-contact-detail">
                                 <div class="footer-contact-item">
-                                    <p>Toll free customer care</p>
-                                    <h3><a href="tel:+123456789">+123 456 789</a></h3>
+                                    <p>Call free customer care</p>
+                                    <h3><a href="tel:+237 698696114">+237 698 696 114</a></h3>
                                 </div>
                                 
                                 <div class="footer-contact-item">
                                     <p>Need live support!</p>
-                                    <h3><a href="mailto:info@domainname.com">info@domainname.com</a></h3>
+                                    <h3><a href="mailto:info@domainname.com">newhope@kidefind.com</a></h3>
                                 </div>
                             </div>
                             <!-- Footer Contact Detail End -->
@@ -932,7 +833,8 @@
                                 <form id="newsletterForm" action="#" method="POST">
                                     <div class="form-group">
                                         <input type="email" name="email" class="form-control" id="mail" placeholder="Enter Your Email" required="">
-                                        <button type="submit" class="newsletter-btn"><i class="fa-regular fa-paper-plane"></i></button>
+                                        <button type="submit" class="newsletter-btn" ><a href="mailto:gracen@domainname.com"><i class="fa-regular fa-paper-plane"></i></a></button>
+                                  
                                     </div>
                                 </form>
                             </div>
@@ -942,22 +844,21 @@
                             <div class="footer-links">
                                 <h3>Quick link</h3>
                                 <ul>
-                                    <li><a href="index.html">home</a></li>
-                                    <li><a href="about.html">about us</a></li>
-                                    <li><a href="services.html">services</a></li>
-                                    <li><a href="blog.html">blog</a></li>
+                                    <li><a href="{{route('home')}}">home</a></li>
+                                    <li><a href="{{route('about')}}">about us</a></li>
+                                    <li><a href="{{route('campaign')}}">services</a></li>
+                                    <li><a href="{{route('blog')}}">blog</a></li>
                                 </ul>
                             </div>
                             <!-- Footer Links End -->
                             
                             <!-- Footer Links Start -->
                             <div class="footer-links footer-service-links">
-                                <h3>services</h3>
+                                <h3>Campaigns</h3>
                                 <ul>
-                                    <li><a href="service-single.html">food security initiatives</a></li>
-                                    <li><a href="service-single.html">healthcare access</a></li>
-                                    <li><a href="service-single.html">educational support</a></li>
-                                    <li><a href="service-single.html">youth development</a></li>
+                                    <li><a href="service-single.html">Agricultural</a></li>
+                                    <li><a href="service-single.html">Retail </a></li>
+                                  
                                 </ul>
                             </div>
                             <!-- Footer Links End -->
@@ -1032,6 +933,7 @@
     <script src="{{asset('assets/frontend/js/wow.min.js')}}"></script>
     <!-- Main Custom js file -->
     <script src="{{asset('assets/frontend/js/function.js')}}"></script>
+   
 </body>
 
 </html>
