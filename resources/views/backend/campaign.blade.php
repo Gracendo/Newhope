@@ -102,7 +102,7 @@
                               <div class="h-40 w-40 d-flex-center b-r-50 overflow-hidden">
                                 <img src="../assets/images/icons/logo1.png" alt="" class="img-fluid">
                               </div>
-                              <a href="project_details.html" target="_blank" class="flex-grow-1 ps-2">
+                              <a href="{{route('admin.campaignDetails')}}" onclick="window.location.href='{{ route('admin.campaignDetails') }}'; return false;" target="_blank" class="flex-grow-1 ps-2">
                                 <h6 class="m-0 text-dark f-w-600"> Hope Vegetable Garden</h6>
                                 <div class="text-muted f-s-14 f-w-500">Precious Kids Center</div>
                               </a>

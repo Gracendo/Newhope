@@ -6,7 +6,7 @@
                   <div class="card-header" style="margin-top:20px;">
                     <h5>LIST OF USERS</h5>
                     <p>This table contains the list of all users in the system  </p>
-                  <button type="button" class="btn btn-outline-primary" style="float:right;">ADD USER</button>
+                  <a href="{{route('admin.addUser')}}" onclick="window.location.href='{{ route('admin.addUser') }}'; return false;" type="button" class="btn btn-outline-primary" style="float:right;">ADD USER</a>
                     </div>
                   <div class="card-body p-0">
                     <div class="app-datatable-default overflow-auto">
