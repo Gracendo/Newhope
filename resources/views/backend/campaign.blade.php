@@ -1,5 +1,57 @@
 @extends('layouts.backend.app_admin_dashboard')
 @section('content')
+ <!-- Modal -->
+<div class="modal fade" id="projectCard" tabindex="-1" aria-labelledby="projectCardLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="projectCardLabel">Create Campaign</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="app-form">
+          <div class="mb-3">
+            <label for="pName" class="form-label">Campaign Name</label>
+            <input type="text" class="form-control" placeholder="Designing" id="pName" name="name">
+          </div>
+          <div class="mb-3">
+            <label class="form-label f-s-16">Image</label>
+            <input type="file" class="form-control file_upload" name="image" 
+             accept=".jpg,.jpeg,.png,image/jpeg,image/png" required> 
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Start Date</label>
+            <input type="date" class="form-control" id="startDate" name="start_date">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">End Date</label>
+            <input type="date" class="form-control" id="endDate" name="end_date">
+          </div>
+          <div class="mb-3">
+            <label for="pricing" class="form-label">Goal</label>
+            <input type="text" class="form-control" placeholder="$10k" id="pricing">
+          </div>
+          <div class="mb-3">
+            <label for="projectDescription" class="form-label">Campaign Objectif</label>
+            <textarea class="form-control" rows="5" cols="5" placeholder="Enter Description"  name="objectif"id="projectDescription"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="projectDescription" class="form-label">Campaign Description</label>
+            <textarea class="form-control" rows="5" cols="5" placeholder="Enter Description" name="description" id="projectDescription"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label f-s-16">Business Plan</label>
+           <input type="file" class="form-control file_upload" name="business_plan" accept=".pdf,application/pdf" required> 
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" id="addCard">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
  <main>
           <div class="container-fluid">
             <!-- Breadcrumb start -->
@@ -51,8 +103,8 @@
                                 <img src="../assets/images/icons/logo1.png" alt="" class="img-fluid">
                               </div>
                               <a href="project_details.html" target="_blank" class="flex-grow-1 ps-2">
-                                <h6 class="m-0 text-dark f-w-600"> Chicken Rairing</h6>
-                                <div class="text-muted f-s-14 f-w-500">Divine Orphanage</div>
+                                <h6 class="m-0 text-dark f-w-600"> Hope Vegetable Garden</h6>
+                                <div class="text-muted f-s-14 f-w-500">Precious Kids Center</div>
                               </a>
                               
                               <div class="dropdown">
@@ -81,12 +133,11 @@
                                 <h6 class="text-dark f-s-14">End Date : <span class="text-danger">2024-12-05</span></h6>
                               </div>
                               <div class="flex-grow-1 text-end">
-                                <p class="f-w-500 text-secondary">raised </p>
+                                <p class="f-w-500 text-secondary">Goal</p>
                                 <h6 class="f-w-600">$10k</h6>
                               </div>
                             </div>
-                            <p class="text-muted f-s-14 text-secondary txt-ellipsis-2">I am a keen, hardworking, reliable and
-                              excellent timekeeper. I am a bright and receptive person</p>
+                            <p class="text-muted f-s-14 text-secondary txt-ellipsis-2">High-value vegetable sales fund orphanage meals and education...</p>
                             <div class="text-end mb-2">
                               <span class="badge text-light-primary">Progress</span>
                             </div>
@@ -142,8 +193,8 @@
                                 <img src="../assets/images/icons/logo2.png" alt="" class="img-fluid">
                               </div>
                               <a href="project_details.html" target="_blank" class="flex-grow-1 ps-2">
-                                <h6 class="m-0 text-dark f-w-600"> Designing</h6>
-                                <div class="text-muted f-s-14 f-w-500">Prototyping</div>
+                                <h6 class="m-0 text-dark f-w-600"> Miracles Goat Farm</h6>
+                                <div class="text-muted f-s-14 f-w-500">Grace & Mercy Orphanage</div>
                               </a>
                               <div class="dropdown">
                                 <button class="bg-none border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -171,12 +222,11 @@
                                 <h6 class="text-dark f-s-14 f-w-500">End Date : <span class="text-danger">2024-04-05</span></h6>
                               </div>
                               <div class="flex-grow-1 text-end">
-                                <p class="f-w-500 text-secondary">raised </p>
+                                <p class="f-w-500 text-secondary">Goal</p>
                                 <h6 class="f-w-600">$280</h6>
                               </div>
                             </div>
-                            <p class="text-muted f-s-14 text-secondary txt-ellipsis-2">I am a keen, hardworking, reliable and
-                              excellent timekeeper. I am a bright and receptive person</p>
+                            <p class="text-muted f-s-14 text-secondary txt-ellipsis-2">Goat dairy products sold locally fund infrastructure and scholarships...</p>
                             <div class="text-end mb-2">
                               <span class="badge text-light-success">Completed</span>
                             </div>
@@ -222,8 +272,8 @@
                                 <img src="../assets/images/icons/logo3.png" alt="" class="img-fluid">
                               </div>
                               <a href="project_details.html" target="_blank" class="flex-grow-1 ps-2">
-                                <h6 class="m-0 text-dark f-w-600"> Designing</h6>
-                                <div class="text-muted f-s-14 f-w-500">Dashboard</div>
+                                <h6 class="m-0 text-dark f-w-600">  Medicinal Herb Business</h6>
+                                <div class="text-muted f-s-14 f-w-500">Shalom Children Center</div>
                               </a>
                               <div class="dropdown">
                                 <button class="bg-none border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -251,12 +301,11 @@
                                 <h6 class="text-dark f-s-14 f-w-500">End Date : <span class="text-danger">2024-02-16</span></h6>
                               </div>
                               <div class="flex-grow-1 text-end">
-                                <p class="f-w-500 text-secondary">raised </p>
+                                <p class="f-w-500 text-secondary">Goal</p>
                                 <h6 class="f-w-600">$100k</h6>
                               </div>
                             </div>
-                            <p class="text-muted f-s-14 text-secondary txt-ellipsis-2">I am a keen, hardworking, reliable and
-                              excellent timekeeper. I am a bright and receptive person</p>
+                            <p class="text-muted f-s-14 text-secondary txt-ellipsis-2">Medicinal herbs processed into teas and remedies for premium prices...</p>
                             <div class="text-end mb-2">
                               <span class="badge text-light-secondary">New</span>
                             </div>
@@ -336,7 +385,7 @@
                                 <h6 class="text-dark f-s-14 f-w-500">End Date : <span class="text-danger">2024-01-01</span></h6>
                               </div>
                               <div class="flex-grow-1 text-end">
-                                <p class="f-w-500 text-secondary">raised </p>
+                                <p class="f-w-500 text-secondary">Goal</p>
                                 <h6 class="f-w-600">$400k</h6>
                               </div>
                             </div>
@@ -421,7 +470,7 @@
                                 <h6 class="text-dark f-s-14 f-w-500">End Date : <span class="text-danger">2024-01-01</span></h6>
                               </div>
                               <div class="flex-grow-1 text-end">
-                                <p class="f-w-500 text-secondary">raised </p>
+                                <p class="f-w-500 text-secondary">Goal</p>
                                 <h6 class="f-w-600">$200k</h6>
                               </div>
                             </div>
@@ -506,7 +555,7 @@
                                 <h6 class="text-dark f-s-14 f-w-500">End Date : <span class="text-danger">2024-09-26</span></h6>
                               </div>
                               <div class="flex-grow-1 text-end">
-                                <p class="f-w-500 text-secondary">raised </p>
+                                <p class="f-w-500 text-secondary">Goal</p>
                                 <h6 class="f-w-600">$400</h6>
                               </div>
                             </div>
@@ -595,7 +644,7 @@
                                 <h6 class="text-dark f-s-14 f-w-500">End Date : <span class="text-danger">2024-12-05</span></h6>
                               </div>
                               <div class="flex-grow-1 text-end">
-                                <p class="f-w-500 text-secondary">raised </p>
+                                <p class="f-w-500 text-secondary">Goal</p>
                                 <h6 class="f-w-600">$10k</h6>
                               </div>
                             </div>
@@ -685,7 +734,7 @@
                                 <h6 class="text-dark f-s-14 f-w-500">End Date : <span class="text-danger">2024-02-16</span></h6>
                               </div>
                               <div class="flex-grow-1 text-end">
-                                <p class="f-w-500 text-secondary">raised </p>
+                                <p class="f-w-500 text-secondary">Goal</p>
                                 <h6 class="f-w-600">$100k</h6>
                               </div>
                             </div>
@@ -770,7 +819,7 @@
                                 <h6 class="text-dark f-s-14 f-w-500">End Date : <span class="text-danger">2024-09-26</span></h6>
                               </div>
                               <div class="flex-grow-1 text-end">
-                                <p class="f-w-500 text-secondary">raised </p>
+                                <p class="f-w-500 text-secondary">Goal</p>
                                 <h6 class="f-w-600">$400</h6>
                               </div>
                             </div>
@@ -859,7 +908,7 @@
                                 <h6 class="text-dark f-s-14 f-w-500">End Date : <span class="text-danger">2024-01-01</span></h6>
                               </div>
                               <div class="flex-grow-1 text-end">
-                                <p class="f-w-500 text-secondary">raised </p>
+                                <p class="f-w-500 text-secondary">Goal</p>
                                 <h6 class="f-w-600">$400k</h6>
                               </div>
                             </div>
@@ -944,7 +993,7 @@
                                 <h6 class="text-dark f-s-14 f-w-500">End Date : <span class="text-danger">2024-01-01</span></h6>
                               </div>
                               <div class="flex-grow-1 text-end">
-                                <p class="f-w-500 text-secondary">raised </p>
+                                <p class="f-w-500 text-secondary">Goal</p>
                                 <h6 class="f-w-600">$200k</h6>
                               </div>
                             </div>

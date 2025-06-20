@@ -25,7 +25,7 @@ class Campaign extends Model
         'goal_amount',
         'prefered_amounts',
         'raised_amount',
-        'phone',
+        
        
     ];
 }

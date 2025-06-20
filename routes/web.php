@@ -48,7 +48,7 @@ Route::prefix('admin-dash')->middleware(['setlanguage:backend','adminGlobalVar']
         Route::get('/manageusers', [AdminDashboardController::class, 'manageUsers'])->name('admin.manageUsers');
         Route::get('/adduser', [AdminDashboardController::class, 'addUsers'])->name('admin.addUser');
         Route::get('/profile', [AdminDashboardController::class, 'profilePersonalInfo'])->name('admin.profilePersonalInfo');
-        Route::get('/campaign', [AdminDashboardController::class, 'campaign'])->name('admin.campaign');
+        Route::get('/campaign', [AdminDashboardController::class, 'Campaign'])->name('admin.campaign');
         Route::get('/campaign_details', [AdminDashboardController::class, 'campaignDetails'])->name('admin.campaignDetails');
 
 
