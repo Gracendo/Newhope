@@ -523,7 +523,7 @@
 
                           <li class="app-divider-v dotted py-1"></li>
                           <li>
-                            <a class="f-w-500" href="{{route('admin.profile.update')}}">
+                            <a class="f-w-500" href="{{route('admin.profile')}}">
                               <i class="ph-duotone  ph-user-circle pe-1 f-s-20"></i> {{__('Edit Profile')}}
                             </a>
                           </li>
