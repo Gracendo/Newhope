@@ -29,12 +29,14 @@
               Campaigns
             </a>
           </li>
-           <li class="menu-title"> <span>User Management</span></li>
-           <li class="no-sub">
-            <a class="" href="{{route('admin.manageUsers')}}" onclick="window.location.href='{{ route('admin.manageUsers') }}'; return false;">
-              <i class="fa-solid fa-user fa-fw"></i>  All users
-            </a>
-          </li>
+          @canany(['user-list','user-create'])
+            <li class="menu-title"> <span>User Management</span></li>
+            <li class="no-sub">
+              <a class="" href="{{route('admin.manageUsers')}}" onclick="window.location.href='{{ route('admin.manageUsers') }}'; return false;">
+                <i class="fa-solid fa-user fa-fw"></i>  All users
+              </a>
+            </li>
+          @endcanany
           
           <li class="no-sub">
             <a class=""href="{{route('admin.profilePersonalInfo')}}" onclick="window.location.href='{{ route('admin.profilePersonalInfo') }}'; return false;">
