@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('media_uploads', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->text('title');
             $table->text('path');
             $table->text('alt')->nullable();
