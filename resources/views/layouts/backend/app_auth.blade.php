@@ -13,7 +13,7 @@
   <link rel="icon" href="{{asset('assets/backend/images/logo/favicon.png')}}" type="image/x-icon">
   <link rel="shortcut icon" href="{{asset('assets/backend/images/logo/favicon.png')}}" type="image/x-icon">
 
-  <title>Sign In | ra-admin - Premium Admin Template</title>
+  <title>Sign In </title>
 
   <!--font-awesome-css-->
   <link rel="stylesheet" href="{{asset('assets/backend/vendor/fontawesome/css/all.css')}}">

@@ -1,4 +1,4 @@
-@extends('layouts.frontend.header')
+@extends('layouts.frontend.header_home')
 @section('home')
 
     <!-- Hero Section Start -->
@@ -51,7 +51,7 @@
     <!-- Hero Section End -->
 
     <!-- About Us Section Start -->
-    <div class="about-us">
+    <div class="about-us" id="about">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
@@ -229,13 +229,13 @@
     </div>
     <!-- What We Do Section End -->
       <!-- Our Causes Section Start -->
-   <div class="our-causes">
+   <div class="our-causes" id="orphanage">
         <div class="container">
             <div class="row section-row align-items-center">
                 <div class="col-lg-12">
                     <!-- Section Title Start -->
                     <div class="section-title">
-                        <h3 class="wow fadeInUp">our orpanages</h3>
+                        <h3 class="wow fadeInUp">our orphanages</h3>
                         <h2 class="text-anime-style-2" data-cursor="-opaque">Supporting local orphanages</h2>
                         <p class="wow fadeInUp" data-wow-delay="0.2s">We focus on providing a meaningful aid to local orphanages.Each fcfa you give can impact a child's life;from healthcare and education to food security and for lasting change.</p>
                     </div>
@@ -409,7 +409,7 @@
    <!-- Why Choose Us Section End -->
 
    <!-- Our Program Section Start -->
-   <div class="our-program">
+   <div class="our-program" id="campaign">
         <div class="container">
             <div class="row section-row align-items-center">
                 <div class="col-lg-12">
@@ -516,7 +516,7 @@
                     <div class="intro-video-box">
                         <!-- Video Play Button Start -->
                         <div class="video-play-button">
-                            <a href="https://www.youtube.com/watch?v=Y-x0efG1seA" class="popup-video" data-cursor-text="Play">
+                            <a href="https://www.youtube.com/watch?v=z0Nr_QBry5s" class="popup-video" data-cursor-text="Play">
                                 <i class="fa-solid fa-play"></i>
                             </a>
                         </div>
@@ -644,7 +644,7 @@
 
 
     <!-- Our Blog Section Start -->
-    <div class="our-blog">
+    <div class="our-blog" id="blog">
         <div class="container">
             <div class="row section-row">
                 <div class="col-lg-12">
@@ -674,7 +674,7 @@
 
                             <!-- Post Item Content Start -->
                             <div class="post-item-content">
-                                <h2><a href="blog-single.html">Youth Leadership Program Inspires the Next Generation</a></h2>
+                                <h2><a href="blog-single.html">Chicken farming project</a></h2>
                             </div>
                             <!-- Post Item Content End -->
                         </div>
@@ -684,7 +684,7 @@
                         <div class="post-featured-image">
                             <a href="blog-single.html" data-cursor-text="View">
                                 <figure class="image-anime">
-                                    <img src="{{asset('assets/frontend/images/post-1.jpg')}}" alt="">
+                                    <img src="{{asset('assets/frontend/images/post-1.jpeg')}}" alt="">
                                 </figure>
                             </a>
                         </div>
@@ -714,7 +714,7 @@
 
                             <!-- Post Item Content Start -->
                             <div class="post-item-content">
-                                <h2><a href="blog-single.html">Protecting Forests, Futures Our Environmental Mission</a></h2>
+                                <h2><a href="blog-single.html">Chicken farming Hope project</a></h2>
                             </div>
                             <!-- Post Item Content End -->
                         </div>
@@ -724,7 +724,7 @@
                         <div class="post-featured-image">
                             <a href="blog-single.html" data-cursor-text="View">
                                 <figure class="image-anime">
-                                    <img src="{{asset('assets/frontend/images/post-2.jpg')}}" alt="">
+                                    <img src="{{asset('assets/frontend/images/post-2.jpeg')}}" alt="">
                                 </figure>
                             </a>
                         </div>
@@ -754,7 +754,7 @@
 
                             <!-- Post Item Content Start -->
                             <div class="post-item-content">
-                                <h2><a href="blog-single.html">Partnering for Collaborative Impact Stories</a></h2>
+                                <h2><a href="blog-single.html">Chicken farming project South</a></h2>
                             </div>
                             <!-- Post Item Content End -->
                         </div>
@@ -764,7 +764,7 @@
                         <div class="post-featured-image">
                             <a href="blog-single.html" data-cursor-text="View">
                                 <figure class="image-anime">
-                                    <img src="{{asset('assets/frontend/images/post-3.jpg')}}" alt="">
+                                    <img src="{{asset('assets/frontend/images/post-3.jpeg')}}" alt="">
                                 </figure>
                             </a>
                         </div>
@@ -784,7 +784,7 @@
     <!-- Our Blog Section End -->
 
     <!-- Main Footer Section Start -->
-    <footer class="main-footer">
+    <footer class="main-footer"  id="contact">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

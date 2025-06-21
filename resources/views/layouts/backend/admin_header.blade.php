@@ -528,7 +528,7 @@
                             </a>
                           </li>
                           <li>
-                            <a class="f-w-500" href="{{route('admin.password.change')}}">
+                            <a class="f-w-500" href="{{route('admin.password')}}">
                               <i class="ph-duotone  ph-gear pe-1 f-s-20"></i> Update password
                             </a>
                           </li>

@@ -63,8 +63,8 @@ Route::prefix('admin-dash')->middleware(['setlanguage:backend','adminGlobalVar']
 
         Route::get('/profile-update', [AdminDashboardController::class, 'admin_profile'])->name('admin.profile');
         Route::post('/profile-update', [AdminDashboardController::class, 'admin_profile_update'])->name('admin.profile.update');
-        Route::get('/password-change', [AdminDashboardController::class, 'admin_password'])->name('admin.password.change');
-        Route::post('/password-change', [AdminDashboardController::class, 'admin_password_chagne']);
+        Route::get('/password-change', [AdminDashboardController::class, 'admin_password'])->name('admin.password');
+        Route::post('/password-change', [AdminDashboardController::class, 'admin_password_chagne'])->name('admin.password.change');
 
 
 
