@@ -32,14 +32,14 @@
                         <div class="program-image">
                             <a href="program-single.html" data-cursor-text="View">
                                 <figure class="image-anime">
-                                    <img src="images/program-1.jpg" alt="">
+                                    <img src="{{asset('assets/frontend/images/program-1.jpg')}}" alt="">
                                 </figure>
                             </a>
                         </div>
                         <div class="program-body">
                             <div class="program-content">
-                                <h3><a href="program-single.html">Women's empowerment</a></h3>
-                                <p>Providing resources, education, and advocacy for women's rights.</p>
+                                <h3><a href="program-single.html">Aqua farm</a></h3>
+                                <p>We aim at rairing about 200 fish in a 400m squared or more man made lakes</p>
                             </div>
                             <div class="program-button">
                                 <a href="program-single.html" class="readmore-btn">read more</a>
@@ -49,124 +49,7 @@
                     <!-- Program Item End -->                    
                 </div>
                 
-                <div class="col-lg-4 col-md-6">
-                    <!-- Program Item Start -->
-                    <div class="program-item wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="program-image">
-                            <a href="program-single.html" data-cursor-text="View">
-                                <figure class="image-anime">
-                                    <img src="images/program-2.jpg" alt="">
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="program-body">
-                            <div class="program-content">
-                                <h3><a href="program-single.html">Housing assistance</a></h3>
-                                <p>Providing resources, education, and advocacy for women's rights.</p>
-                            </div>
-                            <div class="program-button">
-                                <a href="program-single.html" class="readmore-btn">read more</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Program Item End -->                    
-                </div>
                 
-                <div class="col-lg-4 col-md-6">
-                    <!-- Program Item Start -->
-                    <div class="program-item wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="program-image">
-                            <a href="program-single.html" data-cursor-text="View">
-                                <figure class="image-anime">
-                                    <img src="images/program-3.jpg" alt="">
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="program-body">
-                            <div class="program-content">
-                                <h3><a href="program-single.html">Development and Job Training</a></h3>
-                                <p>Providing resources, education, and advocacy for women's rights.</p>
-                            </div>
-                            <div class="program-button">
-                                <a href="program-single.html" class="readmore-btn">read more</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Program Item End -->                    
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <!-- Program Item Start -->
-                    <div class="program-item wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="program-image">
-                            <a href="program-single.html" data-cursor-text="View">
-                                <figure class="image-anime">
-                                    <img src="images/program-4.jpg" alt="">
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="program-body">
-                            <div class="program-content">
-                                <h3><a href="program-single.html">Youth leadership program</a></h3>
-                                <p>Providing resources, education, and advocacy for women's rights.</p>
-                            </div>
-                            <div class="program-button">
-                                <a href="program-single.html" class="readmore-btn">read more</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Program Item End -->                    
-                </div>
-                
-                <div class="col-lg-4 col-md-6">
-                    <!-- Program Item Start -->
-                    <div class="program-item wow fadeInUp" data-wow-delay="0.8s">
-                        <div class="program-image">
-                            <a href="program-single.html" data-cursor-text="View">
-                                <figure class="image-anime">
-                                    <img src="images/program-5.jpg" alt="">
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="program-body">
-                            <div class="program-content">
-                                <h3><a href="program-single.html">Volunteer engagement</a></h3>
-                                <p>Providing resources, education, and advocacy for women's rights.</p>
-                            </div>
-                            <div class="program-button">
-                                <a href="program-single.html" class="readmore-btn">read more</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Program Item End -->                    
-                </div>
-                
-                <div class="col-lg-4 col-md-6">
-                    <!-- Program Item Start -->
-                    <div class="program-item wow fadeInUp" data-wow-delay="1s">
-                        <div class="program-image">
-                            <a href="program-single.html" data-cursor-text="View">
-                                <figure class="image-anime">
-                                    <img src="images/program-6.jpg" alt="">
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="program-body">
-                            <div class="program-content">
-                                <h3><a href="program-single.html">Disability support</a></h3>
-                                <p>Providing resources, education, and advocacy for women's rights.</p>
-                            </div>
-                            <div class="program-button">
-                                <a href="program-single.html" class="readmore-btn">read more</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Program Item End -->                    
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Page Programs End -->
 
     <!-- Main Footer Section Start -->
     <footer class="main-footer">

@@ -1,7 +1,7 @@
 <!-- Menu Navigation starts -->
     <nav>
       <div class="app-logo">
-        <a class="logo d-inline-block" href="index.html" >
+        <a class="logo d-inline-block" href="{{route('home')}}" >
            <div style="display:flex;align-items:center">
             <img src="{{asset('assets/frontend/images/loader.svg')}}" style="width:55px" alt="Logo" ><span  style="margin-left:10px;color :#FF6600; font-size:60"> Newhope </span>
            </div>
