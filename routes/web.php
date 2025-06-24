@@ -39,7 +39,6 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/orphanage', [OrphanageController::class, 'index'])->name('orphanage');
 Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
 Route::get('/signup', [SignupController::class, 'index'])->name('signup');
-Route::get('/signin', [SigninController::class, 'index'])->name('signin');
 
 
 
@@ -78,8 +77,8 @@ Route::prefix('admin-dash')->middleware(['setlanguage:backend','adminGlobalVar']
 
         Route::get('/profile-update', [AdminDashboardController::class, 'admin_profile'])->name('admin.profile');
         Route::post('/profile-update', [AdminDashboardController::class, 'admin_profile_update'])->name('admin.profile.update');
-        Route::get('/password-change', [AdminDashboardController::class, 'admin_password'])->name('admin.password.change');
-        Route::post('/password-change', [AdminDashboardController::class, 'admin_password_chagne']);
+        Route::get('/password-change', [AdminDashboardController::class, 'admin_password'])->name('admin.password');
+        Route::post('/password-change', [AdminDashboardController::class, 'admin_password_chagne'])->name('admin.password.change');
 
 
         Route::post('/campaigns', [CampaignsController::class, 'store'])->name('campaigns.store');
@@ -93,7 +92,7 @@ Route::prefix('admin-dash')->middleware(['setlanguage:backend','adminGlobalVar']
 }); 
 
 //End admin-dashboard
-
+ 
 /*----------------------------------------------------------------------------------------------------------------------------
 | User dashboard
 |----------------------------------------------------------------------------------------------------------------------------*/

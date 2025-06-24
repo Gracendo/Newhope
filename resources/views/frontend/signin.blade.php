@@ -71,9 +71,18 @@
                     <h3>Create Your Account</h3>
                     
                     <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" required>
+                        <label for="name">First Name</label>
+                        <input type="text" id="name" name="first_name" required>
                     </div>
+                    <div class="form-group">
+                        <label for="name">Last Name</label>
+                        <input type="text" id="name" name="last_name" required>
+                    </div>
+                      <div class="form-group">
+                        <label for="name">User Name</label>
+                        <input type="text" id="name" name="username" required>
+                    </div>
+                    
                     
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -84,16 +93,19 @@
                         <label for="password">Password</label>
                         <input type="password" id="password" name="password" required>
                     </div>
-                    
                     <div class="form-group">
-                        <label for="confirm-password">Confirm Password</label>
-                        <input type="password" id="confirm-password" name="confirm-password" required>
-                    </div>
+                        <label for="validationCustom04" >Status</label>
+                        <select class="form-select" id="validationCustom04" name="status"required>
+                          <option selected disabled value="">Choose...</option>
+                          <option value="OM">Orphanage Manager</option>
+                          <option value="C">Contributor</option>
+
+                        </select>
+                       
+                      </div>
                     
-                    <div class="form-group checkbox-group">
-                        <input type="checkbox" id="newsletter" name="newsletter" checked>
-                        <label for="newsletter">Subscribe to our newsletter</label>
-                    </div>
+                    
+                    
                     
                     <button type="submit" class="hero-btn">Join Now <i class="fas fa-arrow-right"></i></button>
                     
