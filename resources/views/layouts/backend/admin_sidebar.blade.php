@@ -43,8 +43,12 @@
               <i class="fa-solid fa-user fa-fw"></i>  My profile
             </a>
           </li>
-         
-
+           <li class="menu-title"> <span>Donation Management</span></li>
+                <li class="no-sub">
+            <a class=""href="{{route('donation_management')}}" onclick="window.location.href='{{ route('donation_management') }}'; return false;">
+              <i class="fa-solid fa-eur fa-fw"></i>  Donations
+            </a>
+          </li>
           
 
         </ul>

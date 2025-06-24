@@ -11,6 +11,8 @@ use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\OrphanageController;
+use App\Http\Controllers\CampaignDetailController;
+use App\Http\Controllers\DonationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\SigninController;
@@ -37,6 +39,8 @@ Route::get('/campaign', [CampaignController::class, 'index'])->name('campaign');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/orphanage', [OrphanageController::class, 'index'])->name('orphanage');
+Route::get('/campaign_detail', [CampaignDetailController::class, 'index'])->name('campaign_detail');
+Route::get('/donation', [DonationController::class, 'index'])->name('donation');
 Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
 Route::get('/signup', [SignupController::class, 'index'])->name('signup');
 
@@ -74,11 +78,11 @@ Route::prefix('admin-dash')->middleware(['setlanguage:backend','adminGlobalVar']
         Route::get('/profile', [AdminDashboardController::class, 'profilePersonalInfo'])->name('admin.profilePersonalInfo');
         Route::get('/campaign', [AdminDashboardController::class, 'Campaign'])->name('admin.campaign');
         Route::get('/campaign_details', [AdminDashboardController::class, 'campaignDetails'])->name('admin.campaignDetails');
-
         Route::get('/profile-update', [AdminDashboardController::class, 'admin_profile'])->name('admin.profile');
         Route::post('/profile-update', [AdminDashboardController::class, 'admin_profile_update'])->name('admin.profile.update');
         Route::get('/password-change', [AdminDashboardController::class, 'admin_password'])->name('admin.password');
         Route::post('/password-change', [AdminDashboardController::class, 'admin_password_chagne'])->name('admin.password.change');
+        Route::post('/donation_management', [Donationadmincontroller::class, 'index'])->name('donation_management');
 
 
         Route::post('/campaigns', [CampaignsController::class, 'store'])->name('campaigns.store');

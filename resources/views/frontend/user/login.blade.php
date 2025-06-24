@@ -1,45 +1,81 @@
 @extends('layouts.frontend.header')
 @section('home')
-<div class="container mt-5 mb-5">
-  <div class="row justify-content-center">
-    <div class="col-md-4">
-      <div class="card shadow-sm">
-        <div class="card-header text-center">
-          <h5 class="mb-0">Connexion</h5>
+<!-- Page Donation Start -->
+    <div class="page-donation">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Donation Box Start -->
+                    <div class="donation-box">
+                        <!-- Section Title Start -->
+                        <div class="section-title">
+                            <h3 class="wow fadeInUp">Log in</h3>
+                            <h2 class="text-anime-style-2" data-cursor="-opaque">Welcome back,change maker!</h2>
+                            <p class="wow fadeInUp" data-wow-delay="0.2s">Thankyou for every contribution you give to support these orphanages. Each contribution contributes in making them more authonomous.</p>
+                        </div>
+                        <!-- Section Title End -->
+
+                        <!-- Campaign Donation Form Start -->
+                        <div class="donate-form campaign-donate-form">
+                            <form id="donateForm"  method="post" enctype="multipart/form-data" action="{{ route('user.login') }}" method="POST">
+                               @csrf
+                                <!-- Donar Personal Info Start -->
+                                <div class="donar-personal-info">
+                                    <!-- Section Title Start -->
+                                    <div class="section-title">
+                                        <h2 class="text-anime-style-2" data-cursor="-opaque">Personal <span>info</span></h2>
+                                    </div>
+                                    <!-- Section Title End -->
+                
+                                    <div class="row wow fadeInUp" data-wow-delay="0.8s">
+                                        <div class="form-group col-md-6 mb-4">
+                                            <input type="text" name="username" class="form-control" id="username" placeholder="User Name" required>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                
+                
+                                
+                                        <div class="form-group col-md-12 mb-4">
+                                            <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                
+              
+                                        
+                                    </div>
+                                     
+                                </div>
+                                <!-- Donar Personal Info End -->
+                                    <div class="donate-payment-type wow fadeInUp" data-wow-delay="0.6s">
+                                        <div class="payment-method">
+                                            <input type="checkbox" name="remember"id="remember"  >
+                                            <labelfor="remember">{{__('Remember Me')}} </label>
+                                        </div>
+                                        
+                                    </div>
+                                    <br>
+                                <!-- Donar Info Form Button Start -->
+                                <div class="form-group-btn wow fadeInUp" data-wow-delay="1s">
+                                    
+                                    <button type="submit" class="btn-default">Log in</button>
+                                    
+                                    <div id="msgSubmit" class="h3 hidden"></div>
+                                </div>
+                                <!-- Donar Info Form Button End -->
+                            </form>
+                             <div class="card-footer text-center">
+          <small class="text-muted">Do not have an account yet ? <a href="{{ route('user.register') }}">Create an account</a></small>
         </div>
-        <div class="card-body">
-          <form action="{{ route('user.login') }}" method="post" enctype="multipart/form-data" class="account-form" id="login_form_order_page">
-            @csrf
-            <div class="error-wrap"></div>
-            <div class="mb-3">
-              <label for="text" class="form-label">Nom d'utilisateur</label>
-              <input type="text" class="form-control" id="username" name="username" placeholder="ex: user" required>
-            </div>
-
-            <div class="mb-3">
-              <label for="password" class="form-label">Mot de passe</label>
-              <input type="password" class="form-control" id="password" name="password" placeholder="********" required>
-            </div>
-
-            <div class="col-6 mt-3 mb-3">
-                <div class="custom-control custom-checkbox mr-sm-2">
-                    <input type="checkbox" name="remember" class="custom-control-input" id="remember">
-                    <label class="custom-control-label" for="remember">{{__('Remember Me')}}</label>
+                        </div>
+                        <!-- Campaign Donation Form End -->
+                    </div>
+                    <!-- Donation Box End -->
                 </div>
             </div>
-
-            <div class="d-grid">
-              <button type="submit" id="login_btn" class="btn btn-primary">Se connecter</button>
-            </div>
-          </form>
         </div>
-        <div class="card-footer text-center">
-          <small class="text-muted">Pas encore inscrit ? <a href="{{ route('user.register') }}">Créer un compte</a></small>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
+    <!-- Page Donation End -->
+
 
 @endsection
 

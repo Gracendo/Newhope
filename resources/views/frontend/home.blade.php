@@ -1,4 +1,4 @@
-@extends('layouts.frontend.header_home')
+@extends('layouts.frontend.header')
 @section('home')
 
     <!-- Hero Section Start -->

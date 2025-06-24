@@ -38,12 +38,12 @@
 <body>
 
     <!-- Preloader Start -->
-	<!-- <div class="preloader">
+	<div class="preloader">
 		<div class="loading-container">
 			<div class="loading"></div>
 			<div id="loading-icon"><img src="{{asset('assets/frontend/images/loader.svg')}}" alt=""></div>
 		</div>
-	</div> -->
+	</div>
 	<!-- Preloader End -->
 
     <!-- Header Start -->
@@ -81,7 +81,7 @@
                             </div>
                             <div class="contact-now-box-content">
                                 <p>Join us !</p>
-                                <h3><a href="{{route('signup')}}" >LOG IN</a></h3>                                
+                                <h3><a href="{{route('user.login')}}" >LOG IN</a></h3>                                
                             </div>
                         </div>
                         <!-- Contact Now Box End -->

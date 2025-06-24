@@ -9,7 +9,7 @@ class SignupController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function showRegistrationForm()
     {
          return view('frontend.signup');
     }

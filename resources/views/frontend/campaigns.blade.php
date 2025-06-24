@@ -38,11 +38,11 @@
                         </div>
                         <div class="program-body">
                             <div class="program-content">
-                                <h3><a href="program-single.html">Aqua farm</a></h3>
+                                <h3><a href="{{route('campaign_detail')}}">Aqua farm</a></h3>
                                 <p>We aim at rairing about 200 fish in a 400m squared or more man made lakes</p>
                             </div>
                             <div class="program-button">
-                                <a href="program-single.html" class="readmore-btn">read more</a>
+                                <a href="{{route('campaign_detail')}}" class="readmore-btn">read more</a>
                             </div>
                         </div>
                     </div>
