@@ -66,5 +66,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'setlanguage' => \App\Http\Middleware\SetLanguage::class,
         'adminGlobalVar' => \App\Http\Middleware\adminGlobalVar::class,
+        'userEmailVerify' => \App\Http\Middleware\UserEmailVerify::class,
+        'maintains_mode' => \App\Http\Middleware\MaintainsMode::class,
+        'globalVariable' => \App\Http\Middleware\GlobalVariableMiddleware::class,
     ];
 }

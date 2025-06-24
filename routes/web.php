@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\Admin\CampaignsController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -50,6 +52,19 @@ Route::middleware(['setlanguage:backend'])->group(function (){
     Route::get('/logout/admin',[AdminDashboardController::class, 'adminLogout'])->name('admin.logout');
 });
 
+/*----------------------------------------------------------------------------------------------------------------------------
+| User login - Registration
+|----------------------------------------------------------------------------------------------------------------------------*/
+//user login
+    Route::get('/login',[LoginController::class, 'showLoginForm'])->name('user.login');
+    Route::post('/ajax-login',[HomeController::class, 'ajax_login'])->name('user.ajax.login');
+    Route::post('/login',[LoginController::class, 'login']);
+    Route::get('/register',[SignupController::class, 'showRegistrationForm'])->name('user.register');
+
+//user email verify
+    Route::get('/user/email-verify',[UserDashboardController::class, 'user_email_verify_index'])->name('user.email.verify');
+
+
 //Admin Dashboard
 
 Route::prefix('admin-dash')->middleware(['setlanguage:backend','adminGlobalVar'])->group(function () {
@@ -67,6 +82,9 @@ Route::prefix('admin-dash')->middleware(['setlanguage:backend','adminGlobalVar']
         Route::post('/password-change', [AdminDashboardController::class, 'admin_password_chagne']);
 
 
+        Route::post('/campaigns', [CampaignsController::class, 'store'])->name('campaigns.store');
+
+
 
 
 
@@ -76,6 +94,9 @@ Route::prefix('admin-dash')->middleware(['setlanguage:backend','adminGlobalVar']
 
 //End admin-dashboard
 
-Auth::routes();
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+/*----------------------------------------------------------------------------------------------------------------------------
+| User dashboard
+|----------------------------------------------------------------------------------------------------------------------------*/
+Route::prefix('user-home')->middleware(['userEmailVerify', 'setlanguage:frontend', 'globalVariable', 'maintains_mode'])->group(function () {
+    Route::get('/', [UserDashboardController::class, 'user_index'])->name('user.home');
+});

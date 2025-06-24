@@ -17,7 +17,7 @@ class LangSeeder extends Seeder
         DB::table('langs')->insert([
             [
                 'name' => 'Français',
-                'slug' => Str::slug('Français'),
+                'slug' => 'fr_FR',
                 'direction' => 'ltr',
                 'status' => 'publish',
                 'default' => 1,
@@ -26,18 +26,9 @@ class LangSeeder extends Seeder
             ],
             [
                 'name' => 'Anglais',
-                'slug' => Str::slug('Anglais'),
+                'slug' => 'en_GB',
                 'direction' => 'ltr',
                 'status' => 'active',
-                'default' => 0,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Arabe',
-                'slug' => Str::slug('Arabe'),
-                'direction' => 'rtl',
-                'status' => 'inactive',
                 'default' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),

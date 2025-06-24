@@ -32,6 +32,18 @@ class StaticOptionsSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'option_name' => 'disable_user_email_verify',
+                'option_value' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'option_name' => 'site_maintenance_mode',
+                'option_value' => NULL,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

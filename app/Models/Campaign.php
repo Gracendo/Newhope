@@ -10,7 +10,6 @@ class Campaign extends Model
     use HasFactory;
     protected $fillable = [
         'Orphanage_id',
-        'id',
         'name',
         'image',
         'gallery',
@@ -25,7 +24,10 @@ class Campaign extends Model
         'goal_amount',
         'prefered_amounts',
         'raised_amount',
-        
-       
     ];
+
+    public function orphanage()
+    {
+        return $this->belongsTo(Orphanage::class);
+    }
 }

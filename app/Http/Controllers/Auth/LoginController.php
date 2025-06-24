@@ -59,6 +59,11 @@ class LoginController extends Controller
         return view('auth.admin.login');
     }
 
+    public function showLoginForm()
+    {
+        return view('frontend.user.login');
+    }
+
     public function adminLogin(Request $request)
     {
         $this->validate($request, [

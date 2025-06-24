@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Models\Orphanage;
+use App\Models\Campaign;
 use App\Models\Admin;
 use App\Models\Lang;
 use App\Models\User;
@@ -29,13 +31,13 @@ class AdminDashboardController extends Controller
         ]);
     }
 
-     public function manageUsers()
+    public function manageUsers()
     {
         $all_user = Admin::all()->except(Auth::id());
         return view('backend.manage_users')->with(['all_user' => $all_user]);
     }
 
-     public function addUsers()
+    public function addUsers()
     {
         return view('backend.forms.add_user_form');
     }
@@ -45,14 +47,19 @@ class AdminDashboardController extends Controller
         Auth::logout();
         return redirect()->route('admin.login')->with(['msg' => __('You Logged Out !!'), 'type' => 'danger']);
     }
-     public function profilePersonalInfo()
+
+    public function profilePersonalInfo()
     {
         return view('backend.profile');
     }
-     public function Campaign()
+
+    public function Campaign()
     {
-        return view('backend.campaign');
+        $orphanages = Orphanage::all();
+        $campaigns = Campaign::with('orphanage')->get();
+        return view('backend.campaign', compact('orphanages','campaigns'));
     }
+    
     public function campaignDetails()
     {
         return view('backend.campaign_details');

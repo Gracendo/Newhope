@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
             RolesTableSeeder::class,
             PermissionsTableSeeder::class,
             AdminSeeder::class,
+            UserSeeder::class,
+            OrphanageSeeder::class,
+            DonationCategorySeeder::class,
         ]);
     }
 }
