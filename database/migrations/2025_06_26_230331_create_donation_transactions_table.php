@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('donation_transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('donor_name');
+            $table->string('donor_email');
             $table->decimal('amount', 10, 2);
             $table->text('message')->nullable();
             $table->boolean('anonymous')->default(false);
