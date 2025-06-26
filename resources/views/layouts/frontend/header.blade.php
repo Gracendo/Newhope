@@ -79,9 +79,15 @@
                                      style="filter: brightness(0) invert(1);"
                                     >
                             </div>
+                            
                             <div class="contact-now-box-content">
+                                @if (session('status'))
+                                <h3><a href="{{route('user.login')}}" >MY PROFILE</a></h3>   
+
+                                @else
                                 <p>Join us !</p>
-                                <h3><a href="{{route('user.login')}}" >LOG IN</a></h3>                                
+                                <h3><a href="{{route('user.login')}}" >LOG IN</a></h3>   
+                                @endif                             
                             </div>
                         </div>
                         <!-- Contact Now Box End -->

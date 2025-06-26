@@ -1,6 +1,6 @@
 @extends('layouts.frontend.header')
 @section('home')
- <!-- Page Header Start -->
+    <!-- Page Header Start -->
     <div class="page-header parallaxie">
         <div class="container">
             <div class="row align-items-center">
@@ -26,30 +26,34 @@
     <div class="page-programs">
         <div class="container">
             <div class="row">
+                @foreach($campaigns as $campaign)
                 <div class="col-lg-4 col-md-6">
                     <!-- Program Item Start -->
                     <div class="program-item wow fadeInUp">
                         <div class="program-image">
-                            <a href="program-single.html" data-cursor-text="View">
+                            <a href="{{ route('campaign.details', $campaign->id) }}" data-cursor-text="View">
                                 <figure class="image-anime">
-                                    <img src="{{asset('assets/frontend/images/program-1.jpg')}}" alt="">
+                                    <img src="{{ Storage::url($campaign->image) }}" alt="{{ $campaign->name }}">
                                 </figure>
                             </a>
                         </div>
                         <div class="program-body">
                             <div class="program-content">
-                                <h3><a href="{{route('campaign_detail')}}">Aqua farm</a></h3>
-                                <p>We aim at rairing about 200 fish in a 400m squared or more man made lakes</p>
+                                <h3><a href="{{ route('campaign.details', $campaign->id) }}">{{ $campaign->name }}</a></h3>
+                                <p>{{ Str::limit($campaign->objectif, 100) }}...</p>
                             </div>
                             <div class="program-button">
-                                <a href="{{route('campaign_detail')}}" class="readmore-btn">read more</a>
+                                <a href="{{ route('campaign.details', $campaign->id) }}" class="readmore-btn">read more</a>
                             </div>
                         </div>
                     </div>
                     <!-- Program Item End -->                    
                 </div>
-                
-                
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <!-- Page Programs End -->
 
     <!-- Main Footer Section Start -->
     <footer class="main-footer">
@@ -201,8 +205,4 @@
     <script src="js/wow.min.js"></script>
     <!-- Main Custom js file -->
     <script src="js/function.js"></script>
-</body>
-
-<!-- Mirrored from html.awaikenthemes.com/lenity/programmes.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 18 Jun 2025 01:10:35 GMT -->
-</html>
 @endsection

@@ -1,18 +1,18 @@
 @extends('layouts.frontend.header')
 @section('home')
-  <!-- Page Header Start -->
+    <!-- Page Header Start -->
     <div class="page-header parallaxie">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <!-- Page Header Box Start -->
                     <div class="page-header-box">
-                        <h1 class="text-anime-style-2" data-cursor="-opaque"><span>Housing</span> assistance</h1>
+                        <h1 class="text-anime-style-2" data-cursor="-opaque"><span>{{ $campaign->name }}</span></h1>
                         <nav class="wow fadeInUp">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index-2.html">home</a></li>
-                                <li class="breadcrumb-item"><a href="programmes.html">programmes</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Housing assistance</li>
+                                <li class="breadcrumb-item"><a href="{{ route('home') }}">home</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('campaign') }}">campaigns</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ $campaign->name }}</li>
                             </ol>
                         </nav>
                     </div>
@@ -30,35 +30,35 @@
                 <div class="col-lg-4">
                     <!-- Page Single Sidebar Start -->
                     <div class="page-single-sidebar">
-                        <!-- Page Sidebar Category List Start -->
+                        <!-- Campaign Info Box Start -->
                         <div class="page-sidebar-catagery-list wow fadeInUp">
-                            <h3>program category</h3>
+                            <h3>Campaign Details</h3>
                             <ul>
-                                <li><a href="#">women's empowerment</a></li>
-                                <li><a href="#">housing assistance</a></li>
-                                <li><a href="#">development and job training</a></li>
-                                <li><a href="#">youth leadership program</a></li>
-                                <li><a href="#">volunteer engagement</a></li>
+                                <li><strong>Status:</strong> {{ ucfirst($campaign->status) }}</li>
+                                <li><strong>Goal Amount:</strong> {{ number_format($campaign->goal_amount, 2) }}FCFA</li>
+                                <li><strong>Raised Amount:</strong> {{ number_format($campaign->raised_amount, 2) }}FCFA</li>
+                                <li><strong>Start Date:</strong> {{ $campaign->start_date }}</li>
+                                <li><strong>End Date:</strong> {{ $campaign->end_date }}</li>
                             </ul>
                         </div>
-                        <!-- Page Sidebar Category List End -->
+                        <!-- Campaign Info Box End -->
 
                         <!-- Sidebar CTA Box Start -->
-                        <div class="sidebar-cta-box wow fadeInUp" data-wow-delay="0.2   s">
+                        <div class="sidebar-cta-box wow fadeInUp" data-wow-delay="0.2s">
                             <!-- Cta Content Start -->
                             <div class="icon-box">
-                                <img src="images/icon-cta.svg" alt="">
+                                <img src="{{ asset('assets/frontend/images/icon-cta.svg') }}" alt="">
                             </div>
 
                             <div class="sidebar-cta-content">
                                 <p>small gifts, big changes</p>
-                                <h3>empowering every child through education</h3>
+                                <h3>empowering every orphanages through crowdfunding</h3>
                             </div>
                             <!-- Cta Content End -->
 
                             <!-- Cta Appointment Button Start -->
                             <div class="sidebar-cta-btn">
-                                <a href="contact.html" class="btn-default">Get a quote</a>
+                                <a href="{{ route('donation') }}" class="btn-default">Donate Now</a>
                             </div>
                             <!-- Cta Appointment Button End -->
                         </div>
@@ -73,91 +73,56 @@
                         <!-- Program Feature Image Start -->
                         <div class="program-feature-image">
                             <figure class="image-anime reveal">
-                                <img src="images/program-2.jpg" alt="">
+                                <img src="{{ Storage::url($campaign->image) }}" alt="{{ $campaign->name }}">
                             </figure>
                         </div>
                         <!-- Program Feature Image End -->
                     
                         <!-- Program Entry Start -->
                         <div class="program-entry">
-                            <h2 class="text-anime-style-2">Shelter for Vulnerable Populations</h2>                        
-                            <p class="wow fadeInUp">Shelter for vulnerable populations aims to provide safe, secure, and stable housing for individuals and families who are at risk of homelessness or experiencing housing instability. This program focuses on addressing the immediate needs of those who have faced crisis situations, such as domestic violence, displacement.</p>                            
-                            <p class="wow fadeInUp" data-wow-delay="0.2s">Through a combination of emergency shelters, supportive services, and transitional housing options, we offer a pathway to long-term stability. Our goal is to empower these individuals by providing not only a place to live but also the resources and support needed to rebuild their lives, achieve self-sufficiency, and reintegrate into the community.</p>
+                            <h2 class="text-anime-style-2">{{ $campaign->name }}</h2>                        
+                            <p class="wow fadeInUp">{{ $campaign->description }}</p>
 
                             <div class="building-stability-box">
-                                <h2 class="text-anime-style-2">Bringing quality care to all</h2>
-                                <p class="wow fadeInUp">Bringing quality healthcare to everyone, regardless of background, by providing accessible, compassionate, and comprehensive medical services for all individuals.</p>
-                                <ul class="wow fadeInUp" data-wow-delay="0.2s">
-                                    <li>housing counseling and advocacy</li>
-                                    <li>shelter for homeless individuals</li>
-                                    <li>rehousing and relocation services</li>
-                                    <li>transitional housing program</li>
-                                    <li>youth homelessness prevention</li>
-                                    <li>permanent housing solutions</li>
-                                </ul>
-
-                                <!-- Program Entry Video Start -->
+                                <h2 class="text-anime-style-2">Campaign Objectives</h2>
+                                <p class="wow fadeInUp">{{ $campaign->objectif }}</p>
+                                
+                                @if($campaign->gallery)
+                                <!-- Gallery Section Start -->
                                 <div class="program-entry-video intro-video-box wow fadeInUp" data-wow-delay="0.4s">
-                                    <!-- Program Entry Video Start -->
+                                    @foreach(json_decode($campaign->gallery) as $image)
+                                    <!-- Gallery Item Start -->
                                     <div class="program-entry-video-item">
-                                        <!-- Video Image Start -->
                                         <div class="program-entry-video-image">
                                             <figure class="image-anime">
-                                                <img src="images/program-entry-video-image-1.jpg" alt="">
+                                                <img src="{{ Storage::url($image) }}" alt="Gallery Image">
                                             </figure>
                                         </div>
-                                        <!-- Video Image End -->
-    
-                                        <!-- Video Play Button Start -->
-                                        <div class="video-play-button">
-                                            <a href="https://www.youtube.com/watch?v=Y-x0efG1seA" class="popup-video" data-cursor-text="Play">
-                                                <i class="fa-solid fa-play"></i>
-                                            </a>
-                                        </div>
-                                        <!-- Video Play Button End -->
                                     </div>
-                                    <!-- Program Entry Image End -->
-                                    
-                                    <!-- Program Entry Video Start -->
-                                    <div class="program-entry-video-item">
-                                        <!-- Video Image Start -->
-                                        <div class="program-entry-video-image">
-                                            <figure class="image-anime">
-                                                <img src="images/program-entry-video-image-2.jpg" alt="">
-                                            </figure>
-                                        </div>
-                                        <!-- Video Image End -->
-    
-                                        <!-- Video Play Button Start -->
-                                        <div class="video-play-button">
-                                            <a href="https://www.youtube.com/watch?v=Y-x0efG1seA" class="popup-video" data-cursor-text="Play">
-                                                <i class="fa-solid fa-play"></i>
-                                            </a>
-                                        </div>
-                                        <!-- Video Play Button End -->
-                                    </div>
-                                    <!-- Program Entry Image End -->
+                                    <!-- Gallery Item End -->
+                                    @endforeach
                                 </div>
-                                <!-- Program Entry Video End -->
+                                <!-- Gallery Section End -->
+                                @endif
 
-                                <p class="wow fadeInUp" data-wow-delay="0.6s">Our programs aim to address housing instability by offering emergency, transitional, and permanent housing options, coupled with essential resources like financial counseling, job training, and community engagement. By empowering people with the stability of a safe home, we foster a foundation for improved well-being, personal growth, and hope for a brighter future.</p>
+                                <p class="wow fadeInUp" data-wow-delay="0.6s">{{ $campaign->project_duration }}</p>
                             </div>                    
 
                             <!-- Program Why Choose Start -->
                             <div class="program-why-choose">
-                                <h2 class="text-anime-style-2">Why Choose Housing Assistance</h2>
-                                <p class="wow fadeInUp">Choose Housing Assistance for secure, affordable solutions that provide stability, support, and a brighter future for individuals and families facing housing challenges.</p>
+                                <h2 class="text-anime-style-2">Why Support This Campaign</h2>
+                                <p class="wow fadeInUp">Your support makes a real difference in the lives of those we serve. Here's why this campaign matters:</p>
 
                                 <!-- Program Why Choose List Start -->
                                 <div class="program-why-choose-list">
                                     <!-- Program Why Choose Item Start -->
                                     <div class="program-why-choose-item wow fadeInUp">
                                         <div class="icon-box">
-                                            <img src="images/icon-program-why-choose-1.svg" alt="">
+                                            <img src="{{ asset('assets/frontend/images/icon-program-why-choose-1.svg') }}" alt="">
                                         </div>
                                         <div class="program-why-choose-content">
-                                            <h3>secure housing options</h3>
-                                            <p>Secure Housing Options provide stable, affordable, & reliable housing solutions for individuals and families facing </p>
+                                            <h3>Direct Impact</h3>
+                                            <p>Your contribution directly supports {{ $campaign->name }}, creating measurable change in our community.</p>
                                         </div>
                                     </div>
                                     <!-- Program Why Choose Item End -->
@@ -165,11 +130,11 @@
                                     <!-- Program Why Choose Item Start -->
                                     <div class="program-why-choose-item wow fadeInUp" data-wow-delay="0.2s">
                                         <div class="icon-box">
-                                            <img src="images/icon-program-why-choose-2.svg" alt="">
+                                            <img src="{{ asset('assets/frontend/images/icon-program-why-choose-2.svg') }}" alt="">
                                         </div>
                                         <div class="program-why-choose-content">
-                                            <h3>comprehensive support services</h3>
-                                            <p>Secure Housing Options provide stable, affordable, & reliable housing solutions for individuals and families facing </p>
+                                            <h3>Sustainable Solutions</h3>
+                                            <p>We focus on long-term solutions that create lasting change beyond immediate needs.</p>
                                         </div>
                                     </div>
                                     <!-- Program Why Choose Item End -->
@@ -177,11 +142,11 @@
                                     <!-- Program Why Choose Item Start -->
                                     <div class="program-why-choose-item wow fadeInUp" data-wow-delay="0.4s">
                                         <div class="icon-box">
-                                            <img src="images/icon-program-why-choose-3.svg" alt="">
+                                            <img src="{{ asset('assets/frontend/images/icon-program-why-choose-3.svg') }}" alt="">
                                         </div>
                                         <div class="program-why-choose-content">
-                                            <h3>empowerment and stability</h3>
-                                            <p>Secure Housing Options provide stable, affordable, & reliable housing solutions for individuals and families facing </p>
+                                            <h3>Transparent Process</h3>
+                                            <p>We maintain complete transparency about how funds are used and the impact created.</p>
                                         </div>
                                     </div>
                                     <!-- Program Why Choose Item End -->
@@ -189,11 +154,11 @@
                                     <!-- Program Why Choose Item Start -->
                                     <div class="program-why-choose-item wow fadeInUp" data-wow-delay="0.6s">
                                         <div class="icon-box">
-                                            <img src="images/icon-program-why-choose-4.svg" alt="">
+                                            <img src="{{ asset('assets/frontend/images/icon-program-why-choose-4.svg') }}" alt="">
                                         </div>
                                         <div class="program-why-choose-content">
-                                            <h3>building self-sufficiency</h3>
-                                            <p>Secure Housing Options provide stable, affordable, & reliable housing solutions for individuals and families facing </p>
+                                            <h3>Community Focused</h3>
+                                            <p>This initiative was developed with direct input from the community it serves.</p>
                                         </div>
                                     </div>
                                     <!-- Program Why Choose Item End -->
@@ -202,17 +167,14 @@
 
                                 <!-- Service Contact Text Start -->
                                 <div class="section-footer-text program-why-choose-footer wow fadeInUp" data-wow-delay="0.8s">
-                                      @if (session('status'))
-                                    <p><span>1000FCFA</span> Can grately help this orphanage in becoming authonomous. 
-                                    
-                                    <a href="{{route('donation')}}">Contribute now</a>   </p>
-                                     <p><span>Your Experience</span> Means alot to  this orphanage's aim of becoming authonomous. 
-                                    
-                                      <a href="donation.html">Volunteer now</a></p>
+                                    @if (session('status'))
+                                    <p><span>1000FCFA</span> Can greatly help this orphanage in becoming autonomous. 
+                                    <a href="{{ route('donation') }}">Contribute now</a></p>
+                                    <p><span>Your Experience</span> Means a lot to this orphanage's aim of becoming autonomous. 
+                                    <a href="{{ route('donation') }}">Volunteer now</a></p>
                                     @else 
-                                    <p><span>1000FCFA</span> Can grately help this orphanage in becoming authonomous. 
-                                    
-                                    <a href="{{route('donation')}}">Fund now</a></p>
+                                    <p><span>1000FCFA</span> Can greatly help this orphanage in becoming autonomous. 
+                                    <a href="{{ route('donation') }}">Fund now</a></p>
                                     @endif
                                 </div>
                                 <!-- Service Contact Text End -->
@@ -235,12 +197,12 @@
                                 <div class="accordion-item wow fadeInUp">
                                     <h2 class="accordion-header" id="heading1">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                                            What is the mission of your organization?
+                                            What is the goal of this campaign?
                                         </button>
                                     </h2>
                                     <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading1" data-bs-parent="#accordion">
                                         <div class="accordion-body">
-                                            <p>You can volunteer, donate, or partner with us to support our initiatives. Visit our Get Involved page for more details.</p>
+                                            <p>The primary goal is to {{ $campaign->objectif }} with a target of raising ${{ number_format($campaign->goal_amount, 2) }}.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -250,12 +212,12 @@
                                 <div class="accordion-item wow fadeInUp" data-wow-delay="0.2s">
                                     <h2 class="accordion-header" id="heading2">
                                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                            How can I get involved?
+                                            How can I contribute?
                                         </button>
                                     </h2>
                                     <div id="collapse2" class="accordion-collapse collapse show" aria-labelledby="heading2" data-bs-parent="#accordion">
                                         <div class="accordion-body">
-                                            <p>You can volunteer, donate, or partner with us to support our initiatives. Visit our Get Involved page for more details.</p>
+                                            <p>You can make a financial donation or volunteer your time and skills. Click the "Donate Now" button above to contribute financially.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -265,12 +227,12 @@
                                 <div class="accordion-item wow fadeInUp" data-wow-delay="0.4s">
                                     <h2 class="accordion-header" id="heading3">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                                            Where do your donations go?
+                                            How will my donation be used?
                                         </button>
                                     </h2>
                                     <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#accordion">
                                         <div class="accordion-body">
-                                            <p>You can volunteer, donate, or partner with us to support our initiatives. Visit our Get Involved page for more details.</p>
+                                            <p>Funds will be used specifically for {{ $campaign->name }} as outlined in our project description. We provide regular updates on fund utilization.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -280,12 +242,12 @@
                                 <div class="accordion-item wow fadeInUp" data-wow-delay="0.6s">
                                     <h2 class="accordion-header" id="heading4">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                                            Are my donations tax-deductible?
+                                            When will this campaign end?
                                         </button>
                                     </h2>
                                     <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordion">
                                         <div class="accordion-body">
-                                            <p>You can volunteer, donate, or partner with us to support our initiatives. Visit our Get Involved page for more details.</p>
+                                            <p>The campaign is scheduled to run until {{ $campaign->end_date }} or until we reach our funding goal.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -295,12 +257,12 @@
                                 <div class="accordion-item wow fadeInUp" data-wow-delay="0.8s">
                                     <h2 class="accordion-header" id="heading5">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
-                                            How can I volunteer with your organization?
+                                            Can I get updates on this project?
                                         </button>
                                     </h2>
                                     <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-bs-parent="#accordion">
                                         <div class="accordion-body">
-                                            <p>You can volunteer, donate, or partner with us to support our initiatives. Visit our Get Involved page for more details.</p>
+                                            <p>Yes! Subscribe to our newsletter or follow us on social media for regular updates on this and other projects.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -318,157 +280,8 @@
     <!-- Page Program Single End -->
 
     <!-- Main Footer Section Start -->
-    <footer class="main-footer">
+    <!-- <footer class="main-footer">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <!-- Main Footer Box Start -->
-                    <div class="main-footer-box">
-                        <!-- Footer About Start -->
-                        <div class="footer-about">
-                            <!-- Footer Logo Start -->
-                            <div class="footer-logo">
-                                <img src="images/footer-logo.svg" alt="">
-                            </div>
-                            <!-- Footer Logo End -->
-                            
-                            <!-- Footer Contact Detail Start -->
-                            <div class="footer-contact-detail">
-                                <div class="footer-contact-item">
-                                    <p>Toll free customer care</p>
-                                    <h3><a href="tel:+123456789">+123 456 789</a></h3>
-                                </div>
-                                
-                                <div class="footer-contact-item">
-                                    <p>Need live support!</p>
-                                    <h3><a href="mailto:info@domainname.com">info@domainname.com</a></h3>
-                                </div>
-                            </div>
-                            <!-- Footer Contact Detail End -->
-                            
-                            <!-- Footer Social Links Start -->
-                            <div class="footer-social-links">
-                                <h3>Follow on</h3>
-                                <ul>
-                                    <li><a href="#"><i class="fa-brands fa-pinterest-p"></i></a></li>
-                                    <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>                                    								
-                                </ul>
-                            </div>
-                            <!-- Footer Social Links End -->
-                        </div>
-                        <!-- Footer About End -->
-
-                        <!-- Footer Links Box Start -->
-                        <div class="footer-links-box">
-                            <!-- Newsletter Form Start -->
-                            <div class="newsletter-form">
-                                <form id="newsletterForm" action="#" method="POST">
-                                    <div class="form-group">
-                                        <input type="email" name="email" class="form-control" id="mail" placeholder="Enter Your Email" required="">
-                                        <button type="submit" class="newsletter-btn"><i class="fa-regular fa-paper-plane"></i></button>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- Newsletter Form End -->
-
-                            <!-- Footer Links Start -->
-                            <div class="footer-links">
-                                <h3>Quick link</h3>
-                                <ul>
-                                    <li><a href="index.html">home</a></li>
-                                    <li><a href="about.html">about us</a></li>
-                                    <li><a href="services.html">services</a></li>
-                                    <li><a href="blog.html">blog</a></li>
-                                </ul>
-                            </div>
-                            <!-- Footer Links End -->
-                            
-                            <!-- Footer Links Start -->
-                            <div class="footer-links footer-service-links">
-                                <h3>services</h3>
-                                <ul>
-                                    <li><a href="service-single.html">food security initiatives</a></li>
-                                    <li><a href="service-single.html">healthcare access</a></li>
-                                    <li><a href="service-single.html">educational support</a></li>
-                                    <li><a href="service-single.html">youth development</a></li>
-                                </ul>
-                            </div>
-                            <!-- Footer Links End -->
-                            
-                            <!-- Footer Links Start -->
-                            <div class="footer-links">
-                                <h3>support</h3>
-                                <ul>
-                                    <li><a href="#">help</a></li>
-                                    <li><a href="#">privacy policy</a></li>
-                                    <li><a href="#">term's & condition</a></li>
-                                    <li><a href="#">support</a></li>
-                                </ul>
-                            </div>
-                            <!-- Footer Links End -->
-                        </div>
-                        <!-- Footer Links Box End -->
-                    </div>
-                    <!-- Main Footer Box End -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Footer Copyright Start -->
-        <div class="footer-copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <!-- Copyright Text Start -->
-                        <div class="copyright-text">
-                            <p>Copyright © 2025 All Rights Reserved.</p>
-                        </div>
-                        <!-- Copyright Text End -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer Copyright End -->
-    </footer>
-    <!-- Main Footer Section End -->
-
-    <!-- Jquery Library File -->
-    <script src="js/jquery-3.7.1.min.js"></script>
-    <!-- Bootstrap js file -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- Validator js file -->
-    <script src="js/validator.min.js"></script>
-    <!-- SlickNav js file -->
-    <script src="js/jquery.slicknav.js"></script>
-    <!-- Swiper js file -->
-    <script src="js/swiper-bundle.min.js"></script>
-    <!-- Counter js file -->
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.counterup.min.js"></script>
-    <!-- Isotop js file -->
-	<script src="js/isotope.min.js"></script>
-    <!-- Magnific js file -->
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <!-- SmoothScroll -->
-    <script src="js/SmoothScroll.js"></script>
-    <!-- Parallax js -->
-    <script src="js/parallaxie.js"></script>
-    <!-- MagicCursor js file -->
-    <script src="js/gsap.min.js"></script>
-    <script src="js/magiccursor.js"></script>
-    <!-- Text Effect js file -->
-    <script src="js/SplitText.js"></script>
-    <script src="js/ScrollTrigger.min.js"></script>
-    <!-- YTPlayer js File -->
-    <script src="js/jquery.mb.YTPlayer.min.js"></script>
-    <!-- Wow js file -->
-    <script src="js/wow.min.js"></script>
-    <!-- Main Custom js file -->
-    <script src="js/function.js"></script>
-</body>
-
-<!-- Mirrored from html.awaikenthemes.com/lenity/program-single.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 18 Jun 2025 01:10:38 GMT -->
-</html>
-@endsection
+                <div class="col-lg-12"> -->
+                    @endsection

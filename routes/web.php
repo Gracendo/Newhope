@@ -35,18 +35,16 @@ use App\Http\Controllers\SigninController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::get('/campaign', [CampaignController::class, 'index'])->name('campaign');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/orphanage', [OrphanageController::class, 'index'])->name('orphanage');
-Route::get('/campaign_detail', [CampaignDetailController::class, 'index'])->name('campaign_detail');
 Route::get('/donation', [DonationController::class, 'index'])->name('donation');
 Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
 Route::get('/signup', [SignupController::class, 'index'])->name('signup');
 
-
-
-
+// Campaign routes
+Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaign');
+Route::get('/campaigns/{id}', [CampaignDetailController::class, 'show'])->name('campaign.details');
 
 //Auth Admin
 Route::middleware(['setlanguage:backend'])->group(function (){

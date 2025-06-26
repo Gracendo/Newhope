@@ -65,4 +65,5 @@ class CampaignsController extends Controller
 
         return redirect()->back()->with('success', 'Campaign created successfully.');
     }
+    
 }
