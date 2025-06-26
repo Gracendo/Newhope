@@ -44,6 +44,38 @@ class AdminSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
+        $admin3 = Admin::create([
+            'first_name' => 'Admin',
+            'last_name' => 'Sample',
+            'username' => 'adminSample',
+            'email' => 'admin@itdreamtech.com',
+            'email_verified' => 1,
+            'role' => 'admin',
+            'image' => null,
+            'password' => Hash::make('12345678'),
+            'status' => 'active',
+            'remember_token' => Str::random(10),
+        ]);
+
+        $orphman1 = Admin::create([
+            'first_name' => 'Orphan',
+            'last_name' => 'Manager',
+            'username' => 'OrphMan',
+            'email' => 'orphman@itdreamtech.com',
+            'email_verified' => 1,
+            'role' => 'admin',
+            'image' => null,
+            'password' => Hash::make('12345678'),
+            'status' => 'active',
+            'remember_token' => Str::random(10),
+        ]);
+
+        // Attribution des rôles créés par RoleSeeder
+        $admin1->assignRole('Super Admin'); // ou 'Super Admin' selon le cas
+        $admin2->assignRole('Super Admin');
+        $admin3->assignRole('Admin');
+        $orphman1->assignRole('Orphan Manager');
+
         // Récupérer toutes les permissions
         $permissions = Permission::all();
 

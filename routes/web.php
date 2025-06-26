@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\DonationAdminController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\Admin\CampaignsController;
 use App\Http\Controllers\Auth\LoginController;
@@ -80,7 +81,8 @@ Route::prefix('admin-dash')->middleware(['setlanguage:backend','adminGlobalVar']
         Route::post('/profile-update', [AdminDashboardController::class, 'admin_profile_update'])->name('admin.profile.update');
         Route::get('/password-change', [AdminDashboardController::class, 'admin_password'])->name('admin.password');
         Route::post('/password-change', [AdminDashboardController::class, 'admin_password_chagne'])->name('admin.password.change');
-        Route::post('/donation_management', [Donationadmincontroller::class, 'index'])->name('donation_management');
+        Route::get('/donation_management', [DonationAdminController::class, 'index'])->name('donation_management');
+        Route::post('/donations', [DonationAdminController::class, 'store'])->name('donations.store');
 
 
         Route::post('/campaigns', [CampaignsController::class, 'store'])->name('campaigns.store');

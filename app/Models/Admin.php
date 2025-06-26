@@ -27,4 +27,9 @@ class Admin extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function isSuperAdmin()
+    {
+        return $this->hasRole('Super Admin');
+    }
 }

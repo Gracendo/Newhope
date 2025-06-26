@@ -29,6 +29,13 @@ class RolesTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'id' => 3,
+                'name' => 'Orphan Manager',
+                'guard_name' => 'admin',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
             
         ]);
     }

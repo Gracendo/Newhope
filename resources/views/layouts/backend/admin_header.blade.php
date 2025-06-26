@@ -493,13 +493,21 @@
 
                   </li>
                   @php
-                    $profile_img = get_attachment_image_by_id(auth()->user()->image,null,true);
+                      $user = auth('admin')->check() ? auth('admin')->user() : (auth()->check() ? auth()->user() : null);
+                      $profile_img = null;
+
+                      if ($user && $user->image) {
+                          $profile_img = get_attachment_image_by_id($user->image, null, true);
+                      } elseif ($user && !$user->image) {
+                          $profile_img = get_attachment_image_by_id(null, null, true); // retournera l’image par défaut
+                      }
                   @endphp
+
                   <li class="header-profile">
                     <a href="#" class="d-block head-icon" role="button" data-bs-toggle="offcanvas"
                        data-bs-target="#profilecanvasRight" aria-controls="profilecanvasRight">
                       @if (!empty($profile_img))
-                        <img src="{{$profile_img['img_url']}}" alt="{{auth()->user()->first_name}}" class="b-r-10 h-35 w-35">
+                        <img src="{{$profile_img['img_url']}}" alt="{{ $user->first_name ?? 'User' }}" class="b-r-10 h-35 w-35">
                       @endif
                     </a>
 
@@ -511,13 +519,13 @@
                             @if (!empty($profile_img))
                               <div class="d-flex-center">
                                 <span class="h-45 w-45 d-flex-center b-r-10 position-relative">
-                                  <img src="{{$profile_img['img_url']}}" alt="{{auth()->user()->first_name}}" class="img-fluid b-r-10">
+                                  <img src="{{$profile_img['img_url']}}" alt="{{ $user->first_name ?? 'User' }}" class="img-fluid b-r-10">
                                 </span>
                               </div>
                             @endif
                             <div class="text-center mt-2">
-                              <h6 class="mb-0"> {{ Auth::user()->first_name }}</h6>
-                              <p class="f-s-12 mb-0 text-secondary">{{ Auth::user()->email }}</p>
+                              <h6 class="mb-0"> {{ $user->first_name ?? 'User' }}</h6>
+                              <p class="f-s-12 mb-0 text-secondary">{{ $user->email }}</p>
                             </div>
                           </li>
 
