@@ -43,6 +43,14 @@ Route::get('/donation', [DonationController::class, 'index'])->name('donation');
 Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
 Route::get('/signup', [SignupController::class, 'index'])->name('signup');
 
+Route::get('/donations/create', [DonationController::class, 'create'])->name('donations.create');
+Route::post('/donations/store', [DonationController::class, 'store'])->name('donation.store');
+
+Route::post('/donations/initiate', [DonationController::class, 'initiate'])->name('donations.initiate');
+
+Route::post('/donations/confirm', [DonationController::class, 'confirmDonation'])->name('donations.confirm');
+
+
 // Campaign routes
 Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaign');
 Route::get('/campaigns/{id}', [CampaignDetailController::class, 'show'])->name('campaign.details');

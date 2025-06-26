@@ -21,7 +21,7 @@
                         <div class="hero-body wow fadeInUp" data-wow-delay="0.4s">
                             <!-- Hero Button Start -->
                             <div class="hero-btn">
-                                <a href="donation.html" class="btn-default">donate now</a>
+                                <a href="{{ route('donations.create') }}" class="btn-default">donate now</a>
                             </div>
                             
                         </div>

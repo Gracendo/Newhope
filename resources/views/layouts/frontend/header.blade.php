@@ -81,14 +81,24 @@
                             </div>
                             
                             <div class="contact-now-box-content">
-                                @if (session('status'))
-                                <h3><a href="{{route('user.login')}}" >MY PROFILE</a></h3>   
+                                @php
+                                    $user = auth('admin')->check() ? auth('admin')->user() : (auth()->check() ? auth()->user() : null);
+                                @endphp
 
+                                @if ($user)
+                                    <h3>
+                                    <a href="{{ auth('admin')->check() ? route('admin.home') : route('user.home') }}">
+                                        MY PROFILE
+                                    </a>
+                                    </h3>
                                 @else
-                                <p>Join us !</p>
-                                <h3><a href="{{route('user.login')}}" >LOG IN</a></h3>   
-                                @endif                             
+                                    <p>Join us !</p>
+                                    <h3>
+                                    <a href="{{ route('user.login') }}">LOG IN</a>
+                                    </h3>
+                                @endif
                             </div>
+
                         </div>
                         <!-- Contact Now Box End -->
 					</div>
