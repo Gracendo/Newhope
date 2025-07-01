@@ -36,7 +36,7 @@
         {{ session('success') }}
     </div>
 @endif
-                        <form id="donateForm" method="POST">
+                        <form id="donateForm2" method="POST">
     @csrf
 
     <!-- Montant -->
@@ -47,32 +47,32 @@
     <!-- Don anonyme -->
     <div class="form-group mb-4">
         <label>Don anonyme ?</label><br>
-        <input type="radio" name="anonymous" value="0" checked> Non
-        <input type="radio" name="anonymous" value="1"> Oui
+        <input type="radio" name="anonymous" value="0" checked> No
+        <input type="radio" name="anonymous" value="1"> Yes
     </div>
 
     <!-- Infos personnelles -->
     <div class="form-group mb-4">
-        <input type="text" name="donor_name" class="form-control" placeholder="Votre nom" required>
+        <input type="text" name="donor_name" class="form-control" placeholder="Your name" required>
     </div>
     <div class="form-group mb-4">
-        <input type="email" name="donor_email" class="form-control" placeholder="Votre email" required>
+        <input type="email" name="donor_email" class="form-control" placeholder="Your  email" required>
     </div>
 
     <!-- Message -->
     <div class="form-group mb-4">
-        <textarea name="message" class="form-control" placeholder="Message (optionnel)"></textarea>
+        <textarea name="message" class="form-control" placeholder="Message (optional)"></textarea>
     </div>
 
     <!-- Carte -->
     <div class="form-group mb-4">
-        <label for="card-element">Détails de la carte</label>
+        <label for="card-element">Cart Details</label>
         <div id="card-element" class="form-control"></div>
         <div id="card-errors" class="text-danger mt-2"></div>
         <input type="hidden" name="payment_method" id="payment_method">
     </div>
 
-    <button type="submit" id="donate-button" class="btn btn-primary">Faire un don</button>
+    <button type="submit" id="donate-button" class="btn btn-primary">Fund</button>
 </form>
 
 
@@ -93,7 +93,7 @@ const elements = stripe.elements();
 const cardElement = elements.create('card');
 cardElement.mount('#card-element');
 
-const form = document.getElementById('donateForm');
+const form = document.getElementById('donateForm2');
 const donateButton = document.getElementById('donate-button');
 
 form.addEventListener('submit', async function(e) {
@@ -102,9 +102,10 @@ form.addEventListener('submit', async function(e) {
 
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
-
+    console.log(data);
     try {
-        const res = await fetch("{{ route('donations.initiate') }}", {
+        // const res = await fetch("{{ route('donations.initiate') }}", {
+        const res = await fetch("/test", {
             method: "POST",
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}',

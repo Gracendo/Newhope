@@ -53,7 +53,7 @@ class AdminDashboardController extends Controller
         return view('backend.profile');
     }
 
-    public function Campaign()
+    public function campaign()
     {
         $orphanages = Orphanage::all();
         $campaigns = Campaign::with('orphanage')->get();
@@ -110,4 +110,93 @@ class AdminDashboardController extends Controller
 
         return redirect()->back()->with(['msg' => __('Un problème est survenu ! Veuillez réessayer ou vérifier votre ancien mot de passe.'), 'type' => 'danger']);
     }
+
+   public function edit(Campaign $campaign)
+{
+    $campaign->load(['orphanage']); // Eager load relationships
+    
+    return response()->json([
+        'campaign' => $campaign,
+        'orphanages' => Orphanage::all(), // Include all orphanages for the dropdown
+        'current_image_url' => $campaign->image ? asset('storage/' . $campaign->image) : null,
+        'business_plan_url' => $campaign->business_plan ? asset('storage/' . $campaign->business_plan) : null
+    ]);
+}
+   public function update(Request $request, Campaign $campaign)
+{
+    // 1. Validate the incoming request data
+    $validatedData = $request->validate([
+        'orphanage_id' => 'required|exists:orphanages,id',
+        'name' => 'required|string|max:255',
+        'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'gallery.*' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'start_date' => 'nullable|date',
+        'end_date' => 'nullable|date|after_or_equal:start_date',
+        'project_duration' => 'nullable|string|max:255',
+        'objectif' => 'nullable|string',
+        'description' => 'nullable|string',
+        'goal_amount' => 'required|numeric|min:0',
+        'prefered_amounts' => 'nullable|string',
+        'raised_amount' => 'nullable|numeric|min:0',
+        'status' => 'required|string|in:pending,inProgress,completed',
+        'business_plan' => 'sometimes|mimes:pdf|max:5120',
+    ]);
+
+    // 2. Handle file uploads if they exist
+    if ($request->hasFile('image')) {
+        // Delete old image if it exists
+        if ($campaign->image && Storage::disk('public')->exists($campaign->image)) {
+            Storage::disk('public')->delete($campaign->image);
+        }
+        
+        // Store new image
+        $imagePath = $request->file('image')->store('campaigns/images', 'public');
+        $validatedData['image'] = $imagePath;
+    }
+
+    // 3. Handle gallery images update
+    if ($request->hasFile('gallery')) {
+        // Delete old gallery images if they exist
+        if ($campaign->gallery) {
+            $oldGallery = json_decode($campaign->gallery, true);
+            foreach ($oldGallery as $oldImage) {
+                if (Storage::disk('public')->exists($oldImage)) {
+                    Storage::disk('public')->delete($oldImage);
+                }
+            }
+        }
+        
+        // Store new gallery images
+        $galleryPaths = [];
+        foreach ($request->file('gallery') as $image) {
+            $galleryPaths[] = $image->store('campaigns/gallery', 'public');
+        }
+        $validatedData['gallery'] = json_encode($galleryPaths);
+    }
+
+    // 4. Handle business plan update
+    if ($request->hasFile('business_plan')) {
+        // Delete old business plan if it exists
+        if ($campaign->business_plan && Storage::disk('public')->exists($campaign->business_plan)) {
+            Storage::disk('public')->delete($campaign->business_plan);
+        }
+        
+        // Store new business plan
+        $businessPlanPath = $request->file('business_plan')->store('campaigns/business_plans', 'public');
+        $validatedData['business_plan'] = $businessPlanPath;
+    }
+
+    // 5. Parse preferred amounts if provided
+    if ($request->has('prefered_amounts')) {
+        $preferedAmounts = array_map('trim', explode(',', $request->input('prefered_amounts')));
+        $validatedData['prefered_amounts'] = json_encode($preferedAmounts);
+    }
+
+    // 6. Update the campaign with validated data
+    $campaign->update($validatedData);
+
+    // 7. Redirect back with success message
+    return redirect()->route('admin.campaign')
+                   ->with('success', 'Campaign updated successfully!');
+}
 }

@@ -31,9 +31,9 @@
                       </li>
                     </ul>
                     <br>
-                    <div>
+                    <!-- <div>
                         <a href="file_manager.html" target="_blank" role="button" class="btn btn-primary b-r-15 w-100">View More</a>
-                      </div>
+                      </div> -->
                   </div>
                 </div>
               </div>

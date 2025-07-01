@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use Illuminate\Support\Facades\Storage;
+
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Campaign;
+use App\Models\Orphanage;
+use Illuminate\Http\Request;
 
 class CampaignsController extends Controller
 {
@@ -65,5 +66,15 @@ class CampaignsController extends Controller
 
         return redirect()->back()->with('success', 'Campaign created successfully.');
     }
+
+    // public function edit(Campaign $campaign)
+    // {
+    //     $orphanages = Orphanage::all();
+
+    //    return view('backend.campaign', [
+    //     'campaign' => $campaign, 
+    //     'orphanages' => $orphanages
+    // ]);
+    // }
     
 }
