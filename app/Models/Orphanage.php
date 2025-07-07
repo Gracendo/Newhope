@@ -10,7 +10,7 @@ class Orphanage extends Model
     use HasFactory;
     protected $fillable = [
         'Orphanage_id',
-        'user_id',
+        'admin_id',
         'name',
         'longitude',
         'latitude',
@@ -23,6 +23,10 @@ class Orphanage extends Model
         'region',
         'email',
         'phone',
-       
     ];
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
 }

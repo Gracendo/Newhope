@@ -8,23 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Campaign extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'Orphanage_id',
-        'name',
-        'image',
-        'gallery',
-        'description',
-        'start_date',
-        'end_date',
-        'created_at',
-        'project_duration',
-        'objectif',
-        'status',
-        'business_plan',
-        'goal_amount',
-        'prefered_amounts',
-        'raised_amount',
-    ];
+    
+    protected $guarded = [];
 
     public function orphanage()
     {
