@@ -74,6 +74,8 @@ class LoginController extends Controller
             'password.required' => __('password required')
         ]);
 
+        //Avant d'authentifier un admin, vérifie s'il a été approuvé
+
         if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password], $request->get('remember'))) {
 
             return response()->json([

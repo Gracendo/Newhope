@@ -10,6 +10,10 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
+
 
 class RegisterController extends Controller
 {
@@ -20,6 +24,11 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    public function showRegistrationForm()
+    {
+         return view('frontend.signup');
     }
 
     protected function validator(array $data)
@@ -68,6 +77,7 @@ class RegisterController extends Controller
                 'address' => $data['address'],
                 'password' => Hash::make($data['password']),
                 'status' => 'contributor',
+                'activation_token' => Str::random(60),
             ]);
         } else {
             // Handle orphanage manager registration
@@ -81,6 +91,7 @@ class RegisterController extends Controller
                 'password' => Hash::make($data['password']),
                 'role' => 'orphanagemanager',
                 'status' => 'pending',
+                'activation_token' => Str::random(60),
             ]);
 
             // Handle logo upload
@@ -88,6 +99,8 @@ class RegisterController extends Controller
             if (isset($data['logo'])) {
                 $logoPath = $data['logo']->store('orphanage_logos', 'public');
             }
+
+
 
             // Create orphanage record
             Orphanage::create([
@@ -102,9 +115,12 @@ class RegisterController extends Controller
                 'description' => $data['description'],
                 'email' => $data['orphanage_email'],
                 'phone' => $data['orphanage_phone'],
+                'orphanage_id' => 'ORP' . str_pad($admin->id, 5, '0', STR_PAD_LEFT), // Génère l'ID custom de type ORP00001
                 'logo' => $logoPath,
                 'region' => $data['region'] ?? null,
             ]);
+
+            
 
             return $admin;
         }
@@ -114,18 +130,23 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-
+        
         $user = $this->create($request->all());
 
-        if ($user instanceof Admin) {
-            auth('admin')->login($user);
+        // Déconnecter explicitement l'utilisateur s'il a été loggué par erreur
+        auth()->logout(); // ← C’est ici qu’on force la déconnexion
 
+        // Envoyer l'email d’activation personnalisé
+        Mail::to($user->email)->send(new \App\Mail\ActivationEmail($user));
+
+        if ($user instanceof Admin) {
             return redirect('/pending-approval');
         }
 
-        $this->guard()->login($user);
+        // Message flash
+        Session::flash('status', 'Un mail d\'activation vous a été envoyé. Veuillez vérifier votre boîte de réception.');
 
-        return $this->registered($request, $user)
-            ?: redirect($this->redirectPath());
+        return redirect()->route('user.login');
     }
+
 }

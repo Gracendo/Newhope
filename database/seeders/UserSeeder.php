@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'email' => 'user@example.com',
             'email_verified_at' => now(),
             'password' => Hash::make('12345678'), // ou bcrypt('12345678')
-            'status' => 'active',
+            'status' => 'contributor',
         ]);
     }
 }

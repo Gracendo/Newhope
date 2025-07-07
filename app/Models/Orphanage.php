@@ -9,7 +9,7 @@ class Orphanage extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'Orphanage_id',
+        'orphanage_id',
         'admin_id',
         'name',
         'longitude',

@@ -17,7 +17,7 @@
 
                     <!-- Campaign Donation Form Start -->
                     <div class="donate-form campaign-donate-form">
-                        <form id="donateForm" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                        <form id="donateForm" method="POST" action="{{route('user.register')}}" enctype="multipart/form-data">
                             @csrf
                             <!-- Donar Personal Info Start -->
                             <div class="donar-personal-info">

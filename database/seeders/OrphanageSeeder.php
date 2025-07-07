@@ -15,7 +15,7 @@ class OrphanageSeeder extends Seeder
     {
         Orphanage::create([
             'Orphanage_id' => 'ORP001', // identifiant interne si différent de l'id auto-incrémenté
-            'user_id' => 1, // Assure-toi qu’un user avec id=1 existe
+            'admin_id' => 1, // Assure-toi qu’un user avec id=1 existe
             'name' => 'Maison des Anges',
             'longitude' => '11.5020',
             'latitude' => '3.8480',

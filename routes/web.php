@@ -13,8 +13,9 @@ use App\Http\Controllers\DonationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrphanageController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SignupController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\Auth\ActivationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,7 +63,10 @@ Route::middleware(['setlanguage:backend'])->group(function () {
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('user.login');
 Route::post('/ajax-login', [HomeController::class, 'ajax_login'])->name('user.ajax.login');
 Route::post('/login', [LoginController::class, 'login']);
-Route::get('/register', [SignupController::class, 'showRegistrationForm'])->name('user.register');
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('user.register');
+Route::post('/register', [RegisterController::class, 'register'])->name('user.register');
+
+Route::get('/activation/{token}', [ActivationController::class, 'verify'])->name('activation.verify');
 
 // user email verify
 Route::get('/user/email-verify', [UserDashboardController::class, 'user_email_verify_index'])->name('user.email.verify');
