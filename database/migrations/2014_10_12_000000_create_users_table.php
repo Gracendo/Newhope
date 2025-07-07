@@ -24,7 +24,7 @@ return new class extends Migration {
             $table->string('city')->nullable();
             $table->string('zipcode')->nullable();
             $table->string('password');
-            $table->enum('status', ['contributor', 'orphanagemanager'])->default('contributor');
+             $table->string('status')->nullable();
             $table->integer('country_id')->nullable();
             $table->integer('monthly_income')->nullable();
             $table->integer('annual_income')->nullable();
@@ -38,6 +38,8 @@ return new class extends Migration {
             $table->bigInteger('user_verify_status')->default(0);
             $table->string('apple_id')->nullable();
             $table->bigInteger('deactivate')->default(0);
+            $table->string('activation_token')->nullable();
+            $table->boolean('is_active')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

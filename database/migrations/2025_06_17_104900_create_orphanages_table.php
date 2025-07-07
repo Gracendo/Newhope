@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('orphanages', function (Blueprint $table) {
             $table->id();
-            $table->string('Orphanage_id')->unique(); // identifiant interne (autre que id)
+            $table->string('orphanage_id')->unique(); // identifiant interne (autre que id)
             $table->foreignId('admin_id')->constrained('admins')->onDelete('cascade');
             // Required fields
             $table->string('name');

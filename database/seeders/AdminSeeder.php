@@ -27,7 +27,7 @@ class AdminSeeder extends Seeder
             'role' => 'admin',
             'image' => null,
             'password' => Hash::make('12345678'),
-            'status' => 'active',
+            'status' => 'approved',
             'remember_token' => Str::random(10),
         ]);
 
@@ -40,7 +40,7 @@ class AdminSeeder extends Seeder
             'role' => 'admin',
             'image' => null,
             'password' => Hash::make('12345678'),
-            'status' => 'active',
+            'status' => 'approved',
             'remember_token' => Str::random(10),
         ]);
 
@@ -53,7 +53,7 @@ class AdminSeeder extends Seeder
             'role' => 'admin',
             'image' => null,
             'password' => Hash::make('12345678'),
-            'status' => 'active',
+            'status' => 'approved',
             'remember_token' => Str::random(10),
         ]);
 
@@ -66,7 +66,7 @@ class AdminSeeder extends Seeder
             'role' => 'admin',
             'image' => null,
             'password' => Hash::make('12345678'),
-            'status' => 'active',
+            'status' => 'approved',
             'remember_token' => Str::random(10),
         ]);
 
