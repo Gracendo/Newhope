@@ -11,7 +11,7 @@ class SignupController extends Controller
      */
     public function showRegistrationForm()
     {
-         return view('frontend.signup');
+        return view('frontend.signup');
     }
 
     /**
@@ -19,7 +19,6 @@ class SignupController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -27,7 +26,6 @@ class SignupController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -35,7 +33,6 @@ class SignupController extends Controller
      */
     public function show(string $id)
     {
-        //
     }
 
     /**
@@ -43,7 +40,6 @@ class SignupController extends Controller
      */
     public function edit(string $id)
     {
-        //
     }
 
     /**
@@ -51,7 +47,6 @@ class SignupController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
     }
 
     /**
@@ -59,6 +54,5 @@ class SignupController extends Controller
      */
     public function destroy(string $id)
     {
-        //
     }
 }

@@ -34,6 +34,17 @@
 	<link rel="stylesheet" href="{{asset('assets/frontend/css/mousecursor.css')}}">
 	<!-- Main Custom Css -->
 	<link href="{{asset('assets/frontend/css/custom.css')}}" rel="stylesheet" media="screen">
+    <!--links to enhance maps and country,region and city selection-->
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Leaflet Geosearch CSS/JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css"/>
+    <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
+    <!-- jQuery (optional, but simplifies AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
 

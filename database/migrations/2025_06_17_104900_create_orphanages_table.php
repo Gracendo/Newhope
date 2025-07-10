@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->foreignId('admin_id')->constrained('admins')->onDelete('cascade');
             // Required fields
             $table->string('name');
-            $table->decimal('longitude', 10, 7);
-            $table->decimal('latitude', 10, 7);
+            $table->decimal('longitude', 11, 8);
+            $table->decimal('latitude', 10, 8);
             $table->string('country');
             $table->string('city');
             $table->string('num_enregistrement');

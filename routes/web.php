@@ -4,7 +4,9 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CampaignsController;
 use App\Http\Controllers\Admin\DonationAdminController;
+use App\Http\Controllers\Auth\ActivationController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\CampaignDetailController;
@@ -12,10 +14,9 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrphanageController;
+use App\Http\controllers\PendingController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\UserDashboardController;
-use App\Http\Controllers\Auth\ActivationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +37,7 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/orphanage', [OrphanageController::class, 'index'])->name('orphanage');
 Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
 Route::get('/signup', [SignupController::class, 'index'])->name('signup');
+Route::get('/pending-approval', [PendingController::class, 'index'])->name('');
 
 // Donation routes
 Route::get('/donation', [DonationController::class, 'index'])->name('donation');

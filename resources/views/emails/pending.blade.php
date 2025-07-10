@@ -2,10 +2,10 @@
 # Greetings {{ $user->first_name }} {{ $user->last_name }},
 
 Thank you for registering.  
-Please click the button below to activate your account:
+Please click the button below to go back to the platform:
 
 @component('mail::button', ['url' => $activationUrl])
-Activate My Account
+Go back to Newhope
 @endcomponent
 
 Thank you,<br>

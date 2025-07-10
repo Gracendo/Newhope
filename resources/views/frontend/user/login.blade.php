@@ -75,6 +75,11 @@
         </div>
     </div>
     <!-- Page Donation End -->
+        @if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+        @endif
 
 
 @endsection

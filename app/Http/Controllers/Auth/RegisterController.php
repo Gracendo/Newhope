@@ -10,10 +10,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
-
 
 class RegisterController extends Controller
 {
@@ -28,7 +25,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-         return view('frontend.signup');
+        return view('frontend.signup');
     }
 
     protected function validator(array $data)
@@ -51,8 +48,8 @@ class RegisterController extends Controller
                 'country' => ['required', 'string', 'max:255'],
                 'city' => ['required', 'string', 'max:255'],
                 'orphanage_address' => ['required', 'string', 'max:255'],
-                'longitude' => ['required', 'numeric'],
-                'latitude' => ['required', 'numeric'],
+                'longitude' => ['required', 'numeric', 'between:-180,180'],
+                'latitude' => ['required', 'numeric', 'between:-90,90'],
                 'num_enregistrement' => ['required', 'string', 'max:255'],
                 'description' => ['required', 'string'],
                 'orphanage_email' => ['required', 'email'],
@@ -100,8 +97,6 @@ class RegisterController extends Controller
                 $logoPath = $data['logo']->store('orphanage_logos', 'public');
             }
 
-
-
             // Create orphanage record
             Orphanage::create([
                 'admin_id' => $admin->id,
@@ -115,38 +110,44 @@ class RegisterController extends Controller
                 'description' => $data['description'],
                 'email' => $data['orphanage_email'],
                 'phone' => $data['orphanage_phone'],
-                'orphanage_id' => 'ORP' . str_pad($admin->id, 5, '0', STR_PAD_LEFT), // Génère l'ID custom de type ORP00001
+                'orphanage_id' => 'ORP'.str_pad($admin->id, 5, '0', STR_PAD_LEFT), // Génère l'ID custom de type ORP00001
                 'logo' => $logoPath,
                 'region' => $data['region'] ?? null,
             ]);
-
-            
 
             return $admin;
         }
     }
 
     // Override the default registration to handle different user types
+
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-        
+
         $user = $this->create($request->all());
 
-        // Déconnecter explicitement l'utilisateur s'il a été loggué par erreur
-        auth()->logout(); // ← C’est ici qu’on force la déconnexion
+        // Force logout if accidentally logged in
+        auth()->logout();
 
-        // Envoyer l'email d’activation personnalisé
-        Mail::to($user->email)->send(new \App\Mail\ActivationEmail($user));
-
+        // Send appropriate activation email based on user type
         if ($user instanceof Admin) {
-            return redirect('/pending-approval');
+            // Send admin activation email to orphanage email address
+            Mail::to($user->email)->send(new \App\Mail\ActivationOMEmail($user));
+
+            // Also send notification to orphanage's contact email if different
+            if (isset($request->orphanage_email) && $request->orphanage_email !== $user->email) {
+                Mail::to($request->orphanage_email)->send(new \App\Mail\ActivationOMEmail($user));
+            }
+
+            return redirect('/pending-approval')
+                ->with('status', 'Your registration is pending approval. You will receive an activation email once approved.');
+        } else {
+            // Send regular user activation email
+            Mail::to($user->email)->send(new \App\Mail\ActivationEmail($user));
+
+            return redirect()->route('user.login')
+                ->with('status', 'An activation email has been sent to you. Please check your inbox.');
         }
-
-        // Message flash
-        Session::flash('status', 'Un mail d\'activation vous a été envoyé. Veuillez vérifier votre boîte de réception.');
-
-        return redirect()->route('user.login');
     }
-
 }
