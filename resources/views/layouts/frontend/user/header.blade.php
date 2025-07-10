@@ -47,7 +47,6 @@
 
 </head>
 <body>
-
     <!-- Preloader Start -->
 	<div class="preloader">
 		<div class="loading-container">
@@ -56,8 +55,7 @@
 		</div>
 	</div>
 	<!-- Preloader End -->
-
-    <!-- Header Start -->
+ <!-- Header Start -->
 	<header class="main-header">
 		<div class="header-sticky">
 			<nav class="navbar navbar-expand-lg">
@@ -72,12 +70,16 @@
 					<div class="collapse navbar-collapse main-menu">
                         <div class="nav-menu-wrapper">
                             <ul class="navbar-nav mr-auto" id="menu">
-                                <li class="nav-item "><a class="nav-link" href="{{route('home')}}">Home</a></li>                                
-                                <li class="nav-item"><a class="nav-link" href="{{route('about')}}">About Us</a>
-                                <li class="nav-item"><a class="nav-link" href="{{route('campaign')}}">Campaigns</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{route('orphanage')}}">Orphanages</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{route('blog')}}">Blog</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{route('contact')}}">Contact Us</a></li>                         
+                                <li class="nav-item "><a class="nav-link" href="">Dashboard</a></li>                                
+                                <li class="nav-item"><a class="nav-link" href="">My Campaigns</a>
+                                <li class="nav-item"><a class="nav-link" href="">Donations</a></li>
+                                <li class="nav-item submenu"><a class="nav-link" href="">user name</a>
+                                    <ul>
+                                        <li class="nav-item"><a class="nav-link" href="">Profile Setting</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="">Change Password</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="">Log out</a></li>
+                                    </ul>
+                                </li>                         
                             </ul>
                         </div>
                         <!-- Contact Now Box Start -->
@@ -92,24 +94,13 @@
                             </div>
                             
                             <div class="contact-now-box-content">
-                                @php
-                                    $user = auth('admin')->check() ? auth('admin')->user() : (auth()->check() ? auth()->user() : null);
-                                @endphp
-
-                                @if ($user)
+                               
                                     <h3>
-                                    <!-- <a href="{{ auth('admin')->check() ? route('admin.home') : route('user.home') }}"> -->
-                                    <a href="{{ auth('admin')->check() ? route('admin.home') : route('user.home') }}">
-                                        
-                                    MY PROFILE
+                                     <a href="{{route('home')}}">
+                                        HOME
                                     </a>
                                     </h3>
-                                @else
-                                    <p>Join us !</p>
-                                    <h3>
-                                    <a href="{{ route('user.login') }}">LOG IN</a>
-                                    </h3>
-                                @endif
+                                
                             </div>
 
                         </div>
@@ -123,11 +114,10 @@
 		</div>
 	</header>
 	<!-- Header End -->
-		@yield('home')
+     @yield('user_dash')
 
-		@include('layouts.frontend.footer')
-
-	<!-- Jquery Library File -->
+	@include('layouts.frontend.user.footer')
+    <!-- Jquery Library File -->
     <script src="{{asset('assets/frontend/js/jquery-3.7.1.min.js')}}"></script>
     <!-- Bootstrap js file -->
     <script src="{{asset('assets/frontend/js/bootstrap.min.js')}}"></script>
@@ -160,9 +150,6 @@
     <script src="{{asset('assets/frontend/js/wow.min.js')}}"></script>
     <!-- Main Custom js file -->
     <script src="{{asset('assets/frontend/js/function.js')}}"></script>
-
-    @yield('scripts')
-   
 </body>
 
 </html>

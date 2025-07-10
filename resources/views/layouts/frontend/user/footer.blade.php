@@ -48,7 +48,8 @@
                             <form id="newsletterForm" action="#" method="POST">
                                 <div class="form-group">
                                     <input type="email" name="email" class="form-control" id="mail" placeholder="Enter Your Email" required="">
-                                    <button type="submit" class="newsletter-btn" ><a href="mailto:gracen@domainname.com" style="color:white"><i class="fa-regular fa-paper-plane"></i></a></button>
+                                    <button type="submit" class="newsletter-btn" ><a href="mailto:gracen@domainname.com" style="color:white"
+                                    ><i class="fa-regular fa-paper-plane"></i></a></button>
                                 
                                 </div>
                             </form>

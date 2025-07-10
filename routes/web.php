@@ -18,6 +18,9 @@ use App\Http\controllers\PendingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserDashboardController;
 use Illuminate\Support\Facades\Route;
+//test controller
+use App\Http\Controllers\TestController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +40,7 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/orphanage', [OrphanageController::class, 'index'])->name('orphanage');
 Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
 Route::get('/signup', [SignupController::class, 'index'])->name('signup');
+Route::get('/dash', [TestController::class, 'index'])->name('test');
 Route::get('/pending-approval', [PendingController::class, 'index'])->name('');
 
 // Donation routes
