@@ -104,12 +104,12 @@
                     <!-- Services Item Start -->
                     <div class="service-item wow fadeInUp" data-wow-delay="1s">
                         <div class="service-content">
-                            <h3><a href="service-single.html">Rewards</a></h3>
-                            <p>You donated a total of <b style="color:
+                            <h3><a href="{{route('myrewards')}}">Rewards</a></h3>
+                            <p>You won a total of <b style="color:
                             rgb(251,109,2)">3</b> Rewards this month</p>
                         </div> 
                          <div class="service-btn">
-                            <a href="" class="readmore-btn">see all</a> <!-- href to my rewards-->
+                            <a href="{{route('myrewards')}}" class="readmore-btn">see all</a> <!-- href to my rewards-->
                         </div>
                     </div>
                     <!-- Services Item End -->
