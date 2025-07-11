@@ -70,7 +70,7 @@
 					<div class="collapse navbar-collapse main-menu">
                         <div class="nav-menu-wrapper">
                             <ul class="navbar-nav mr-auto" id="menu">
-                                <li class="nav-item "><a class="nav-link" href="">Dashboard</a></li>                                
+                                <li class="nav-item "><a class="nav-link" href="{{route('test')}}">Dashboard</a></li>                                
                                 <li class="nav-item"><a class="nav-link" href="">My Campaigns</a>
                                 <li class="nav-item"><a class="nav-link" href="">Donations</a></li>
                                 <li class="nav-item submenu"><a class="nav-link" href="">user name</a>
@@ -100,6 +100,8 @@
                                         HOME
                                     </a>
                                     </h3>
+                               
+                                    
                                 
                             </div>
 
