@@ -75,6 +75,7 @@
                                 <li class="nav-item"><a class="nav-link" href="">Donations</a></li>
                                 <li class="nav-item submenu"><a class="nav-link" href="">user name</a>
                                     <ul>
+                                        <li class="nav-item"><a class="nav-link" href="">My Rewards</a></li>
                                         <li class="nav-item"><a class="nav-link" href="">Profile Setting</a></li>
                                         <li class="nav-item"><a class="nav-link" href="">Change Password</a></li>
                                         <li class="nav-item"><a class="nav-link" href="">Log out</a></li>
