@@ -20,7 +20,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;family=Onest:wght@100..900&amp;display=swap" rel="stylesheet">
 	<!-- Bootstrap Css -->
 	<link href="{{asset('assets/frontend/css/bootstrap.min.css')}}" rel="stylesheet" media="screen">
-	<!-- SlickNav Css -->
+	<!-- Data Table css-->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/backend/vendor/datatable/jquery.dataTables.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/backend/vendor/datatable/datatable2/buttons.dataTables.min.css')}}">
+    <!-- SlickNav Css -->
 	<link href="{{asset('assets/frontend/css/slicknav.min.css')}}" rel="stylesheet">
 	<!-- Swiper Css -->
 	<link rel="stylesheet" href="{{asset('assets/frontend/css/swiper-bundle.min.css')}}">
@@ -37,14 +40,15 @@
     <!--links to enhance maps and country,region and city selection-->
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+   
     <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js')}}"></script>
     <!-- Leaflet Geosearch CSS/JS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css"/>
-    <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
+    <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js')}}"></script>
     <!-- jQuery (optional, but simplifies AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js')}}"></script>
+    
 </head>
 <body>
     <!-- Preloader Start -->
@@ -71,8 +75,8 @@
                         <div class="nav-menu-wrapper">
                             <ul class="navbar-nav mr-auto" id="menu">
                                 <li class="nav-item "><a class="nav-link" href="{{route('test')}}">Dashboard</a></li>                                
-                                <li class="nav-item"><a class="nav-link" href="">My Campaigns</a>
-                                <li class="nav-item"><a class="nav-link" href="">Donations</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{route('mycampaigns')}}">My Campaigns</a>
+                                <li class="nav-item"><a class="nav-link" href="{{route('donations')}}">Donations</a></li>
                                 <li class="nav-item submenu"><a class="nav-link" href="">user name</a>
                                     <ul>
                                         <li class="nav-item"><a class="nav-link" href="">My Rewards</a></li>
@@ -153,6 +157,19 @@
     <script src="{{asset('assets/frontend/js/wow.min.js')}}"></script>
     <!-- Main Custom js file -->
     <script src="{{asset('assets/frontend/js/function.js')}}"></script>
+    <!-- data table js-->
+    <script src="{{asset('assets/backend/js/data_table.js')}}"></script>
+<!-- Data Table js-->
+ <script src="{{asset('assets/backend/vendor/datatable/jquery.dataTables.min.js')}}"></script>
+ <script src="{{asset('assets/backend/vendor/datatable/datatable2/dataTables.buttons.min.js')}}"></script>
+ <script src="{{asset('assets/backend/vendor/datatable/datatable2/jszip.min.js')}}"></script>
+ <script src="{{asset('assets/backend/vendor/datatable/datatable2/pdfmake.min.js')}}"></script>
+ <script src="{{asset('assets/backend/vendor/datatable/datatable2/vfs_fonts.js')}}"></script>
+ <script src="{{asset('assets/backend/vendor/datatable/datatable2/buttons.html5.min.js')}}"></script>
+ <script src="{{asset('assets/backend/vendor/datatable/datatable2/buttons.print.min.js')}}"></script>
+
+ <!-- data table js-->
+  <script src="{{asset('assets/backend/js/data_table.js')}}"></script>
 </body>
 
 </html>

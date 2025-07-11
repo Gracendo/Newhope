@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class TestController extends Controller
 {
     /**
@@ -11,6 +9,16 @@ class TestController extends Controller
      */
     public function index()
     {
-           return view('frontend.user.dashboard.test-dash');
+        return view('frontend.user.dashboard.test-dash');
+    }
+
+    public function mycampaigns()
+    {
+        return view('frontend.user.dashboard.mycampaigns');
+    }
+
+    public function donations()
+    {
+        return view('frontend.user.dashboard.donations');
     }
 }

@@ -16,11 +16,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrphanageController;
 use App\Http\controllers\PendingController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserDashboardController;
-use Illuminate\Support\Facades\Route;
-//test controller
 use App\Http\Controllers\TestController;
-
+use App\Http\Controllers\UserDashboardController;
+// test controller
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +40,8 @@ Route::get('/orphanage', [OrphanageController::class, 'index'])->name('orphanage
 Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
 Route::get('/signup', [SignupController::class, 'index'])->name('signup');
 Route::get('/dash', [TestController::class, 'index'])->name('test');
+Route::get('/mycampaigns', [TestController::class, 'mycampaigns'])->name('mycampaigns');
+Route::get('/donations', [TestController::class, 'donations'])->name('donations');
 Route::get('/pending-approval', [PendingController::class, 'index'])->name('');
 
 // Donation routes

@@ -123,10 +123,11 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+        
         $this->validator($request->all())->validate();
 
         $user = $this->create($request->all());
-
+        
         // Force logout if accidentally logged in
         auth()->logout();
 
