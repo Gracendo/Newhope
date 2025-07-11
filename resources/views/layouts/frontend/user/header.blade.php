@@ -79,9 +79,9 @@
                                 <li class="nav-item"><a class="nav-link" href="{{route('donations')}}">Donations</a></li>
                                 <li class="nav-item submenu"><a class="nav-link" href="">user name</a>
                                     <ul>
-                                        <li class="nav-item"><a class="nav-link" href="">My Rewards</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="">Profile Setting</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="">Change Password</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{route('myrewards')}}">My Rewards</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{route('profilesetting')}}">Profile Settings</a></li> 
+                                        <li class="nav-item"><a class="nav-link" href="{{route('changepassword')}}">Change Password</a></li>
                                         <li class="nav-item"><a class="nav-link" href="">Log out</a></li>
                                     </ul>
                                 </li>                         

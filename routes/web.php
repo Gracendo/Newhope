@@ -39,9 +39,14 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/orphanage', [OrphanageController::class, 'index'])->name('orphanage');
 Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
 Route::get('/signup', [SignupController::class, 'index'])->name('signup');
+// user dashoard interfaces
 Route::get('/dash', [TestController::class, 'index'])->name('test');
 Route::get('/mycampaigns', [TestController::class, 'mycampaigns'])->name('mycampaigns');
 Route::get('/donations', [TestController::class, 'donations'])->name('donations');
+Route::get('/profilesetting', [TestController::class, 'profilesetting'])->name('profilesetting');
+Route::get('/myrewards', [TestController::class, 'myrewards'])->name('myrewards');
+Route::get('/changepassword', [TestController::class, 'changepassword'])->name('changepassword');
+// pending approvalinterfce
 Route::get('/pending-approval', [PendingController::class, 'index'])->name('');
 
 // Donation routes
