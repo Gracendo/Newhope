@@ -40,7 +40,8 @@
     <!--links to enhance maps and country,region and city selection-->
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-   
+    <!--Ajax js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js')}}"></script>
     <!-- Leaflet Geosearch CSS/JS -->
