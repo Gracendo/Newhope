@@ -70,7 +70,7 @@
                     </div>
                     <!-- Services Item End -->
                 </div>
-<div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-6">
                     <!-- Services Item Start -->
                     <div class="service-item wow fadeInUp">
                         <div class="service-content">
