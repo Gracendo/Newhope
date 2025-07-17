@@ -17,6 +17,9 @@
 
                         <!-- Campaign Donation Form Start -->
                         <div class="donate-form campaign-donate-form">
+                            @error('username')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                             <form id="donateForm"  method="post" enctype="multipart/form-data" action="{{ route('user.login') }}" method="POST">
                                @csrf
                                 <!-- Donar Personal Info Start -->

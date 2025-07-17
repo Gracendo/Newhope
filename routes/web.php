@@ -16,8 +16,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrphanageController;
 use App\Http\controllers\PendingController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserDashboardController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 // test controller
 use Illuminate\Support\Facades\Route;
 
@@ -39,13 +39,7 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/orphanage', [OrphanageController::class, 'index'])->name('orphanage');
 Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
 Route::get('/signup', [SignupController::class, 'index'])->name('signup');
-// user dashoard interfaces
-Route::get('/dash', [TestController::class, 'index'])->name('test');
-Route::get('/mycampaigns', [TestController::class, 'mycampaigns'])->name('mycampaigns');
-Route::get('/donations', [TestController::class, 'donations'])->name('donations');
-Route::get('/profilesetting', [TestController::class, 'profilesetting'])->name('profilesetting');
-Route::get('/myrewards', [TestController::class, 'myrewards'])->name('myrewards');
-Route::get('/changepassword', [TestController::class, 'changepassword'])->name('changepassword');
+
 // pending approvalinterfce
 Route::get('/pending-approval', [PendingController::class, 'index'])->name('');
 
@@ -71,18 +65,29 @@ Route::middleware(['setlanguage:backend'])->group(function () {
 /*----------------------------------------------------------------------------------------------------------------------------
 | User login - Registration
 |----------------------------------------------------------------------------------------------------------------------------*/
+
+// Route::get('/login', [LoginController::class, 'showLoginForm'])->name('user.login');
+ Route::post('/ajax-login', [HomeController::class, 'ajax_login'])->name('user.ajax.login');
+// Route::post('/login', [LoginController::class, 'login']);
+// Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('user.register');
+// Route::post('/register', [RegisterController::class, 'register'])->name('user.register');
+
+// User Register
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('user.register');
+Route::post('/register', [RegisterController::class, 'register'])->name('user.register.submit');
 // user login
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('user.login');
-Route::post('/ajax-login', [HomeController::class, 'ajax_login'])->name('user.ajax.login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('user.register');
-Route::post('/register', [RegisterController::class, 'register'])->name('user.register');
+Route::post('/login', [LoginController::class, 'login'])->name('user.login.submit');
+Route::post('/logout', [LoginController::class, 'logout'])->name('user.logout');
+//email verification routes
+Route::get('/email/verify', function () {
+    return view('frontend.verify-email');
+})->middleware('auth')->name('verification.notice');
 
-Route::get('/activation/{token}', [ActivationController::class, 'verify'])->name('activation.verify');
-
-// user email verify
-Route::get('/user/email-verify', [UserDashboardController::class, 'user_email_verify_index'])->name('user.email.verify');
-
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/user-home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 // Admin Dashboard
 
 Route::prefix('admin-dash')->middleware(['setlanguage:backend', 'adminGlobalVar'])->group(function () {
@@ -112,6 +117,20 @@ Route::prefix('admin-dash')->middleware(['setlanguage:backend', 'adminGlobalVar'
 /*----------------------------------------------------------------------------------------------------------------------------
 | User dashboard
 |----------------------------------------------------------------------------------------------------------------------------*/
-Route::prefix('user-home')->middleware(['userEmailVerify', 'setlanguage:frontend', 'globalVariable', 'maintains_mode'])->group(function () {
-    Route::get('/', [UserDashboardController::class, 'user_index'])->name('user.home');
+// User routes
+Route::prefix('user-home')->middleware([
+    'auth:web', 
+    //'email.verify',  // Our custom middleware
+    //'user.active'
+])->group(function () {
+    
+    Route::get('/', [UserDashboardController::class, 'index'])->name('user.home');
+    Route::get('/mycampaigns', [UserDashboardController::class, 'mycampaigns'])->name('user.mycampaigns');
+    Route::get('/donations', [UserDashboardController::class, 'donations'])->name('user.donations');
+    Route::get('/profilesetting', [UserDashboardController::class, 'profilesetting'])->name('user.profile');
+    Route::get('/myrewards', [UserDashboardController::class, 'myrewards'])->name('user.rewards');
+    Route::get('/changepassword', [UserDashboardController::class, 'changepassword'])->name('user.changepassword');
 });
+// Admin approval route
+Route::post('/admin-dash/approve-om/{admin}', [RegisterController::class, 'approveOrphanageManager'])
+    ->name('admin.approve.om');

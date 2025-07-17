@@ -13,34 +13,33 @@ use App\Models\User;
 
 class UserDashboardController extends Controller
 {
-    public function __construct()
+   public function index()
     {
-        $this->middleware(['auth']);
+        return view('frontend.user.dashboard.user-home');
     }
 
-    public function user_index()
+    public function mycampaigns()
     {
-        $donation = CauseLogs::where('user_id', $this->logged_user_details()->id)->count();
-        $campaigns = Campaign::where('user_id', $this->logged_user_details()->id)->count();
-        $total_reward_points = CauseLogs::where('user_id', $this->logged_user_details()->id)->sum('reward_point');
-        $total_requested_amount = RewardRedeem::where('user_id', $this->logged_user_details()->id)->get()->pluck('withdraw_request_amount')->sum();
-        $requested_points = $total_requested_amount * get_static_option('reward_amount_for_point');
-        $donation_reward =  $total_reward_points - $requested_points;
-
-        return view('frontend.user.dashboard.user-home')->with(
-            [
-                'donation' => $donation,
-                'campaigns' => $campaigns,
-                'donation_reward' => $donation_reward,
-            ]);
+        return view('frontend.user.dashboard.mycampaigns');
     }
 
-    public function logged_user_details()
+    public function donations()
     {
-        $old_details = '';
-        if (empty($old_details)) {
-            $old_details = User::findOrFail(Auth::guard('web')->user()->id);
-        }
-        return $old_details;
+        return view('frontend.user.dashboard.donations');
+    }
+
+    public function profilesetting()
+    {
+        return view('frontend.user.dashboard.profilesetting');
+    }
+
+    public function myrewards()
+    {
+        return view('frontend.user.dashboard.myrewards');
+    }
+
+    public function changepassword()
+    {
+        return view('frontend.user.dashboard.changepassword');
     }
 }

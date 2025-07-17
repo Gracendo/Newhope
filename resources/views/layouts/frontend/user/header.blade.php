@@ -75,14 +75,18 @@
 					<div class="collapse navbar-collapse main-menu">
                         <div class="nav-menu-wrapper">
                             <ul class="navbar-nav mr-auto" id="menu">
-                                <li class="nav-item "><a class="nav-link" href="{{route('test')}}">Dashboard</a></li>                                
-                                <li class="nav-item"><a class="nav-link" href="{{route('mycampaigns')}}">My Campaigns</a>
-                                <li class="nav-item"><a class="nav-link" href="{{route('donations')}}">Donations</a></li>
-                                <li class="nav-item submenu"><a class="nav-link" href="">user name</a>
+                                <li class="nav-item "><a class="nav-link" href="{{route('user.home')}}">Dashboard</a></li>                                
+                                <li class="nav-item"><a class="nav-link" href="{{route('user.mycampaigns')}}">My Campaigns</a>
+                                <li class="nav-item"><a class="nav-link" href="{{route('user.donations')}}">Donations</a></li>
+                                <li class="nav-item submenu"><a class="nav-link" href=""> @auth
+                                            {{ Auth::user()->username }} <!-- Display logged-in user's username -->
+                                        @else
+                                            Guest <!-- Fallback if not logged in -->
+                                        @endauth</a>
                                     <ul>
-                                        <li class="nav-item"><a class="nav-link" href="{{route('myrewards')}}">My Rewards</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="{{route('profilesetting')}}">Profile Settings</a></li> 
-                                        <li class="nav-item"><a class="nav-link" href="{{route('changepassword')}}">Change Password</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{route('user.rewards')}}">My Rewards</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{route('user.profile')}}">Profile Settings</a></li> 
+                                        <li class="nav-item"><a class="nav-link" href="{{route('user.changepassword')}}">Change Password</a></li>
                                         <li class="nav-item"><a class="nav-link" href="">Log out</a></li>
                                     </ul>
                                 </li>                         

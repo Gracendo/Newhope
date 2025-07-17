@@ -4,64 +4,51 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\{Auth, Log};
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
-    use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    public function redirectTo()
+    public function showLoginForm()
     {
-        return route('user.home');
+        Log::info('Showing login form');
+        return view('frontend.user.login');
     }
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function login(Request $request)
     {
-        $this->middleware('guest')->except('logout');
-        $this->middleware('guest:admin')->except('logout');
-    }
+        try {
+            Log::info('Login attempt', ['username' => $request->username]);
+            
+            $credentials = $request->validate([
+                'username' => 'required|string',
+                'password' => 'required|string',
+            ]);
+            if (Auth::attempt($credentials, $request->remember)) {
+                Log::info('Login successful', ['user_id' => Auth::id()]);
+                $request->session()->regenerate();
+                return redirect()->intended(route('user.home'));
+            }
 
-    /**
-     * Override username functions
-    **/
-    public function username()
-    {
-        return 'username';
-    }
+            Log::warning('Login failed - invalid credentials');
+            return back()->withErrors([
+                'username' => 'Invalid credentials',
+            ])->onlyInput('username');
 
+        } catch (\Exception $e) {
+            Log::error('Login error', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return back()->with('error', 'Login failed. Please try again.');
+        }
+    }
     /**
      * show admin login page
     **/
     public function showAdminLoginForm()
     {
         return view('auth.admin.login');
-    }
-
-    public function showLoginForm()
-    {
-        return view('frontend.user.login');
     }
 
     public function adminLogin(Request $request)
@@ -89,5 +76,12 @@ class LoginController extends Controller
             'type' => 'danger',
             'status' => 'not_ok',
         ]);
+    }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }

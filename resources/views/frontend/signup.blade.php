@@ -17,6 +17,15 @@
 
                     <!-- Campaign Donation Form Start -->
                     <div class="donate-form campaign-donate-form">
+                        @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
                         <form id="donateForm" method="POST" action="{{route('user.register')}}" enctype="multipart/form-data">
                             @csrf
                             <!-- Donar Personal Info Start -->
