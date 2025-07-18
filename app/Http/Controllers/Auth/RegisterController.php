@@ -1,23 +1,31 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Admin, Orphanage, User};
+use App\Models\Admin;
+use App\Models\Orphanage;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Hash, Validator, Log, Auth};
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use App\Notifications\VerifyEmailNotification;
 
 class RegisterController extends Controller
 {
     public function showRegistrationForm()
     {
         Log::info('Showing registration form');
+
         return view('frontend.signup');
     }
 
     protected function validator(array $data)
     {
         Log::debug('Validating registration data', ['email' => $data['email']]);
-        
+
         $rules = [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -63,26 +71,41 @@ class RegisterController extends Controller
             }
 
             $user = $this->create($request->all());
-            Log::info('User created successfully', ['user_id' => $user->id]);
+            Log::info('User created successfully', [
+                'user_id' => $user->id,
+                'type' => get_class($user)
+            ]);
+            // Send verification notification
+            $user->notify(new VerifyEmailNotification());
+            Log::debug('Verification email sent', ['user_id' => $user->id]);
 
-            Auth::login($user); // Auto-login after registration
-            
-            return $this->registered($request, $user)
-                ?: redirect($this->redirectPath());
-                
+            // Different handling based on user type
+            if ($user instanceof Admin && $user->role === 'orphanagemanager') {
+                Log::info('Orphanage manager registered - redirecting to verification notice');
+                return redirect()->route('verification.notice')
+                    ->with('status', 'Verification email sent! Please check your email to complete registration.');
+            }
+
+            // Regular user flow
+            Auth::login($user);
+            return redirect()->route('user.home');
+
         } catch (\Exception $e) {
             Log::error('Registration failed', [
                 'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
+                'input' => $request->except('password', 'password_confirmation')
             ]);
-            return back()->with('error', 'Registration failed. Please try again.');
+            return back()
+                ->with('error', 'Registration failed. Please try again.')
+                ->withInput();
         }
     }
-
     protected function create(array $data)
     {
         if ($data['status'] === 'contributor') {
             Log::debug('Creating contributor user');
+
             return User::create([
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
@@ -95,6 +118,11 @@ class RegisterController extends Controller
             ]);
         } else {
             Log::debug('Creating orphanage manager');
+            $logoPath = null;
+            if (isset($data['logo']) && $data['logo']->isValid()) {
+                $logoPath = $data['logo']->store('orphanage_logos', 'public');
+                Log::debug('Logo uploaded', ['path' => $logoPath]);
+            }
             $admin = Admin::create([
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
@@ -107,7 +135,7 @@ class RegisterController extends Controller
                 'status' => 'pending', // Set to pending until admin approval
             ]);
 
-             // Create orphanage record
+            // Create orphanage record
             Orphanage::create([
                 'admin_id' => $admin->id,
                 'name' => $data['orphanage_name'],
@@ -124,17 +152,44 @@ class RegisterController extends Controller
                 'logo' => $logoPath,
                 'region' => $data['region'] ?? null,
             ]);
-            
+
             return $admin;
         }
     }
 
     protected function registered(Request $request, $user)
-{
-    LOG::info('sending email');
-    $user->sendEmailVerificationNotification();
-    LOG::info(' Email sent');
-    
-    return redirect()->route('verification.notice');
-}
+    {
+        try {
+            Log::info('Registration completed', [
+                'user_id' => $user->id,
+                'type' => get_class($user),
+                'role' => $user instanceof Admin ? $user->role : 'contributor',
+            ]);
+
+            if ($user instanceof Admin) {
+            $user->email_verified = 0; // Initialize as unverified
+            $user->save();
+            
+            $user->sendEmailVerificationNotification();
+            
+            Log::info('Orphanage manager registered', [
+                'user_id' => $user->id,
+                'status' => 'unverified'
+            ]);
+            
+            return redirect()->route('verification.notice');
+        }
+
+            // Regular user flow
+            Auth::login($user);
+
+            return redirect()->route('user.home');
+        } catch (\Exception $e) {
+        Log::error('Post-registration error', [
+            'error' => $e->getMessage(),
+            'trace' => $e->getTraceAsString()
+        ]);
+        return back()->with('error', 'Registration completed but verification email failed');
+    }
+    }
 }

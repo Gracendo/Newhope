@@ -82,29 +82,22 @@
                                             <input type="text" name="orphanage_name" class="form-control" placeholder="Orphanage Name">
                                         </div>
                                         <div class="form-group col-md-6 mb-4">
-                                            <select name="country" id="country" class="form-control" >
-                                                <option value="">Select Country</option>
-                                                <!-- Countries will load via API -->
-                                            </select>
+                                        <input type="text"  name="country" class="form-control" placeholder="Enter Country name" >
                                         </div>
                                         <div class="form-group col-md-6 mb-4">
-                                            <select name="region" id="region" class="form-control"  disabled>
-                                                <option value="">Select Region</option>
-                                            </select>
+                                        <input type="text"  name="region" class="form-control" placeholder="Enter region" >
                                         </div>
                                         <div class="form-group col-md-6 mb-4">
-                                            <select name="city" id="city" class="form-control"  disabled>
-                                                <option value="">Select City</option>
-                                            </select>
+                                        <input type="text"  name="city" class="form-control" placeholder="Enter city" >
                                         </div>
                                         <div class="form-group col-md-12 mb-4">
                                             <input type="text" name="orphanage_address" class="form-control" placeholder="Orphanage Address">
                                         </div>
                                         <div class="form-group col-md-6 mb-4">
-                                            <input type="number" step="0.000001" name="longitude" id="longitude" class="form-control" placeholder="Click to pick longitude on map" readonly >
+                                            <input type="number" step="0.000001" name="longitude" id="longitude" class="form-control" placeholder="Click to pick longitude on map"  >
                                         </div>
                                         <div class="form-group col-md-6 mb-4">
-                                            <input type="number" step="0.000001" name="latitude" id="latitude" class="form-control" placeholder="Click to pick  latitude on map" readonly >
+                                            <input type="number" step="0.000001" name="latitude" id="latitude" class="form-control" placeholder="Click to pick  latitude on map" >
                                         </div>
                                         <div class="form-group col-md-6 mb-4">
                                             <input type="text" name="num_enregistrement" class="form-control" placeholder="Registration Number">

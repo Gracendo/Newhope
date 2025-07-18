@@ -35,7 +35,7 @@
                             @endif
 
                             <p class="mb-4">
-                                Before proceeding, please check your email (<strong>{{ auth()->user()->email }}</strong>) 
+                                Before proceeding, please check your email 
                                 for a verification link.
                             </p>
                             <p class="mb-4">

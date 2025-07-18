@@ -4,7 +4,6 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CampaignsController;
 use App\Http\Controllers\Admin\DonationAdminController;
-use App\Http\Controllers\Auth\ActivationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BlogController;
@@ -14,10 +13,12 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrphanageController;
-use App\Http\controllers\PendingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserDashboardController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Models\Admin;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 // test controller
 use Illuminate\Support\Facades\Route;
 
@@ -40,8 +41,6 @@ Route::get('/orphanage', [OrphanageController::class, 'index'])->name('orphanage
 Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
 Route::get('/signup', [SignupController::class, 'index'])->name('signup');
 
-// pending approvalinterfce
-Route::get('/pending-approval', [PendingController::class, 'index'])->name('');
 
 // Donation routes
 Route::get('/donation', [DonationController::class, 'index'])->name('donation');
@@ -66,11 +65,8 @@ Route::middleware(['setlanguage:backend'])->group(function () {
 | User login - Registration
 |----------------------------------------------------------------------------------------------------------------------------*/
 
-// Route::get('/login', [LoginController::class, 'showLoginForm'])->name('user.login');
- Route::post('/ajax-login', [HomeController::class, 'ajax_login'])->name('user.ajax.login');
-// Route::post('/login', [LoginController::class, 'login']);
-// Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('user.register');
-// Route::post('/register', [RegisterController::class, 'register'])->name('user.register');
+
+Route::post('/ajax-login', [HomeController::class, 'ajax_login'])->name('user.ajax.login');
 
 // User Register
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('user.register');
@@ -79,15 +75,50 @@ Route::post('/register', [RegisterController::class, 'register'])->name('user.re
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('user.login');
 Route::post('/login', [LoginController::class, 'login'])->name('user.login.submit');
 Route::post('/logout', [LoginController::class, 'logout'])->name('user.logout');
-//email verification routes
+// email verification routes
 Route::get('/email/verify', function () {
     return view('frontend.verify-email');
-})->middleware('auth')->name('verification.notice');
+})->name('verification.notice');
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect('/user-home');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+
+
+Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) {
+    try {
+        $user = Admin::findOrFail($id);
+        
+        Log::info('Email verification attempt', [
+            'user_id' => $id,
+            'email' => $user->email
+        ]);
+
+        // Verify hash matches
+        if (!hash_equals($hash, sha1($user->email))) {
+            Log::warning('Invalid verification hash', [
+                'expected' => sha1($user->email),
+                'provided' => $hash
+            ]);
+            abort(403, 'Invalid verification link');
+        }
+
+        // Mark as verified
+        if ($user->email_verified !== 1) {
+            $user->update(['email_verified' => 1]);
+            Log::info('Email marked as verified', ['user_id' => $user->id]);
+        }
+
+        return redirect()->route('admin.login')
+            ->with('status', 'Email successfully verified! You can now login.');
+
+    } catch (\Exception $e) {
+        Log::error('Email verification failed', [
+            'error' => $e->getMessage(),
+            'user_id' => $id ?? 'unknown',
+            'trace' => $e->getTraceAsString()
+        ]);
+        return redirect()->route('register')
+            ->with('error', 'Verification failed. Please try again.');
+    }
+})->middleware(['signed'])->name('verification.verify');
 // Admin Dashboard
 
 Route::prefix('admin-dash')->middleware(['setlanguage:backend', 'adminGlobalVar'])->group(function () {
@@ -119,11 +150,10 @@ Route::prefix('admin-dash')->middleware(['setlanguage:backend', 'adminGlobalVar'
 |----------------------------------------------------------------------------------------------------------------------------*/
 // User routes
 Route::prefix('user-home')->middleware([
-    'auth:web', 
-    //'email.verify',  // Our custom middleware
-    //'user.active'
+    'auth:web',
+    // 'email.verify',  // Our custom middleware
+    // 'user.active'
 ])->group(function () {
-    
     Route::get('/', [UserDashboardController::class, 'index'])->name('user.home');
     Route::get('/mycampaigns', [UserDashboardController::class, 'mycampaigns'])->name('user.mycampaigns');
     Route::get('/donations', [UserDashboardController::class, 'donations'])->name('user.donations');
