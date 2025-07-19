@@ -15,7 +15,7 @@
                           <tr>
                             <th>{{__('ID')}}</th>
                             <th>{{__('Name')}}</th>
-                            <th>{{__('Phone')}}</th>
+                            <th>{{__('Role')}}</th>
                             <th>{{__('Email')}}</th>
                             <th>{{__('User Verify Status')}}</th>
                             <th>Action</th>
@@ -26,24 +26,36 @@
                             <tr>
                               <td>{{$data->id}}</td>
                               <td>{{$data->first_name}} {{$data->last_name}} <span class="badge text-light-primary">({{$data->username}})</span></td>
-                              <td>{{$data->phone}}</td>
+                              <td>{{$data->role}}</td>
                               <td>{{$data->email}} @if($data->email_verified == 1) <i class="fas fa-check-circle text-success"></i> @endif</td>
                               <td>
-                                @if($data->user_verify_status == 0)
-                                    <span class="badge badge-danger">{{__('Not Verified')}}</span>
-                                  @elseif($data->user_verify_status == 1)
-                                    <span class="badge badge-warning">{{__('Pending Approval')}}</span>
+                                <!-- {{$data->status}} -->
+                                @if($data->status =='approved')
+                                    <span class="badge text-bg-primary">{{__('Approved')}}</span>
+                                  @elseif($data->status == 'pending')
+                                    <span class="badge text-bg-warning">{{__('Pending Approval')}}</span>
                                   @else
-                                    <span class="badge badge-success">{{__('Verified')}}</span>
+                                    <span class="badge text-bg-danger">{{__('Rejected')}}</span>
                                 @endif
                               </td>
                               <td>
+                                 @if($data->status =='approved')
                                 <button type="button" class="btn btn-light-success icon-btn b-r-4">
                                   <i class="ti ti-edit text-success"></i> 
                                 </button>
                                 <button type="button" class="btn btn-light-danger icon-btn b-r-4 delete-btn">
                                   <i class="ti ti-trash"></i>
                                 </button>
+                                @else
+                                  <button type="button" class="btn btn-light-success icon-btn b-r-4">
+                                 
+                                            <iconify-icon icon="line-md:account-add"></iconify-icon>
+                                         
+                                </button>
+                                <button type="button" class="btn btn-light-danger icon-btn b-r-4 delete-btn">
+                                  <i class="ti ti-trash"></i>
+                                </button>
+                                @endif
                               </td>
                             </tr>
                           @endforeach
