@@ -57,7 +57,7 @@ Route::get('/campaigns/{id}', [CampaignDetailController::class, 'show'])->name('
 // Auth Admin
 Route::middleware(['setlanguage:backend'])->group(function () {
     Route::get('/auth/admin', [LoginController::class, 'showAdminLoginForm'])->name('admin.login');
-    Route::post('/auth/admin', [LoginController::class, 'adminLogin']);
+    Route::post('/auth/admin', [LoginController::class, 'adminLogin'])->name('admin.login');
     Route::get('/logout/admin', [AdminDashboardController::class, 'adminLogout'])->name('admin.logout');
 });
 

@@ -82,50 +82,61 @@
 @endsection
 
 @section('scripts')
-    <script>
-        (function($){
-        "use strict";
+<script>
+(function($){
+"use strict";
 
-            $(document).ready(function ($){
-                
-                $(document).on('click','#form_submit',function (e){
-                    e.preventDefault();
-                    var el = $(this);
-                    var erContainer = $(".error-message");
-                    erContainer.html('');
-                    el.text('{{__('Veuillez patienter..')}}');
-                    $.ajax({
-                        url: "{{route('admin.login')}}",
-                        type: "POST",
-                        data: {
-                            _token : "{{csrf_token()}}",
-                            username : $('#username').val(),
-                            password : $('#password').val(),
-                            remember : $('#remember').val(),
-                        },
-                        error:function(data){
-                            var errors = data.responseJSON;
-                            erContainer.html('<div class="alert alert-danger"></div>');
-                            $.each(errors.errors, function(index,value){
-                                erContainer.find('.alert.alert-danger').append('<p>'+value+'</p>');
-                            });
-                            el.text('{{__('Login')}}');
-                        },
-                        success:function (data){
-                            $('.alert.alert-danger').remove();
-                            if (data.status == 'ok'){
-                                el.text('{{__('Redirecting')}}..');
-                                erContainer.html('<div class="alert alert-'+data.type+'">'+data.msg+'</div>');
-                                location.reload();
-                            }else{
-                                erContainer.html('<div class="alert alert-'+data.type+'">'+data.msg+'</div>');
-                                el.text('{{__('Login')}}');
-                            }
-                        }
-                    });
-                });
-
+    $(document).ready(function ($){
+        
+        $(document).on('submit','.app-form',function (e){
+            e.preventDefault();
+            var el = $('#form_submit');
+            var erContainer = $(".error-message");
+            erContainer.html('');
+            el.html('<i class="fas fa-spinner fa-spin"></i> {{__("Please wait...")}}');
+            
+            $.ajax({
+                url: "{{route('admin.login')}}",
+                type: "POST",
+                data: {
+                    _token : "{{csrf_token()}}",
+                    username : $('#username').val(),
+                    password : $('#password').val(),
+                    remember : $('#checkDefault').is(':checked') ? 1 : 0
+                },
+                error:function(data){
+                    var errors = data.responseJSON;
+                    erContainer.html('<div class="alert alert-danger"></div>');
+                    if (errors && errors.errors) {
+                        $.each(errors.errors, function(index,value){
+                            erContainer.find('.alert.alert-danger').append('<p>'+value+'</p>');
+                        });
+                    } else if (data.responseJSON && data.responseJSON.msg) {
+                        erContainer.find('.alert.alert-danger').append('<p>'+data.responseJSON.msg+'</p>');
+                    } else {
+                        erContainer.find('.alert.alert-danger').append('<p>{{__("Login failed. Please try again.")}}</p>');
+                    }
+                    el.html('{{__("Sign In")}}');
+                },
+                success:function (data){
+                    $('.alert.alert-danger').remove();
+                    if (data.status == 'ok' && data.redirect){
+                        // Redirect to admin-dash/
+                        window.location.href = data.redirect;
+                    }
+                    else if (data.status == 'not_approved') {
+                        erContainer.html('<div class="alert alert-warning">'+data.msg+'</div>');
+                        el.html('{{__("Sign In")}}');
+                    }
+                    else {
+                        erContainer.html('<div class="alert alert-'+data.type+'">'+data.msg+'</div>');
+                        el.html('{{__("Sign In")}}');
+                    }
+                }
             });
-        })(jQuery);
-    </script>
+        });
+
+    });
+})(jQuery);
+</script>
 @endsection

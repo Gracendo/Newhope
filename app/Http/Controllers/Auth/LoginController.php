@@ -52,7 +52,8 @@ class LoginController extends Controller
     }
 
     public function adminLogin(Request $request)
-    {
+{
+    try {
         $this->validate($request, [
             'username' => 'required|string',
             'password' => 'required|min:6'
@@ -61,22 +62,67 @@ class LoginController extends Controller
             'password.required' => __('password required')
         ]);
 
-        //Avant d'authentifier un admin, vérifie s'il a été approuvé
+        Log::info('Admin login attempt', ['username' => $request->username]);
 
-        if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password], $request->get('remember'))) {
+        // Attempt authentication
+        if (Auth::guard('admin')->attempt([
+            'username' => $request->username,
+            'password' => $request->password
+        ], $request->get('remember'))) 
+        {
+            $admin = Auth::guard('admin')->user();
+            
+            Log::debug('Admin authenticated', [
+                'admin_id' => $admin->id,
+                'status' => $admin->status
+            ]);
 
+            // Check approval status
+            if ($admin->status !== 'approved') {
+                Auth::guard('admin')->logout();
+                
+                Log::warning('Admin not approved', ['admin_id' => $admin->id]);
+                
+                return response()->json([
+                    'msg' => __('Your account is pending admin approval'),
+                    'type' => 'warning',
+                    'status' => 'not_approved',
+                    'redirect' => null // No redirect
+                ]);
+            }
+
+            Log::info('Admin login successful', ['admin_id' => $admin->id]);
+            
             return response()->json([
                 'msg' => __('Login Success Redirecting'),
                 'type' => 'success',
-                'status' => 'ok'
+                'status' => 'ok',
+                'redirect' => url('admin-dash')  // Explicit redirect
             ]);
         }
+
+        Log::warning('Invalid admin login credentials', ['username' => $request->username]);
+        
         return response()->json([
             'msg' => __('Your Username or Password Is Wrong !!'),
             'type' => 'danger',
             'status' => 'not_ok',
         ]);
+
+    } catch (\Exception $e) {
+        Log::error('Admin login error', [
+            'error' => $e->getMessage(),
+            'trace' => $e->getTraceAsString(),
+            'username' => $request->username ?? 'unknown'
+        ]);
+        
+        return response()->json([
+            'msg' => __('Login temporarily unavailable'),
+            'type' => 'danger',
+            'status' => 'error',
+        ]);
     }
+}
     public function logout(Request $request)
     {
         Auth::logout();
