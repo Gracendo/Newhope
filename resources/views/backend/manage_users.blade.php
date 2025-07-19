@@ -31,34 +31,69 @@
                               <td>
                                 <!-- {{$data->status}} -->
                                 @if($data->status =='approved')
-                                    <span class="badge text-bg-primary">{{__('Approved')}}</span>
-                                  @elseif($data->status == 'pending')
-                                    <span class="badge text-bg-warning">{{__('Pending Approval')}}</span>
-                                  @else
-                                    <span class="badge text-bg-danger">{{__('Rejected')}}</span>
-                                @endif
-                              </td>
-                              <td>
-                                 @if($data->status =='approved')
-                                <button type="button" class="btn btn-light-success icon-btn b-r-4">
-                                  <i class="ti ti-edit text-success"></i> 
-                                </button>
-                                <button type="button" class="btn btn-light-danger icon-btn b-r-4 delete-btn">
-                                  <i class="ti ti-trash"></i>
-                                </button>
-                                @else
-                                  <button type="button" class="btn btn-light-success icon-btn b-r-4">
-                                 
-                                            <iconify-icon icon="line-md:account-add"></iconify-icon>
-                                         
-                                </button>
-                                <button type="button" class="btn btn-light-danger icon-btn b-r-4 delete-btn">
-                                  <i class="ti ti-trash"></i>
-                                </button>
-                                @endif
-                              </td>
+                                      <span class="badge text-bg-primary">{{__('Approved')}}</span>
+                                    @elseif($data->status == 'pending')
+                                      <span class="badge text-bg-warning">{{__('Pending Approval')}}</span>
+                                    @else
+                                      <span class="badge text-bg-danger">{{__('Rejected')}}</span>
+                                  @endif
+                                </td>
+                                <td>
+                                      @if($data->status =='approved')
+                                          <button type="button" class="btn btn-light-success icon-btn b-r-4">
+                                              <i class="ti ti-edit text-success"></i> 
+                                          </button>
+                                          <button type="button" class="btn btn-light-danger icon-btn b-r-4 delete-btn">
+                                              <i class="ti ti-trash"></i>
+                                          </button>
+                                      @else
+                                          @if($data->status !== 'approved')
+                                              <form action="{{ route('admin.users.approve', $data->id) }}" method="POST" style="display: inline;">
+                                                  @csrf
+                                                  <button type="submit" class="btn btn-sm btn-success">
+                                                      <i class="fa-solid fa-thumbs-up fa-fw"></i>
+                                                  </button>
+                                              </form>
+                                          @endif
+                                      
+                                          @if($data->status !== 'rejected')
+                                              <!-- Reject Button Triggering Modal -->
+                                              <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" 
+                                                  data-bs-target="#rejectModal-{{$data->id}}">
+                                                  <i class="fa-solid fa-thumbs-down fa-fw"></i>
+                                              </button>
+                                              
+                                              <!-- Rejection Modal -->
+                                              <div class="modal fade" id="rejectModal-{{$data->id}}" tabindex="-1" aria-hidden="true">
+                                                  <div class="modal-dialog">
+                                                      <div class="modal-content">
+                                                          <form action="{{ route('admin.users.reject', $data->id) }}" method="POST">
+                                                              @csrf
+                                                              <div class="modal-header">
+                                                                  <h5 class="modal-title">Reject User</h5>
+                                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                              </div>
+                                                              <div class="modal-body">
+                                                                  <div class="mb-3">
+                                                                      <label class="form-label">Reason (optional)</label>
+                                                                      <textarea name="reason" class="form-control" rows="3" placeholder="Enter rejection reason..."></textarea>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="modal-footer">
+                                                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                                  <button type="submit" class="btn btn-danger">Confirm Rejection</button>
+                                                              </div>
+                                                          </form>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          @endif
+                                      @endif
+                                  </td>
+                                  
                             </tr>
                           @endforeach
+                          
                         </tbody>
                       </table>
                     </div>

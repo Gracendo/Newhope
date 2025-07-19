@@ -3,23 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
-use App\Models\Orphanage;
-use App\Models\Campaign;
+use App\Mail\AdminApprovalNotification;
+use App\Mail\AdminRejectionNotification;
 use App\Models\Admin;
-use App\Models\Lang;
+use App\Models\Campaign;
+use App\Models\Orphanage;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; // Add this line
+use Illuminate\Support\Facades\Hash; // Add this
+use Illuminate\Support\Facades\Log; // Add this
+use Illuminate\Support\Facades\Mail;
 
 class AdminDashboardController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:admin');
-        $this->middleware('permission:home_variant',['only' => ['home_variant','update_home_variant']]);
+        $this->middleware('permission:home_variant', ['only' => ['home_variant', 'update_home_variant']]);
     }
-    
+
     public function adminIndex()
     {
         $total_admin = Admin::count();
@@ -27,13 +30,14 @@ class AdminDashboardController extends Controller
 
         return view('backend.admin_dashboard')->with([
             'total_admin' => $total_admin,
-            'total_user' => $total_user
+            'total_user' => $total_user,
         ]);
     }
 
     public function manageUsers()
     {
         $all_user = Admin::all()->except(Auth::id());
+
         return view('backend.manage_users')->with(['all_user' => $all_user]);
     }
 
@@ -45,6 +49,7 @@ class AdminDashboardController extends Controller
     public function adminLogout()
     {
         Auth::logout();
+
         return redirect()->route('admin.login')->with(['msg' => __('You Logged Out !!'), 'type' => 'danger']);
     }
 
@@ -57,9 +62,10 @@ class AdminDashboardController extends Controller
     {
         $orphanages = Orphanage::all();
         $campaigns = Campaign::with('orphanage')->get();
-        return view('backend.campaign', compact('orphanages','campaigns'));
+
+        return view('backend.campaign', compact('orphanages', 'campaigns'));
     }
-    
+
     public function campaignDetails()
     {
         return view('backend.campaign_details');
@@ -78,9 +84,9 @@ class AdminDashboardController extends Controller
             'last_name' => 'required|string|max:191',
             'email' => 'required|max:191|email|unique:admins,email,'.$user,
             'username' => 'nullable|string|max:191',
-            'image' => 'nullable|string|max:191'
+            'image' => 'nullable|string|max:191',
         ]);
-        Admin::find(Auth::user()->id)->update(['first_name' => $request->first_name,'last_name' => $request->last_name, 'email' => $request->email, 'image' => $request->image]);
+        Admin::find(Auth::user()->id)->update(['first_name' => $request->first_name, 'last_name' => $request->last_name, 'email' => $request->email, 'image' => $request->image]);
 
         return redirect()->back()->with(['msg' => __('Profil mis à jour'), 'type' => 'success']);
     }
@@ -94,13 +100,12 @@ class AdminDashboardController extends Controller
     {
         $this->validate($request, [
             'old_password' => 'required|string',
-            'password' => 'required|string|min:8|confirmed'
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
         $user = Admin::findOrFail(Auth::id());
 
         if (Hash::check($request->old_password, $user->password)) {
-
             $user->password = Hash::make($request->password);
             $user->save();
             Auth::logout();
@@ -111,92 +116,176 @@ class AdminDashboardController extends Controller
         return redirect()->back()->with(['msg' => __('Un problème est survenu ! Veuillez réessayer ou vérifier votre ancien mot de passe.'), 'type' => 'danger']);
     }
 
-   public function edit(Campaign $campaign)
-{
-    $campaign->load(['orphanage']); // Eager load relationships
-    
-    return response()->json([
-        'campaign' => $campaign,
-        'orphanages' => Orphanage::all(), // Include all orphanages for the dropdown
-        'current_image_url' => $campaign->image ? asset('storage/' . $campaign->image) : null,
-        'business_plan_url' => $campaign->business_plan ? asset('storage/' . $campaign->business_plan) : null
-    ]);
-}
-   public function update(Request $request, Campaign $campaign)
-{
-    // 1. Validate the incoming request data
-    $validatedData = $request->validate([
-        'orphanage_id' => 'required|exists:orphanages,id',
-        'name' => 'required|string|max:255',
-        'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'gallery.*' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'start_date' => 'nullable|date',
-        'end_date' => 'nullable|date|after_or_equal:start_date',
-        'project_duration' => 'nullable|string|max:255',
-        'objectif' => 'nullable|string',
-        'description' => 'nullable|string',
-        'goal_amount' => 'required|numeric|min:0',
-        'prefered_amounts' => 'nullable|string',
-        'raised_amount' => 'nullable|numeric|min:0',
-        'status' => 'required|string|in:pending,inProgress,completed',
-        'business_plan' => 'sometimes|mimes:pdf|max:5120',
-    ]);
+    public function edit(Campaign $campaign)
+    {
+        $campaign->load(['orphanage']); // Eager load relationships
 
-    // 2. Handle file uploads if they exist
-    if ($request->hasFile('image')) {
-        // Delete old image if it exists
-        if ($campaign->image && Storage::disk('public')->exists($campaign->image)) {
-            Storage::disk('public')->delete($campaign->image);
-        }
-        
-        // Store new image
-        $imagePath = $request->file('image')->store('campaigns/images', 'public');
-        $validatedData['image'] = $imagePath;
+        return response()->json([
+            'campaign' => $campaign,
+            'orphanages' => Orphanage::all(), // Include all orphanages for the dropdown
+            'current_image_url' => $campaign->image ? asset('storage/'.$campaign->image) : null,
+            'business_plan_url' => $campaign->business_plan ? asset('storage/'.$campaign->business_plan) : null,
+        ]);
     }
 
-    // 3. Handle gallery images update
-    if ($request->hasFile('gallery')) {
-        // Delete old gallery images if they exist
-        if ($campaign->gallery) {
-            $oldGallery = json_decode($campaign->gallery, true);
-            foreach ($oldGallery as $oldImage) {
-                if (Storage::disk('public')->exists($oldImage)) {
-                    Storage::disk('public')->delete($oldImage);
+    public function update(Request $request, Campaign $campaign)
+    {
+        // 1. Validate the incoming request data
+        $validatedData = $request->validate([
+            'orphanage_id' => 'required|exists:orphanages,id',
+            'name' => 'required|string|max:255',
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gallery.*' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'project_duration' => 'nullable|string|max:255',
+            'objectif' => 'nullable|string',
+            'description' => 'nullable|string',
+            'goal_amount' => 'required|numeric|min:0',
+            'prefered_amounts' => 'nullable|string',
+            'raised_amount' => 'nullable|numeric|min:0',
+            'status' => 'required|string|in:pending,inProgress,completed',
+            'business_plan' => 'sometimes|mimes:pdf|max:5120',
+        ]);
+
+        // 2. Handle file uploads if they exist
+        if ($request->hasFile('image')) {
+            // Delete old image if it exists
+            if ($campaign->image && Storage::disk('public')->exists($campaign->image)) {
+                Storage::disk('public')->delete($campaign->image);
+            }
+
+            // Store new image
+            $imagePath = $request->file('image')->store('campaigns/images', 'public');
+            $validatedData['image'] = $imagePath;
+        }
+
+        // 3. Handle gallery images update
+        if ($request->hasFile('gallery')) {
+            // Delete old gallery images if they exist
+            if ($campaign->gallery) {
+                $oldGallery = json_decode($campaign->gallery, true);
+                foreach ($oldGallery as $oldImage) {
+                    if (Storage::disk('public')->exists($oldImage)) {
+                        Storage::disk('public')->delete($oldImage);
+                    }
                 }
             }
+
+            // Store new gallery images
+            $galleryPaths = [];
+            foreach ($request->file('gallery') as $image) {
+                $galleryPaths[] = $image->store('campaigns/gallery', 'public');
+            }
+            $validatedData['gallery'] = json_encode($galleryPaths);
         }
-        
-        // Store new gallery images
-        $galleryPaths = [];
-        foreach ($request->file('gallery') as $image) {
-            $galleryPaths[] = $image->store('campaigns/gallery', 'public');
+
+        // 4. Handle business plan update
+        if ($request->hasFile('business_plan')) {
+            // Delete old business plan if it exists
+            if ($campaign->business_plan && Storage::disk('public')->exists($campaign->business_plan)) {
+                Storage::disk('public')->delete($campaign->business_plan);
+            }
+
+            // Store new business plan
+            $businessPlanPath = $request->file('business_plan')->store('campaigns/business_plans', 'public');
+            $validatedData['business_plan'] = $businessPlanPath;
         }
-        $validatedData['gallery'] = json_encode($galleryPaths);
+
+        // 5. Parse preferred amounts if provided
+        if ($request->has('prefered_amounts')) {
+            $preferedAmounts = array_map('trim', explode(',', $request->input('prefered_amounts')));
+            $validatedData['prefered_amounts'] = json_encode($preferedAmounts);
+        }
+
+        // 6. Update the campaign with validated data
+        $campaign->update($validatedData);
+
+        // 7. Redirect back with success message
+        return redirect()->route('admin.campaign')
+                       ->with('success', 'Campaign updated successfully!');
     }
 
-    // 4. Handle business plan update
-    if ($request->hasFile('business_plan')) {
-        // Delete old business plan if it exists
-        if ($campaign->business_plan && Storage::disk('public')->exists($campaign->business_plan)) {
-            Storage::disk('public')->delete($campaign->business_plan);
+    /**
+     * Approve a pending admin user.
+     */
+    public function approveUser(Request $request, $userId)
+    {
+        try {
+            Log::info('Attempting to approve user', ['user_id' => $userId, 'approver_id' => Auth::id()]);
+
+            $user = Admin::findOrFail($userId);
+
+            if ($user->status === 'approved') {
+                Log::warning('User already approved', ['user_id' => $userId]);
+
+                return redirect()->back()->with([
+                    'msg' => __('User is already approved'),
+                    'type' => 'warning',
+                ]);
+            }
+            $user->status = 'approved';
+            $user->save();
+
+            Log::info('User approved successfully', ['user_id' => $userId]);
+
+            // Send approval email
+            // Mail::to($user->email)->send(new AdminApprovalNotification($user));
+
+            return back()->with('success', 'User approved and notified');
+        } catch (\Exception $e) {
+            Log::error('Failed to approve user', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'user_id' => $userId,
+            ]);
+
+            return redirect()->back()->with([
+                'msg' => __('Failed to approve user'),
+                'type' => 'danger',
+            ]);
         }
-        
-        // Store new business plan
-        $businessPlanPath = $request->file('business_plan')->store('campaigns/business_plans', 'public');
-        $validatedData['business_plan'] = $businessPlanPath;
     }
 
-    // 5. Parse preferred amounts if provided
-    if ($request->has('prefered_amounts')) {
-        $preferedAmounts = array_map('trim', explode(',', $request->input('prefered_amounts')));
-        $validatedData['prefered_amounts'] = json_encode($preferedAmounts);
+    /**
+     * Reject a pending admin user.
+     */
+    public function rejectUser(Request $request, $userId)
+    {
+        try {
+            Log::info('Attempting to reject user', ['user_id' => $userId, 'approver_id' => Auth::id()]);
+
+            $user = Admin::findOrFail($userId);
+
+            if ($user->status === 'rejected') {
+                Log::warning('User already rejected', ['user_id' => $userId]);
+
+                return redirect()->back()->with([
+                    'msg' => __('User is already rejected'),
+                    'type' => 'warning',
+                ]);
+            }
+            $user->status = 'rejected';
+            $user->save();
+
+            Log::info('User rejected successfully', ['user_id' => $userId]);
+
+            // Send rejection email with optional reason
+            // $reason = $request->input('reason');
+            // Mail::to($user->email)->send(new AdminRejectionNotification($user, $reason));
+
+            return back()->with('success', 'User rejected and notified');
+        } catch (\Exception $e) {
+            Log::error('Failed to reject user', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'user_id' => $userId,
+            ]);
+
+            return redirect()->back()->with([
+                'msg' => __('Failed to reject user'),
+                'type' => 'danger',
+            ]);
+        }
     }
-
-    // 6. Update the campaign with validated data
-    $campaign->update($validatedData);
-
-    // 7. Redirect back with success message
-    return redirect()->route('admin.campaign')
-                   ->with('success', 'Campaign updated successfully!');
-}
 }

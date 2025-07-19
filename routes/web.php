@@ -41,7 +41,6 @@ Route::get('/orphanage', [OrphanageController::class, 'index'])->name('orphanage
 Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
 Route::get('/signup', [SignupController::class, 'index'])->name('signup');
 
-
 // Donation routes
 Route::get('/donation', [DonationController::class, 'index'])->name('donation');
 Route::get('/donations/create', [DonationController::class, 'create'])->name('donations.create');
@@ -65,7 +64,6 @@ Route::middleware(['setlanguage:backend'])->group(function () {
 | User login - Registration
 |----------------------------------------------------------------------------------------------------------------------------*/
 
-
 Route::post('/ajax-login', [HomeController::class, 'ajax_login'])->name('user.ajax.login');
 
 // User Register
@@ -80,22 +78,20 @@ Route::get('/email/verify', function () {
     return view('frontend.verify-email');
 })->name('verification.notice');
 
-
-
 Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) {
     try {
         $user = Admin::findOrFail($id);
-        
+
         Log::info('Email verification attempt', [
             'user_id' => $id,
-            'email' => $user->email
+            'email' => $user->email,
         ]);
 
         // Verify hash matches
         if (!hash_equals($hash, sha1($user->email))) {
             Log::warning('Invalid verification hash', [
                 'expected' => sha1($user->email),
-                'provided' => $hash
+                'provided' => $hash,
             ]);
             abort(403, 'Invalid verification link');
         }
@@ -108,13 +104,13 @@ Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) 
 
         return redirect()->route('admin.login')
             ->with('status', 'Email successfully verified! You can now login.');
-
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
         Log::error('Email verification failed', [
             'error' => $e->getMessage(),
             'user_id' => $id ?? 'unknown',
-            'trace' => $e->getTraceAsString()
+            'trace' => $e->getTraceAsString(),
         ]);
+
         return redirect()->route('register')
             ->with('error', 'Verification failed. Please try again.');
     }
@@ -140,9 +136,26 @@ Route::prefix('admin-dash')->middleware(['setlanguage:backend', 'adminGlobalVar'
         Route::get('campaigns/{campaign}/edit', [AdminDashboardController::class, 'edit'])->name('campaigns.edit');
         Route::put('campaigns/{campaign}', [CampaignsController::class, 'update'])->name('campaigns.update');
         Route::delete('campaigns/{campaign}', [CampaignsController::class, 'destroy'])->name('campaigns.destroy');
+
+        Route::post('/users/{user}/approve', [AdminDashboardController::class, 'approveUser'])
+        ->name('admin.users.approve');
+
+        Route::post('/users/{user}/reject', [AdminDashboardController::class, 'rejectUser'])
+        ->name('admin.users.reject');
     });
 });
+Route::get('/test-mail-view', function () {
+    try {
+        $admin = Admin::first();
 
+        return view('emails.admin_rejected', [
+            'admin' => $admin,
+            'reason' => 'Test reason',
+        ]);
+    } catch (Exception $e) {
+        dd($e->getMessage()); // This will show the exact error
+    }
+});
 // End admin-dashboard
 
 /*----------------------------------------------------------------------------------------------------------------------------
