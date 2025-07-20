@@ -106,7 +106,7 @@
                                             <input type="file" name="logo" class="form-control" accept="image/*">
                                         </div>
                                         <div class="form-group col-md-12 mb-4">
-                                            <textarea name="description" class="form-control" placeholder="Description"></textarea>
+                                            <textarea name="description" class="form-control" placeholder="Tell us more about your orphange."></textarea>
                                         </div>
                                         <div class="form-group col-md-6 mb-4">
                                             <input type="email" name="orphanage_email" class="form-control" placeholder="Orphanage Email">

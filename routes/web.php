@@ -13,6 +13,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrphanageController;
+use App\Http\Controllers\OrphanageDetailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserDashboardController;
 use App\Models\Admin;
@@ -37,7 +38,6 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
-Route::get('/orphanage', [OrphanageController::class, 'index'])->name('orphanage');
 Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
 Route::get('/signup', [SignupController::class, 'index'])->name('signup');
 
@@ -49,10 +49,15 @@ Route::post('/donations/initiate', [DonationController::class, 'initiate'])->nam
 Route::post('/donation', [DonationController::class, 'initiate'])->name('donations.initiate1');
 Route::post('/donations/confirm', [DonationController::class, 'confirmDonation'])->name('donations.confirm');
 
+// Orphanage routes
+Route::get('/orphanage', [OrphanageController::class, 'index'])->name('orphanage');
+Route::get('/orphanage/{id}', [OrphanageDetailController::class, 'show'])->name('orphanage.details');
+
 // Campaign routes
 Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaign');
 Route::get('/campaigns/{id}', [CampaignDetailController::class, 'show'])->name('campaign.details');
 
+//
 // Auth Admin
 Route::middleware(['setlanguage:backend'])->group(function () {
     Route::get('/auth/admin', [LoginController::class, 'showAdminLoginForm'])->name('admin.login');

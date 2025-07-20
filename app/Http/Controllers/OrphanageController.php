@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Orphanage;
 
 class OrphanageController extends Controller
 {
-     public function index()
+    public function index()
     {
-        return view('frontend.orphanages');
+        $orphanages = Orphanage::all();
+
+        return view('frontend.orphanages', compact('orphanages'));
     }
 }
