@@ -1,87 +1,218 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use Illuminate\Support\Facades\Storage;
 
 use App\Http\Controllers\Controller;
 use App\Models\Campaign;
 use App\Models\Orphanage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class CampaignsController extends Controller
 {
+    /**
+     * Store a newly created campaign
+     */
     public function store(Request $request)
     {
-        $request->validate([
+        // Validate request data
+        $validated = $request->validate([
             'orphanage_id' => 'required|exists:orphanages,id',
             'name' => 'required|string|max:255',
-            'image' => 'required|image',
-            'gallery.*' => 'image',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'gallery.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'gallery' => 'max:5', // Max 5 images
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
             'project_duration' => 'nullable|string|max:255',
             'objectif' => 'nullable|string',
             'description' => 'nullable|string',
             'goal_amount' => 'required|numeric|min:0',
-            'prefered_amounts' => 'nullable|string', // will be parsed
             'raised_amount' => 'nullable|numeric|min:0',
-            'status' => 'required|string|in:pending,active,completed',
-            'business_plan' => 'required|mimes:pdf',
+            'business_plan' => 'required|mimes:pdf|max:5120',
         ]);
 
         try {
-            // Upload image
-            $imagePath = $request->file('image')->store('campaigns/images', 'public');
+            // Ensure admin is authenticated
+            if (!Auth::guard('admin')->check()) {
+                throw new \Exception('Unauthorized access');
+            }
 
-            // Upload gallery images
+            $admin = Auth::guard('admin')->user();
+            Log::info('Attempting to create new campaign', [
+                'admin_id' => $admin->id,
+                'role' => $admin->role
+            ]);
+
+            // Handle file uploads
+            $imagePath = $this->uploadFile($request->file('image'), 'campaigns/images');
+            
             $galleryPaths = [];
             if ($request->hasFile('gallery')) {
                 foreach ($request->file('gallery') as $image) {
-                    $galleryPaths[] = $image->store('campaigns/gallery', 'public');
+                    $galleryPaths[] = $this->uploadFile($image, 'campaigns/gallery');
                 }
             }
 
-            // Upload business plan
-            $businessPlanPath = $request->file('business_plan')->store('campaigns/business_plans', 'public');
+            $businessPlanPath = $this->uploadFile($request->file('business_plan'), 'campaigns/business_plans');
 
-            // Parse preferred amounts (comma-separated)
-            $preferedAmounts = array_map('trim', explode(',', $request->input('prefered_amounts')));
+            // Set status based on role
+            $status = $admin->role === 'orphanagemanager' ? 'pending' : 'approved';
 
             // Create campaign
-            $project = Campaign::create([
-                'Orphanage_id' => $request->orphanage_id,
-                'name' => $request->name,
+            $campaign = Campaign::create([
+                'orphanage_id' => $validated['orphanage_id'],
+                'admin_id' => $admin->id,
+                'name' => $validated['name'],
                 'image' => $imagePath,
-                'gallery' => json_encode($galleryPaths),
-                'start_date' => $request->start_date,
-                'end_date' => $request->end_date,
-                'project_duration' => $request->project_duration,
-                'objectif' => $request->objectif,
-                'description' => $request->description,
-                'goal_amount' => $request->goal_amount,
-                'prefered_amounts' => json_encode($preferedAmounts),
-                'raised_amount' => $request->raised_amount ?? 0,
-                'status' => $request->status,
+                'gallery' => !empty($galleryPaths) ? json_encode($galleryPaths) : null,
+                'start_date' => $validated['start_date'],
+                'end_date' => $validated['end_date'],
+                'project_duration' => $validated['project_duration'],
+                'objectif' => $validated['objectif'],
+                'description' => $validated['description'],
+                'goal_amount' => $validated['goal_amount'],
+                'raised_amount' => $validated['raised_amount'] ?? 0,
+                'status' => $status,
                 'business_plan' => $businessPlanPath,
             ]);
 
-            dd($project);
-        } catch (\Throwable $th) {
-            \Log::error($th);
+            Log::info('Campaign created successfully', [
+                'campaign_id' => $campaign->id,
+                'status' => $status
+            ]);
+
+            return redirect()->back()
+                ->with('success', 'Campaign created successfully! Status: ' . ucfirst($status));
+
+        } catch (\Exception $e) {
+            Log::error('Campaign creation failed', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return back()->with('error', 'Failed to create campaign: ' . $e->getMessage());
         }
-
-        return redirect()->back()->with('success', 'Campaign created successfully.');
-
     }
 
-    // public function edit(Campaign $campaign)
-    // {
-    //     $orphanages = Orphanage::all();
+    /**
+     * Download business plan
+     */
+    public function downloadBusinessPlan(Campaign $campaign)
+{
+    try {
+        if (!Auth::guard('admin')->check()) {
+            throw new \Exception('Unauthorized access');
+        }
 
-    //    return view('backend.campaign', [
-    //     'campaign' => $campaign, 
-    //     'orphanages' => $orphanages
-    // ]);
-    // }
-    
+        if (!Storage::disk('public')->exists($campaign->business_plan)) {
+            throw new \Exception('Business plan file not found');
+        }
+
+        Log::info('Business plan downloaded', [
+            'campaign_id' => $campaign->id,
+            'admin_id' => Auth::guard('admin')->id()
+        ]);
+
+        return Storage::disk('public')->download($campaign->business_plan);
+
+    } catch (\Exception $e) {
+        Log::error('Business plan download failed', [
+            'campaign_id' => $campaign->id,
+            'error' => $e->getMessage()
+        ]);
+        return back()->with('error', $e->getMessage());
+    }
+}
+
+    /**
+     * Approve a campaign (admin only)
+     */
+    public function approve(Campaign $campaign)
+    {
+        try {
+            if (!Auth::guard('admin')->user()->isAdmin()) {
+                throw new \Exception('Only admins can approve campaigns');
+            }
+
+            $campaign->update(['status' => 'approved']);
+            
+            Log::info('Campaign approved', [
+                'campaign_id' => $campaign->id,
+                'admin_id' => Auth::guard('admin')->id()
+            ]);
+
+            return back()->with('success', 'Campaign approved successfully!');
+
+        } catch (\Exception $e) {
+            Log::error('Campaign approval failed', [
+                'campaign_id' => $campaign->id,
+                'error' => $e->getMessage()
+            ]);
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Reject a campaign (admin only)
+     */
+    public function reject(Campaign $campaign)
+    {
+        try {
+            if (!Auth::guard('admin')->user()->isAdmin()) {
+                throw new \Exception('Only admins can reject campaigns');
+            }
+
+            $campaign->update(['status' => 'rejected']);
+            
+            Log::info('Campaign rejected', [
+                'campaign_id' => $campaign->id,
+                'admin_id' => Auth::guard('admin')->id()
+            ]);
+
+            return back()->with('success', 'Campaign rejected successfully!');
+
+        } catch (\Exception $e) {
+            Log::error('Campaign rejection failed', [
+                'campaign_id' => $campaign->id,
+                'error' => $e->getMessage()
+            ]);
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Show campaign details (only for approved campaigns)
+     */
+    public function show(Campaign $campaign)
+    {
+        try {
+            if (!$campaign->isApproved()) {
+                throw new \Exception('This campaign is not yet approved for viewing');
+            }
+
+            return view('admin.campaigns.show', compact('campaign'));
+
+        } catch (\Exception $e) {
+            Log::error('Campaign view failed', [
+                'campaign_id' => $campaign->id,
+                'error' => $e->getMessage()
+            ]);
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Helper method for file uploads
+     */
+    private function uploadFile($file, $directory)
+    {
+        $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $extension = $file->getClientOriginalExtension();
+        $fileName = Str::slug($originalName) . '_' . time() . '.' . $extension;
+        
+        return $file->storeAs($directory, $fileName, 'public');
+    }
 }

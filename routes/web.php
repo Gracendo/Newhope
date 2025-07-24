@@ -122,29 +122,38 @@ Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) 
 })->middleware(['signed'])->name('verification.verify');
 // Admin Dashboard
 
-Route::prefix('admin-dash')->middleware(['setlanguage:backend', 'adminGlobalVar'])->group(function () {
+Route::prefix('admin-dash')->middleware(['auth:admin','setlanguage:backend', 'adminGlobalVar'])->group(function () {
     Route::group(['namespace' => 'Admin'], function () {
         Route::get('/', [AdminDashboardController::class, 'adminIndex'])->name('admin.home');
         Route::get('/manageusers', [AdminDashboardController::class, 'manageUsers'])->name('admin.manageUsers');
         Route::get('/adduser', [AdminDashboardController::class, 'addUsers'])->name('admin.addUser');
         Route::get('/profile', [AdminDashboardController::class, 'profilePersonalInfo'])->name('admin.profilePersonalInfo');
-        Route::get('/campaign', [AdminDashboardController::class, 'campaign'])->name('admin.campaign');
-        Route::get('/campaign_details', [AdminDashboardController::class, 'campaignDetails'])->name('admin.campaignDetails');
         Route::get('/profile-update', [AdminDashboardController::class, 'admin_profile'])->name('admin.profile');
         Route::post('/profile-update', [AdminDashboardController::class, 'admin_profile_update'])->name('admin.profile.update');
         Route::get('/password-change', [AdminDashboardController::class, 'admin_password'])->name('admin.password');
         Route::post('/password-change', [AdminDashboardController::class, 'admin_password_chagne'])->name('admin.password.change');
         Route::get('/donation_management', [DonationAdminController::class, 'index'])->name('donation_management');
         Route::post('/donations', [DonationAdminController::class, 'store'])->name('donations.store');
-
+       
+        //campaign routes
+        Route::get('/campaign', [AdminDashboardController::class, 'campaign'])->name('admin.campaign');
+        Route::get('/campaign_details', [AdminDashboardController::class, 'campaignDetails'])->name('admin.campaignDetails');
         Route::post('/campaigns', [CampaignsController::class, 'store'])->name('campaigns.store');
         Route::get('campaigns/{campaign}/edit', [AdminDashboardController::class, 'edit'])->name('campaigns.edit');
         Route::put('campaigns/{campaign}', [CampaignsController::class, 'update'])->name('campaigns.update');
         Route::delete('campaigns/{campaign}', [CampaignsController::class, 'destroy'])->name('campaigns.destroy');
-
+        
+        // Campaign approval routes
+        Route::post('/campaigns/{campaign}/approve', [CampaignsController::class, 'approve'])
+            ->name('admin.campaigns.approve');
+        Route::post('/campaigns/{campaign}/reject', [CampaignsController::class, 'reject'])
+            ->name('admin.campaigns.reject');
+        Route::get('/campaigns/{campaign}/download', [CampaignsController::class, 'downloadBusinessPlan'])
+            ->name('admin.campaigns.download');
+       
+        //user approval routes
         Route::post('/users/{user}/approve', [AdminDashboardController::class, 'approveUser'])
         ->name('admin.users.approve');
-
         Route::post('/users/{user}/reject', [AdminDashboardController::class, 'rejectUser'])
         ->name('admin.users.reject');
     });

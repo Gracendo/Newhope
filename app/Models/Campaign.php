@@ -15,4 +15,27 @@ class Campaign extends Model
     {
         return $this->belongsTo(Orphanage::class);
     }
+   
+    protected $casts = [
+        'gallery' => 'array',
+        ];
+
+
+    public function isApproved()
+    {
+        return $this->status === 'approved';
+    }
+
+    public function isPending()
+    {
+        return $this->status === 'pending';
+    }
+
+    public function isRejected()
+    {
+        return $this->status === 'rejected';
+    }
+    //
+    
+
 }

@@ -73,4 +73,18 @@ public function sendEmailVerificationNotification()
         ])->save();
     }
 
+    
+    public function orphanage()
+    {
+            return $this->hasOne(Orphanage::class, 'admin_id');
+    }
+    public function isAdmin()
+{
+    return $this->role === 'admin';
+}
+
+public function isOrphanageManager()
+{
+    return $this->role === 'orphanagemanager';
+}
 }

@@ -12,7 +12,7 @@
         <form class="app-form" method="POST" action="{{ route('campaigns.store') }}" enctype="multipart/form-data">
           @csrf
 
-          <div class="mb-3">
+          <!-- <div class="mb-3">
             <label for="orphanage_id" class="form-label">Orphanage</label>
             <select name="orphanage_id" id="orphanage_id" class="form-control" required>
               <option value="">Select orphanage</option>
@@ -20,8 +20,24 @@
                 <option value="{{ $orphanage->id }}">{{ $orphanage->name }}</option>
               @endforeach
             </select>
+          </div> -->
+          <div class="mb-3">
+             <label for="orphanage_id" class="form-label">Orphanage</label>
+            @if(auth()->user()->role === 'orphanagemanager')
+                @php
+                    $orphanage = auth()->user()->orphanage; 
+                @endphp
+                <input type="text" class="form-control" value="{{ $orphanage->name }}" readonly>
+                <input type="hidden" name="orphanage_id" value="{{ $orphanage->id }}">
+            @else
+                <select name="orphanage_id" id="orphanage_id" class="form-control" required>
+                    <option value="">Select orphanage</option>
+                    @foreach($orphanages as $orphanage)
+                        <option value="{{ $orphanage->id }}">{{ $orphanage->name }}</option>
+                    @endforeach
+                </select>
+            @endif
           </div>
-
           <div class="mb-3">
             <label for="pName" class="form-label">Campaign Name</label>
             <input type="text" class="form-control" placeholder="Designing" id="pName" name="name" required>
@@ -245,100 +261,135 @@
           </ul>
         </div>
         <div class="content-wrapper" id="card-container">
-          <div id="tab-1" class="tabs-content active">
-            <div class="row">
-                 @foreach($campaigns as $project)
-                <div class="col-md-6 col-xl-4 project-card">
-                    <div class="card hover-effect">
-                      <div class="card-header">
-                         <div class="d-flex align-items-center">
-                              <div class="h-40 w-40 d-flex-center b-r-50 overflow-hidden">
-                                <img src="{{ asset('storage/' . $project->image) }}" alt="Campaign Logo" class="img-fluid">
-                              </div>
-                              <a href="{{ route('admin.campaignDetails', $project->id) }}" class="flex-grow-1 ps-2" target="_blank">
-                              <h6 class="m-0 text-dark f-w-600">{{ $project->name }}</h6>
-                              <div class="text-muted f-s-14 f-w-500">{{ $project->orphanage->name ?? 'N/A' }}</div>
-                              </a>
-
-                              <div class="dropdown">
-                                  <button class="bg-none border-0" type="button" data-bs-toggle="dropdown">
-                                     <i class="ti ti-dots-vertical text-dark"></i>
-                                  </button>
-                                  <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                      <!-- <a class="dropdown-item" href="{{ route('campaigns.edit', $project->id) }}" data-bs-toggle="modal" data-bs-target="#editcampaign">
+    <div id="tab-1" class="tabs-content active">
+        <div class="row">
+            @foreach($campaigns as $campaign)
+            <div class="col-md-6 col-xl-4 project-card" data-status="{{ $campaign->status }}">
+                <div class="card hover-effect">
+                    <!-- Card Header -->
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <!-- Campaign Image -->
+                            <div class="h-40 w-40 d-flex-center b-r-50 overflow-hidden">
+                                <img src="{{ asset('storage/' . $campaign->image) }}" alt="Campaign Image" class="img-fluid">
+                            </div>
+                            
+                            <!-- Campaign Name and Orphanage -->
+                            <div class="flex-grow-1 ps-2">
+                                <h6 class="m-0 text-dark f-w-600">{{ $campaign->name }}</h6>
+                                <div class="text-muted f-s-14 f-w-500">
+                                    {{ $campaign->orphanage->name ?? 'N/A' }}
+                                </div>
+                            </div>
+                            
+                            <!-- Dropdown Menu -->
+                            <div class="dropdown">
+                                <button class="bg-none border-0" type="button" data-bs-toggle="dropdown">
+                                    <i class="ti ti-dots-vertical text-dark"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    
+                                    @if(auth()->user()->role === 'admin')
+                                    <!-- Download Button (Always Visible) -->
+                                    <a class="dropdown-item" href="{{ route('admin.campaigns.download', $campaign->id) }}">
+                                        <i class="ti ti-download text-info"></i> Download Plan
+                                    </a>
+                                        <!-- Approve/Reject Buttons -->
+                                        @if($campaign->isPending())
+                                            <a class="dropdown-item approve-btn" href="#" data-campaign-id="{{ $campaign->id }}">
+                                                <i class="ti ti-check text-success"></i> Approve
+                                            </a>
+                                            <a class="dropdown-item reject-btn" href="#" data-campaign-id="{{ $campaign->id }}">
+                                                <i class="ti ti-x text-danger"></i> Reject
+                                            </a>
+                                        @endif
+                                    @endif
+                                    
+                                    <!-- Edit Button -->
+                                    <a class="dropdown-item" href="#" 
+                                       data-bs-toggle="modal" 
+                                       data-bs-target="#editcampaign"
+                                       data-campaign-id="{{ $campaign->id }}">
                                         <i class="ti ti-edit text-success"></i> Edit
-                                      </a> -->
-                                      <a class="dropdown-item" href="#" 
-                                          data-bs-toggle="modal" 
-                                          data-bs-target="#editcampaign"
-                                          data-campaign-id="{{ $project->id }}">
-                                          <i class="ti ti-edit text-success"></i> Edit
-                                        </a>
-                                    </li>
-                                    <li>
-                                      <a class="dropdown-item delete-button" href="#">
+                                    </a>
+                                    
+                                    <!-- Delete Button -->
+                                    <a class="dropdown-item delete-button" href="#">
                                         <i class="ti ti-trash text-danger"></i> Delete
-                                      </a>
-                                    </li>
-                                  </ul>
-                              </div>
-                              </div>
-                          </div>
-                          <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                              <div>
-                                <h6 class="text-dark f-s-14">Start Date: <span class="text-success">{{ $project->start_date }}</span></h6>
-                                <h6 class="text-dark f-s-14">End Date: <span class="text-danger">{{ $project->end_date }}</span></h6>
-                              </div>
-                              <div class="text-end">
-                                <p class="f-w-500 text-secondary">Goal</p>
-                                <h6 class="f-w-600">${{ number_format($project->goal_amount, 0, '.', ',') }}</h6>
-                              </div>
+                                    </a>
+                                </div>
                             </div>
-
-                            <p class="text-muted f-s-14 text-secondary txt-ellipsis-2">
-                              {{ Str::limit($project->description, 100) }}
-                            </p>
-
-                            <div class="text-end mb-2">
-                              <span class="badge text-light-primary">Progress</span>
-                            </div>
-
-                            @php
-                              $progress = $project->goal_amount > 0 ? round(($project->raised_amount / $project->goal_amount) * 100) : 0;
-                            @endphp
-                            <div class="progress w-100" role="progressbar" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">
-                              <div class="progress-bar bg-primary" style="width: {{ $progress }}%">{{ $progress }}%</div>
-                            </div>
-                          </div>
-
-                          <div class="card-footer">
-                            <div class="row align-items-center">
-                              <div class="col-6">
-                                <span class="text-dark f-w-600"><i class="ti ti-brand-wechat f-s-18"></i> {{ rand(5, 30) }} Volunteers</span>
-                              </div>
-                              <div class="col-6 text-end">
-                                <ul class="avatar-group float-end breadcrumb-start">
-                                  <li class="h-30 w-30 d-flex-center b-r-50 text-bg-info b-2-light">
-                                    <img src="{{ asset('assets/images/avtar/1.png') }}" alt="" class="img-fluid b-r-50">
-                                  </li>
-                                  <li class="text-bg-primary h-25 w-25 d-flex-center b-r-50" data-bs-toggle="tooltip" title="More">
-                                    5+
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
                         </div>
-                     </div>
-                 @endforeach
+                    </div>
+                    
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <!-- Dates -->
+                        <div class="d-flex">
+                            <div>
+                                <h6 class="text-dark f-s-14">Start Date: <span class="text-success">{{ $campaign->start_date }}</span></h6>
+                                <h6 class="text-dark f-s-14">End Date: <span class="text-danger">{{ $campaign->end_date }}</span></h6>
+                            </div>
+                            <div class="flex-grow-1 text-end">
+                                <p class="f-w-500 text-secondary">Goal Amount</p>
+                                <h6 class="f-w-600">{{ number_format($campaign->goal_amount, 0) }}FCFA</h6>
+                            </div>
+                        </div>
+                        
+                        <!-- Campaign Description -->
+                        <p class="text-muted f-s-14 text-secondary txt-ellipsis-2">
+                           {{ Str::limit($campaign->description, 30, '...') }}
+                        </p>
+                        
+                        <!-- Status Badge -->
+                        <div class="text-end mb-2">
+                            @if($campaign->isApproved())
+                                <span class="badge bg-success">Approved</span>
+                            @elseif($campaign->isPending())
+                                <span class="badge bg-warning">Pending</span>
+                            @elseif($campaign->isRejected())
+                                <span class="badge bg-danger">Rejected</span>
+                            @endif
+                        </div>
+                        
+                        <!-- Progress Bar -->
+                        @php
+                            $progress = $campaign->goal_amount > 0 
+                                ? round(($campaign->raised_amount / $campaign->goal_amount) * 100)
+                                : 0;
+                        @endphp
+                        <div class="progress w-100" role="progressbar" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar bg-primary" style="width: {{ $progress }}%">{{ $progress }}%</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card Footer -->
+                    <div class="card-footer">
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <span class="text-dark f-w-600">
+                                    <i class="ti ti-brand-wechat f-s-18"></i> 
+                                    {{ $campaign->volunteers_count ?? 0 }} Volunteers
+                                </span>
+                            </div>
+                            
+                            <!-- Details Button (Only for approved campaigns) -->
+                            <div class="col-6 text-end">
+                                @if($campaign->isApproved())
+                                    <a href="{{ route('admin.campaignDetails', $campaign->id) }}" 
+                                       class="btn btn-sm btn-primary">
+                                        See Details
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-          </div>
-         
-          
+            @endforeach
         </div>
+    </div>
+</div>
       </div>
     </div>
     <!-- Projects end -->
@@ -415,5 +466,61 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+////
+// Handle approve/reject buttons
+document.querySelectorAll('.approve-btn, .reject-btn').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const campaignId = this.getAttribute('data-campaign-id');
+        const isApprove = this.classList.contains('approve-btn');
+        const url = isApprove 
+            ? `/admin-dash/campaigns/${campaignId}/approve`
+            : `/admin-dash/campaigns/${campaignId}/reject`;
+            
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload(); // Refresh to show updated status
+            } else {
+                alert('Operation failed: ' + (data.message || 'Unknown error'));
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please check console for details.');
+        });
+    });
+});
+
+// Update card click behavior
+// document.querySelectorAll('.project-card .card-header a').forEach(link => {
+//     link.addEventListener('click', function(e) {
+//         const card = this.closest('.project-card');
+//         const status = card.dataset.status; // Make sure to add data-status to your card
+        
+//         if (status === 'pending' || status === 'rejected') {
+//             e.preventDefault();
+//             alert('This campaign is not yet approved for viewing.');
+//         }
+//     });
+// });
 </script>
+
+<style>
+.clickable {
+    cursor: pointer;
+}
+.non-clickable {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+</style>
 @endsection

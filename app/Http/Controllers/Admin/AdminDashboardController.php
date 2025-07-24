@@ -58,13 +58,20 @@ class AdminDashboardController extends Controller
         return view('backend.profile');
     }
 
-    public function campaign()
-    {
-        $orphanages = Orphanage::all();
-        $campaigns = Campaign::with('orphanage')->get();
-
-        return view('backend.campaign', compact('orphanages', 'campaigns'));
+  public function campaign()
+{
+    $query = Campaign::with('orphanage');
+    
+    // If user is orphanage manager, only show their campaigns
+    if (auth()->user()->role === 'orphanagemanager') {
+        $query->where('admin_id', auth()->id());
     }
+    
+    $campaigns = $query->get();
+    $orphanages = Orphanage::all();
+    
+    return view('backend.campaign', compact('campaigns', 'orphanages'));
+}
 
     public function campaignDetails()
     {
