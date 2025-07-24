@@ -55,17 +55,17 @@
 
           <div class="mb-3">
             <label class="form-label">Start Date</label>
-            <input type="date" class="form-control" name="start_date">
+            <input type="date" class="form-control" name="start_date"  min="{{ now()->addWeeks(2)->format('Y-m-d') }}">
           </div>
 
           <div class="mb-3">
             <label class="form-label">End Date</label>
-            <input type="date" class="form-control" name="end_date">
+            <input type="date"  id="endDate" class="form-control" name="end_date" min="{{ now()->addWeeks(4)->format('Y-m-d') }}">
           </div>
 
-          <div class="mb-3">
+          <div class="mb-3" style="display:none">
             <label class="form-label">Project Duration</label>
-            <input type="text" class="form-control" name="project_duration" placeholder="e.g. 6 months">
+            <input type="text"  readonly id="projectDuration" class="form-control" name="project_duration" placeholder="e.g. 6 months">
           </div>
 
           <div class="mb-3">
@@ -87,21 +87,23 @@
             <label class="form-label">Preferred Amounts (comma-separated)</label>
             <input type="text" class="form-control" name="prefered_amounts" placeholder="e.g. 500,1000,2500">
           </div> -->
-
+           @if(auth()->user()->role === 'admin')
           <div class="mb-3">
             <label class="form-label">Raised Amount</label>
             <input type="number" step="0.01" class="form-control" name="raised_amount" value="0">
           </div>
-
+         
           <div class="mb-3">
+           
             <label class="form-label">Status</label>
-            <select name="status" class="form-control">
-              <option value="pending">Pending</option>
-              <option value="inProgress">In progress</option>
-             
-            </select>
+                            <select name="status">
+                                <option value="pending">Pending</option>
+                                <option value="approved">Approved</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                      
           </div>
-
+            @endif
           <div class="mb-3">
             <label class="form-label">Business Plan (PDF)</label>
             <input type="file" class="form-control" name="business_plan" accept=".pdf" required>
@@ -512,6 +514,32 @@ document.querySelectorAll('.approve-btn, .reject-btn').forEach(button => {
 //         }
 //     });
 // });
+////
+document.getElementById('start_date').addEventListener('change', function() {
+    const startDate = new Date(this.value);
+    const endDateInput = document.getElementById('end_date');
+    
+    // Set minimum end date (start date + 1 week)
+    const minEndDate = new Date(startDate);
+    minEndDate.setDate(minEndDate.getDate() + 7);
+    endDateInput.min = minEndDate.toISOString().split('T')[0];
+    
+    // Calculate duration if end date exists
+    calculateDuration();
+});
+
+document.getElementById('end_date').addEventListener('change', calculateDuration);
+
+function calculateDuration() {
+    const start = document.getElementById('start_date').value;
+    const end = document.getElementById('end_date').value;
+    
+    if (start && end) {
+        const diffTime = new Date(end) - new Date(start);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        document.getElementById('project_duration').value = diffDays + ' days';
+    }
+}
 </script>
 
 <style>

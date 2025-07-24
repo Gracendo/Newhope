@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Campaign;
 use App\Models\Orphanage;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class CampaignsController extends Controller
 {
@@ -18,82 +18,108 @@ class CampaignsController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate request data
-        $validated = $request->validate([
-            'orphanage_id' => 'required|exists:orphanages,id',
-            'name' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'gallery.*' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'gallery' => 'max:5', // Max 5 images
-            'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
-            'project_duration' => 'nullable|string|max:255',
-            'objectif' => 'nullable|string',
-            'description' => 'nullable|string',
-            'goal_amount' => 'required|numeric|min:0',
-            'raised_amount' => 'nullable|numeric|min:0',
-            'business_plan' => 'required|mimes:pdf|max:5120',
-        ]);
-
         try {
-            // Ensure admin is authenticated
-            if (!Auth::guard('admin')->check()) {
-                throw new \Exception('Unauthorized access');
-            }
-
-            $admin = Auth::guard('admin')->user();
-            Log::info('Attempting to create new campaign', [
-                'admin_id' => $admin->id,
-                'role' => $admin->role
+            // 1. Validate basic fields
+            $validated = $request->validate([
+                'orphanage_id' => 'required|exists:orphanages,id',
+                'name' => 'required|string|max:255',
+                'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                'gallery.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+                'business_plan' => 'required|mimes:pdf|max:5120',
+                'objectif' => 'required|string',
+                'description' => 'required|string',
+                'goal_amount' => 'required|numeric|min:0',
             ]);
 
-            // Handle file uploads
-            $imagePath = $this->uploadFile($request->file('image'), 'campaigns/images');
+            Log::info('Campaign creation started', ['user_id' => Auth::id()]);
+
+            // 2. Validate dates with custom rules
+            $startDate = Carbon::parse($request->start_date);
+            $endDate = Carbon::parse($request->end_date);
+            $twoWeeksFromNow = Carbon::now()->addWeeks(2);
+            $oneWeekAfterStart = $startDate->copy()->addWeek();
+
+            if ($startDate->lt($twoWeeksFromNow)) {
+                throw new \Exception('Start date must be at least 2 weeks from now');
+            }
+
+            if ($endDate->lt($oneWeekAfterStart)) {
+                throw new \Exception('End date must be at least 1 week after start date');
+            }
+
+            // 3. Calculate duration
+            $durationInDays = $startDate->diffInDays($endDate);
+            $projectDuration = $durationInDays . ' days';
+
+            Log::info('Date validation passed', [
+                'start_date' => $startDate,
+                'end_date' => $endDate,
+                'duration' => $projectDuration
+            ]);
+
+            // 4. Handle file uploads
+            $imagePath = $request->file('image')->store('campaigns/images', 'public');
             
             $galleryPaths = [];
             if ($request->hasFile('gallery')) {
                 foreach ($request->file('gallery') as $image) {
-                    $galleryPaths[] = $this->uploadFile($image, 'campaigns/gallery');
+                    $galleryPaths[] = $image->store('campaigns/gallery', 'public');
                 }
             }
 
-            $businessPlanPath = $this->uploadFile($request->file('business_plan'), 'campaigns/business_plans');
+            $businessPlanPath = $request->file('business_plan')->store('campaigns/business_plans', 'public');
 
-            // Set status based on role
-            $status = $admin->role === 'orphanagemanager' ? 'pending' : 'approved';
+            // 5. Set status based on user role
+            $status = Auth::user()->role === 'orphanagemanager' ? 'pending' : 'approved';
 
-            // Create campaign
+            // 6. Create campaign
             $campaign = Campaign::create([
                 'orphanage_id' => $validated['orphanage_id'],
-                'admin_id' => $admin->id,
+                'admin_id' => Auth::id(),
                 'name' => $validated['name'],
                 'image' => $imagePath,
                 'gallery' => !empty($galleryPaths) ? json_encode($galleryPaths) : null,
-                'start_date' => $validated['start_date'],
-                'end_date' => $validated['end_date'],
-                'project_duration' => $validated['project_duration'],
+                'start_date' => $startDate,
+                'end_date' => $endDate,
+                'project_duration' => $projectDuration,
                 'objectif' => $validated['objectif'],
                 'description' => $validated['description'],
                 'goal_amount' => $validated['goal_amount'],
-                'raised_amount' => $validated['raised_amount'] ?? 0,
+                'raised_amount' => 0, // Default to 0
                 'status' => $status,
                 'business_plan' => $businessPlanPath,
             ]);
 
-            Log::info('Campaign created successfully', [
-                'campaign_id' => $campaign->id,
-                'status' => $status
-            ]);
+            Log::info('Campaign created successfully', ['campaign_id' => $campaign->id]);
 
-            return redirect()->back()
-                ->with('success', 'Campaign created successfully! Status: ' . ucfirst($status));
+            return redirect()->back()->with('success', 'Campaign created successfully!');
 
         } catch (\Exception $e) {
             Log::error('Campaign creation failed', [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
-            return back()->with('error', 'Failed to create campaign: ' . $e->getMessage());
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Update an existing campaign
+     */
+    public function update(Request $request, Campaign $campaign)
+    {
+        try {
+            // Similar validation as store method
+            // Add your update logic here
+            
+            return redirect()->back()->with('success', 'Campaign updated successfully!');
+            
+        } catch (\Exception $e) {
+            Log::error('Campaign update failed', [
+                'campaign_id' => $campaign->id,
+                'error' => $e->getMessage()
+            ]);
+            return back()->with('error', $e->getMessage());
         }
     }
 
@@ -101,118 +127,25 @@ class CampaignsController extends Controller
      * Download business plan
      */
     public function downloadBusinessPlan(Campaign $campaign)
-{
-    try {
-        if (!Auth::guard('admin')->check()) {
-            throw new \Exception('Unauthorized access');
-        }
-
-        if (!Storage::disk('public')->exists($campaign->business_plan)) {
-            throw new \Exception('Business plan file not found');
-        }
-
-        Log::info('Business plan downloaded', [
-            'campaign_id' => $campaign->id,
-            'admin_id' => Auth::guard('admin')->id()
-        ]);
-
-        return Storage::disk('public')->download($campaign->business_plan);
-
-    } catch (\Exception $e) {
-        Log::error('Business plan download failed', [
-            'campaign_id' => $campaign->id,
-            'error' => $e->getMessage()
-        ]);
-        return back()->with('error', $e->getMessage());
-    }
-}
-
-    /**
-     * Approve a campaign (admin only)
-     */
-    public function approve(Campaign $campaign)
     {
         try {
-            if (!Auth::guard('admin')->user()->isAdmin()) {
-                throw new \Exception('Only admins can approve campaigns');
+            if (!Storage::disk('public')->exists($campaign->business_plan)) {
+                throw new \Exception('File not found');
             }
-
-            $campaign->update(['status' => 'approved']);
             
-            Log::info('Campaign approved', [
+            Log::info('Business plan downloaded', [
                 'campaign_id' => $campaign->id,
-                'admin_id' => Auth::guard('admin')->id()
+                'downloader_id' => Auth::id()
             ]);
-
-            return back()->with('success', 'Campaign approved successfully!');
-
-        } catch (\Exception $e) {
-            Log::error('Campaign approval failed', [
-                'campaign_id' => $campaign->id,
-                'error' => $e->getMessage()
-            ]);
-            return back()->with('error', $e->getMessage());
-        }
-    }
-
-    /**
-     * Reject a campaign (admin only)
-     */
-    public function reject(Campaign $campaign)
-    {
-        try {
-            if (!Auth::guard('admin')->user()->isAdmin()) {
-                throw new \Exception('Only admins can reject campaigns');
-            }
-
-            $campaign->update(['status' => 'rejected']);
             
-            Log::info('Campaign rejected', [
-                'campaign_id' => $campaign->id,
-                'admin_id' => Auth::guard('admin')->id()
-            ]);
-
-            return back()->with('success', 'Campaign rejected successfully!');
-
+            return Storage::disk('public')->download($campaign->business_plan);
+            
         } catch (\Exception $e) {
-            Log::error('Campaign rejection failed', [
+            Log::error('Business plan download failed', [
                 'campaign_id' => $campaign->id,
                 'error' => $e->getMessage()
             ]);
             return back()->with('error', $e->getMessage());
         }
-    }
-
-    /**
-     * Show campaign details (only for approved campaigns)
-     */
-    public function show(Campaign $campaign)
-    {
-        try {
-            if (!$campaign->isApproved()) {
-                throw new \Exception('This campaign is not yet approved for viewing');
-            }
-
-            return view('admin.campaigns.show', compact('campaign'));
-
-        } catch (\Exception $e) {
-            Log::error('Campaign view failed', [
-                'campaign_id' => $campaign->id,
-                'error' => $e->getMessage()
-            ]);
-            return back()->with('error', $e->getMessage());
-        }
-    }
-
-    /**
-     * Helper method for file uploads
-     */
-    private function uploadFile($file, $directory)
-    {
-        $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-        $extension = $file->getClientOriginalExtension();
-        $fileName = Str::slug($originalName) . '_' . time() . '.' . $extension;
-        
-        return $file->storeAs($directory, $fileName, 'public');
     }
 }
