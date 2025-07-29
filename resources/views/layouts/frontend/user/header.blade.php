@@ -87,7 +87,11 @@
                                         <li class="nav-item"><a class="nav-link" href="{{route('user.rewards')}}">My Rewards</a></li>
                                         <li class="nav-item"><a class="nav-link" href="{{route('user.profile')}}">Profile Settings</a></li> 
                                         <li class="nav-item"><a class="nav-link" href="{{route('user.changepassword')}}">Change Password</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="">Log out</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('user.logout') }}"
+                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log out</a></li>
+                                        <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+                                                @csrf
+                                        </form>
                                     </ul>
                                 </li>                         
                             </ul>

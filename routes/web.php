@@ -201,6 +201,8 @@ Route::prefix('user-home')->middleware([
     Route::get('/profilesetting', [UserDashboardController::class, 'profilesetting'])->name('user.profile');
     Route::get('/myrewards', [UserDashboardController::class, 'myrewards'])->name('user.rewards');
     Route::get('/changepassword', [UserDashboardController::class, 'changepassword'])->name('user.changepassword');
+    Route::put('/user/profile/update', [UserDashboardController::class, 'updateProfile']) ->name('user.profile.update');
+    Route::post('/logout', [UserDashboardController::class, 'logout'])->name('user.logout');
 });
 // Admin approval route
 Route::post('/admin-dash/approve-om/{admin}', [RegisterController::class, 'approveOrphanageManager'])
