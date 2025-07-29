@@ -9,6 +9,7 @@ use App\Models\Admin;
 use App\Models\Campaign;
 use App\Models\Orphanage;
 use App\Models\User;
+use App\Models\Volunteer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; // Add this line
 use Illuminate\Support\Facades\Hash; // Add this
@@ -58,24 +59,30 @@ class AdminDashboardController extends Controller
         return view('backend.profile');
     }
 
-  public function campaign()
-{
-    $query = Campaign::with('orphanage');
-    
-    // If user is orphanage manager, only show their campaigns
-    if (auth()->user()->role === 'orphanagemanager') {
-        $query->where('admin_id', auth()->id());
-    }
-    
-    $campaigns = $query->get();
-    $orphanages = Orphanage::all();
-    
-    return view('backend.campaign', compact('campaigns', 'orphanages'));
-}
-
-    public function campaignDetails()
+    public function campaign()
     {
-        return view('backend.campaign_details');
+        $query = Campaign::with('orphanage');
+
+        // If user is orphanage manager, only show their campaigns
+        if (auth()->user()->role === 'orphanagemanager') {
+            $query->where('admin_id', auth()->id());
+        }
+
+        $campaigns = $query->get();
+        $orphanages = Orphanage::all();
+
+        return view('backend.campaign', compact('campaigns', 'orphanages'));
+    }
+
+    public function campaignDetails($id)
+    {
+        $campaign = Campaign::with(['orphanage', 'volunteers.user'])
+                ->findOrFail($id);
+
+        return view('backend.campaign_details',[
+        'campaign' => $campaign,
+        'volunteers' => $campaign->volunteers()->with('user')->paginate(10)
+    ]);
     }
 
     public function admin_profile()
@@ -293,6 +300,121 @@ class AdminDashboardController extends Controller
                 'msg' => __('Failed to reject user'),
                 'type' => 'danger',
             ]);
+        }
+    }
+
+    // approuve volunteer
+    public function approveVolunteer(Request $request, $volunteerId)
+    {
+        try {
+            $volunteer = Volunteer::findOrFail($volunteerId);
+
+            // Verify campaign belongs to this admin/orphanage manager
+            if (auth()->user()->role === 'orphanagemanager'
+                && $volunteer->campaign->admin_id !== auth()->id()) {
+                abort(403, 'Unauthorized action.');
+            }
+
+            $volunteer->update(['status' => 'approved']);
+
+            Log::info('Volunteer approved', [
+                'volunteer_id' => $volunteerId,
+                'admin_id' => auth()->id(),
+                'campaign_id' => $volunteer->campaign_id,
+            ]);
+
+                        return back()->with('success', 'Volunteer approved and notified');
+
+        } catch (\Exception $e) {
+            Log::error('Volunteer approval failed', [
+                'error' => $e->getMessage(),
+                'volunteer_id' => $volunteerId,
+            ]);
+
+            return response()->json(['error' => 'Approval failed'], 500);
+        }
+    }
+
+    public function rejectVolunteer(Request $request, $volunteerId)
+    {
+        try {
+            $volunteer = Volunteer::findOrFail($volunteerId);
+
+            // Verify campaign belongs to this admin/orphanage manager
+            if (auth()->user()->role === 'orphanagemanager'
+                && $volunteer->campaign->admin_id !== auth()->id()) {
+                abort(403, 'Unauthorized action.');
+            }
+
+            $volunteer->update(['status' => 'rejected']);
+
+            Log::info('Volunteer rejected', [
+                'volunteer_id' => $volunteerId,
+                'admin_id' => auth()->id(),
+                'campaign_id' => $volunteer->campaign_id,
+            ]);
+
+             return response()->json([
+            'success' => true,
+            'message' => 'Volunteer '.$volunteer->user->name.' has been rejected successfully!',
+            'volunteer_name' => $volunteer->user->name,
+            'campaign_name' => $volunteer->campaign->name
+        ]);
+        } catch (\Exception $e) {
+            Log::error('Volunteer rejection failed', [
+                'error' => $e->getMessage(),
+                'volunteer_id' => $volunteerId,
+            ]);
+
+            return response()->json([
+            'error' => true,
+            'message' => 'Failed to reject volunteer: '.$e->getMessage()
+        ], 500);
+        }
+    }
+
+    public function grantReward(Request $request, $volunteerId)
+    {
+        DB::beginTransaction();
+
+        try {
+            $volunteer = Volunteer::findOrFail($volunteerId);
+
+            // Verify campaign belongs to this admin/orphanage manager
+            if (auth()->user()->role === 'orphanagemanager'
+                && $volunteer->campaign->admin_id !== auth()->id()) {
+                abort(403, 'Unauthorized action.');
+            }
+
+            // Mark reward as granted
+            $volunteer->update(['reward_granted' => true]);
+
+            // Add points to user
+            $userPoint = UserPoint::firstOrCreate(
+                ['user_id' => $volunteer->user_id],
+                ['points' => 0]
+            );
+            $userPoint->increment('points', 10);
+
+            Log::info('Reward granted to volunteer', [
+                'volunteer_id' => $volunteerId,
+                'user_id' => $volunteer->user_id,
+                'points_added' => 10,
+                'admin_id' => auth()->id(),
+            ]);
+
+            DB::commit();
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            Log::error('Reward granting failed', [
+                'error' => $e->getMessage(),
+                'volunteer_id' => $volunteerId,
+            ]);
+
+            return response()->json(['error' => 'Reward granting failed'], 500);
         }
     }
 }

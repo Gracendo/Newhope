@@ -15,6 +15,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrphanageController;
 use App\Http\Controllers\OrphanageDetailController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\UserDashboardController;
 use App\Models\Admin;
 use App\Models\User;
@@ -156,6 +157,19 @@ Route::prefix('admin-dash')->middleware(['auth:admin','setlanguage:backend', 'ad
         ->name('admin.users.approve');
         Route::post('/users/{user}/reject', [AdminDashboardController::class, 'rejectUser'])
         ->name('admin.users.reject');
+
+        //volunteer approval routes
+        Route::get('/admin-dash/campaigns/{id}/details', [AdminDashboardController::class, 'campaignDetails'])
+         ->name('admin.campaignDetails');
+         
+    Route::post('/admin/volunteers/{volunteer}/approve', [AdminDashboardController::class, 'approveVolunteer'])
+         ->name('admin.volunteers.approve');
+         
+    Route::post('/admin/volunteers/{volunteer}/reject', [AdminDashboardController::class, 'rejectVolunteer'])
+         ->name('admin.volunteers.reject');
+         
+    Route::post('/admin/volunteers/{volunteer}/grant-reward', [AdminDashboardController::class, 'grantReward'])
+         ->name('admin.volunteers.grant-reward');
     });
 });
 Route::get('/test-mail-view', function () {
@@ -191,3 +205,9 @@ Route::prefix('user-home')->middleware([
 // Admin approval route
 Route::post('/admin-dash/approve-om/{admin}', [RegisterController::class, 'approveOrphanageManager'])
     ->name('admin.approve.om');
+//
+// volunteer route
+Route::middleware(['auth'])->group(function() {
+    Route::post('/volunteer', [VolunteerController::class, 'store'])
+         ->name('volunteer.store');
+});

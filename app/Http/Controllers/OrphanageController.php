@@ -11,9 +11,11 @@ class OrphanageController extends Controller
     {
         // $orphanages = Orphanage::all();
         // Get only orphanages created by approved admins
-        $orphanages = Orphanage::whereHas('admin', function($query) {
+        $orphanages = Orphanage::whereHas('manager', function($query) {
             $query->where('status', 'approved');
         })->get();
         return view('frontend.orphanages', compact('orphanages'));
     }
+       
+
 }

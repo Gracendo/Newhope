@@ -35,7 +35,10 @@ class Campaign extends Model
     {
         return $this->status === 'rejected';
     }
-    //
+    public function volunteers()
+{
+    return $this->hasMany(Volunteer::class);
+}
     
 
 }

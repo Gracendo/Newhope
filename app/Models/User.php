@@ -52,4 +52,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function volunteers()
+{
+    return $this->hasMany(Volunteer::class);
+}
+
+public function points()
+{
+    return $this->hasOne(UserPoint::class);
+}
 }

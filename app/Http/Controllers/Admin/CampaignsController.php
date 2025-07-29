@@ -148,4 +148,82 @@ class CampaignsController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
+    protected $casts = [
+    'gallery' => 'array',
+];
+
+public function isApproved()
+{
+    return $this->status === 'approved';
+}
+
+public function isPending()
+{
+    return $this->status === 'pending';
+}
+
+public function isRejected()
+{
+    return $this->status === 'rejected';
+}
+
+public function reject(Campaign $campaign)
+    {
+        try {
+            // Verify admin privileges
+            if (Auth::user()->role !== 'admin') {
+                throw new \Exception('Unauthorized action');
+            }
+
+            $campaign->update(['status' => 'rejected']);
+
+            Log::info('Campaign rejected', [
+                'admin_id' => Auth::id(),
+                'campaign_id' => $campaign->id,
+                'old_status' => $campaign->getOriginal('status'),
+                'new_status' => 'rejected'
+            ]);
+    return back()->with('success', 'Campaign approved successfully!');
+
+        } catch (\Exception $e) {
+            Log::error('Campaign approval failed', [
+                'error' => $e->getMessage(),
+                'campaign_id' => $campaign->id ?? null,
+                'admin_id' => Auth::id()
+            ]);
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Approve a campaign (Admin only)
+     */
+    public function approve(Campaign $campaign)
+    {
+        try {
+            // Verify admin privileges
+            if (Auth::user()->role !== 'admin') {
+                throw new \Exception('Unauthorized action');
+            }
+
+            $campaign->update(['status' => 'approved']);
+
+            Log::info('Campaign approved', [
+                'admin_id' => Auth::id(),
+                'campaign_id' => $campaign->id,
+                'old_status' => $campaign->getOriginal('status'),
+                'new_status' => 'approved'
+            ]);
+
+            return back()->with('success', 'Campaign approved successfully!');
+
+        } catch (\Exception $e) {
+            Log::error('Campaign approval failed', [
+                'error' => $e->getMessage(),
+                'campaign_id' => $campaign->id ?? null,
+                'admin_id' => Auth::id()
+            ]);
+            return back()->with('error', $e->getMessage());
+        }
+    }
 }

@@ -11,7 +11,7 @@
                         <nav class="wow fadeInUp">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('home')}}">home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><a href="{{route('profilesetting')}}">Profile Setting</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><a href="{{route('user.profile')}}">Profile Setting</a></li>
                             </ol>
                         </nav>
                     </div>

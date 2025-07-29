@@ -1,5 +1,22 @@
 @extends('layouts.frontend.header')
 @section('home')
+<style>
+    .program-entry p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+    .building-stability-box p{
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+    .accordion-body p{
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+</style>
     <!-- Page Header Start -->
     <div class="page-header parallaxie">
         <div class="container">
@@ -34,7 +51,7 @@
                         <div class="page-sidebar-catagery-list wow fadeInUp">
                             <h3>Campaign Details</h3>
                             <ul>
-                                <li><strong>Status:</strong> {{ ucfirst($campaign->status) }}</li>
+                                <li><strong>Duration:</strong> {{ ucfirst($campaign->project_duration) }}</li>
                                 <li><strong>Goal Amount:</strong> {{ number_format($campaign->goal_amount, 2) }}FCFA</li>
                                 <li><strong>Raised Amount:</strong> {{ number_format($campaign->raised_amount, 2) }}FCFA</li>
                                 <li><strong>Start Date:</strong> {{ $campaign->start_date }}</li>
@@ -105,7 +122,7 @@
                                 <!-- Gallery Section End -->
                                 @endif
 
-                                <p class="wow fadeInUp" data-wow-delay="0.6s">{{ $campaign->project_duration }}</p>
+                                
                             </div>                    
 
                             <!-- Program Why Choose Start -->
@@ -167,11 +184,26 @@
 
                                 <!-- Service Contact Text Start -->
                                 <div class="section-footer-text program-why-choose-footer wow fadeInUp" data-wow-delay="0.8s">
+                                    
+                                        
+                                    @auth
+                                    @unless(auth()->user()->role === 'orphanagemanager')
+                                    <div class="volunteer-section mt-4">
+                                        @if(!$hasVolunteered)
+                                        <p><span>1 hour</span> A day Can greatly help this orphanage in becoming autonomous. 
+                                        <a href="#"data-bs-toggle="modal" data-bs-target="#volunteerModal"> Volunteer for this Project</a></p>
+                                        @else
+                                        <div class="alert alert-info">
+                                            Your volunteer request is {{ $volunteerStatus }}.
+                                        </div>
+                                        @endif
+                                    </div>
+                                    @endunless
+                                    @endauth
                                     @if (session('status'))
                                     <p><span>1000FCFA</span> Can greatly help this orphanage in becoming autonomous. 
                                     <a href="{{ route('donation') }}">Contribute now</a></p>
-                                    <p><span>Your Experience</span> Means a lot to this orphanage's aim of becoming autonomous. 
-                                    <a href="{{ route('donation') }}">Volunteer now</a></p>
+                            
                                     @else 
                                     <p><span>1000FCFA</span> Can greatly help this orphanage in becoming autonomous. 
                                     <a href="{{ route('donation') }}">Fund now</a></p>
@@ -182,7 +214,7 @@
                             <!-- Program Why Choose End -->
                         </div>
                         <!-- Program Entry End -->
-
+                       
                         <!-- Program FAQ Section Start -->
                         <div class="our-faq-section">
                             <!-- Section Title Start -->
@@ -278,7 +310,21 @@
         </div>
     </div>
     <!-- Page Program Single End -->
-
+ <!-- Volunteer Modal -->
+                        <div class="modal fade" id="volunteerModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form action="{{ route('volunteer.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="campaign_id" value="{{ $campaign->id }}">
+                                        <div class="modal-body">
+                                            <p>Thank you for volunteering for "{{ $campaign->name }}"!</p>
+                                            <button type="submit" class="btn btn-primary">Confirm</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
     <!-- Main Footer Section Start -->
     <!-- <footer class="main-footer">
         <div class="container">

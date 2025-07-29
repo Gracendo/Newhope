@@ -1,264 +1,170 @@
 @extends('layouts.backend.app_admin_dashboard')
+
 @section('content')
- <main>
-                    <div class="container-fluid">
-                     <!-- Breadcrumb start -->
-                      <div class="row m-1">
-                        <div class="col-12 ">
-                          <h4 class="main-title">Campaign Details</h4>
-                          <ul class="app-line-breadcrumbs mb-3">
-                            <li class="">
-                              <a href="#" class="f-s-14 f-w-500"> 
-                                <span>
-                                  <i class="ph-duotone  ph-stack f-s-16"></i> Campaigns
-                                </span>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#" class="f-s-14 f-w-500">Campaigns</a>
-                            </li>
-                            <li class="active">
-                              <a href="#" class="f-s-14 f-w-500">Campaign Details</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                      <!-- Breadcrumb end -->
-                      
-                      <!-- Project Details start -->
-                      <div class="row">
-                        <div class="col-md-6 col-xxl-3 order-md-2 order-xxl-1">
-                          <!-- Project Details -->
-                          <div class="card">
-                            <div class="card-header">
-                              <h5>Campaign Details</h5>
-                            </div>
-                            <div class="card-body">
-                              <table class=" project-details-table table table-borderless  align-middle mb-0">
-                                <tbody>
-                                <tr>
-                                  <td>
-                                    <p class="f-w-600 mb-0">Name</p>
-                                  </td>
-                                  <td class="text-end">
-                                    Ra-admin
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <p class="f-w-600 mb-0">Orphanage</p>
-                                  </td>
-                                  <td class="text-end">
-                                    Leonor Hill
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <p class="f-w-600 mb-0">Start Date</p>
-                                  </td>
-                                  <td class="text-end"><span class="text-primary">10 Apr
-                                                                    2024</span>
-                                  </td>
-                                </tr>
+<main>
+    <div class="container-fluid">
+        <!-- Breadcrumb -->
+         <div class="row m-1">
+             <div class="col-15">
+                <h4 class="main-title">{{ $campaign->name }} - Details</h4>
+                <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.campaign') }}">Campaigns</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Details</li>
+                    </ol>
+             
+            </div> 
+        </div> 
 
-                                <tr>
-                                  <td>
-                                    <p class="f-w-600 mb-0">End Date</p>
-                                  </td>
-                                  <td class="text-end"><span class="text-danger">20 Jul
-                                                                    2024</span>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td class="pb-0">
-                                    <p class="f-w-600 mb-0">Goal</p>
-                                  </td>
-                                  <td class="text-end pb-0">
-                                    <h6>$200k</h6>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td class="">
-                                    <p class="f-w-600 mb-0">Volunteers</p>
-                                  </td>
-                                  <td class="text-end">
-                                    <ul class="avatar-group justify-content-end">
-                                      <li class="text-bg-danger h-30 w-30 d-flex-center b-r-50"
-                                          data-bs-toggle="tooltip"
-                                          data-bs-title="Everlee Lambert">
-                                        A
-                                      </li>
-                                      <li class="text-bg-dark h-30 w-30 d-flex-center b-r-50"
-                                          data-bs-toggle="tooltip"
-                                          data-bs-title="Hunter Scott">
-                                        CD
-                                      </li>
-                                      <li class="text-bg-warning h-30 w-30 d-flex-center b-r-50"
-                                          data-bs-toggle="tooltip"
-                                          data-bs-title="Hunter Scott">
-                                        XYZ
-                                      </li>
-                                      <li class="text-bg-secondary h-25 w-25 d-flex-center b-r-50"
-                                          data-bs-toggle="tooltip" data-bs-title="2 More">
-                                        2+
-                                      </li>
-                                    </ul>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <p class="f-w-600 mb-0">Status</p>
-                                  </td>
-                                  <td class="text-end"><span class="badge text-light-primary">
-                                                                    In
-                                                                    progress</span> </td>
-                                </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                          <!--end  Project Details -->
-
-                          <!-- Project Team -->
-
-                          <div class="card ">
-                            <div class="card-header">
-                              <h5 class="header-title-text">Campaign Volunteers</h5>
-                            </div>
-                            <div class="card-body">
-                              <div class="project-team-list">
-                                <div class="d-flex align-items-center">
-                                  <div class="bg-primary h-35 w-35 d-flex-center b-r-10 overflow-hidden">
-                                    <img src="../assets/images/avtar/07.png" alt=""
-                                         class="img-fluid">
-                                  </div>
-                                  <div class="flex-grow-1 ps-2">
-                                    <h6 class="mb-0 fw-medium"> Bette Hagenes</h6>
-                                    <p class="text-muted f-s-13 mb-0 f-w-500">Wed Developer</p>
-                                  </div>
-                                </div>
-                                <div class="d-flex align-items-center  mt-3">
-                                  <div class="bg-secondary h-35 w-35 d-flex-center b-r-10 overflow-hidden">
-                                    <img src="../assets/images/avtar/13.png" alt=""
-                                         class="img-fluid">
-                                  </div>
-                                  <div class="flex-grow-1 ps-2">
-                                    <h6 class="mb-0 fw-medium"> Fleta Walsh</h6>
-                                    <p class="text-muted f-s-13 mb-0 f-w-500">Wed Designer</p>
-                                  </div>
-                                </div>
-                                <div class="d-flex align-items-center  mt-3">
-                                                <span class="bg-dark h-35 w-35 d-flex-center b-r-10">
-                                                  LR
-                                                </span>
-                                  <div class="flex-grow-1 ps-2">
-                                    <h6 class="mb-0 fw-medium"> Lenora</h6>
-                                    <p class="text-muted f-s-13 mb-0 f-w-500">UI/UX designer</p>
-                                  </div>
-                                </div>
-                                <div class="d-flex align-items-center  mt-3">
-                                  <div class="bg-warning h-35 w-35 d-flex-center b-r-10 overflow-hidden">
-                                    <img src="../assets/images/avtar/16.png" alt=""
-                                         class="img-fluid">
-                                  </div>
-                                  <div class="flex-grow-1 ps-2">
-                                    <h6 class="mb-0 fw-medium"> Fleta Walsh </h6>
-                                    <p class="text-muted f-s-13 mb-0 f-w-500">React Developer</p>
-                                  </div>
-                                </div>
-                                <div class="d-flex align-items-center  mt-3">
-                                              <span class="bg-danger h-35 w-35 d-flex-center b-r-10">
-                                                EM
-                                              </span>
-                                  <div class="flex-grow-1 ps-2">
-                                    <h6 class="mb-0 fw-medium"> Emery McKenzie</h6>
-                                    <p class="text-muted f-s-13 mb-0 f-w-500">Wed Developer</p>
-                                  </div>
-                                </div>
-                                <div class="d-flex align-items-center  mt-3">
-                                  <div class="bg-dark h-35 w-35 d-flex-center b-r-10 overflow-hidden">
-                                    <img src="../assets/images/avtar/4.png" alt=""
-                                         class="img-fluid">
-                                  </div>
-                                  <div class="flex-grow-1 ps-2">
-                                    <h6 class="mb-0 fw-medium"> Bette Hagenes</h6>
-                                    <p class="text-muted f-s-13 mb-0 f-w-500">Wed Designer</p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!--end Project Team -->
-
-                        </div>
-                        
-                        <div class="col-md-6 col-xxl-3 order-md-1 order-xxl-3">
-                          <!-- About project -->
-                          <div class="card">
-                            <div class="card-header">
-                              <h5>About Campaign</h5>
-                            </div>
-                            <div class="card-body">
-                              <div class="mb-3">
-                                <h6>Campaign Description</h6>
-                                <p class="text-muted">An admin panel or a control panel is a system that
-                                  enables administrators
-                                  and other website workers to conduct various tasks like monitoring,
-                                  maintaining, and controlling certain business processes. An admin
-                                  dashboard is one of the core components of a control panel.</p>
-                              </div>
-                              <div class="mb-3">
-                                <h6>Campaign Objectif</h6>
-                                <p class="text-muted">
-                                  The success of a project relies heavily on effective project management, which involves the careful planning, organizing, and controlling of resources to ensure that the project objectives are met. This includes defining the project scope, setting realistic timelines and budgets.
-                                </p>
-                              </div>
-                              <div class="mb-3">
-                                <h6>Background information</h6>
-                                <p class="text-muted"> A project is a planned endeavor that aims to achieve a specific goal within a defined timeframe. It involves a series of tasks and activities that are coordinated and executed by a team of individuals. Projects can vary in size, complexity, and scope, ranging from small-scale initiatives to large-scale undertakings that span across multiple departments or organizations.
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- about project end  -->
-                          <!-- Project Documents -->
-                          <div class="card">
-                            <div class="card-body">
-                              <h5 class="header-title-text">Data Folder & Files</h5>
-                                <div class="filebox">
-                                  <div class="d-flex align-items-center position-relative">
-                                    <div class="position-absolute start-0">
-                                      <img src="../assets/images/icons/file.png" class="w-35 h-35" alt="">
-                                    </div>
-                                    <div class="flex-grow-1 mg-s-40">
-                                      <h6 class="mb-0">Campaign Details</h6>
-                                      <p class="text-secondary mb-0">18 Files</p>
-                                    </div>
-                                    <p class="file-data text-secondary f-w-500 mb-0">32GB</p>
-                                  </div>
-                                </div>
-                                <div class="filebox">
-                                  <div class="d-flex align-items-center position-relative">
-                                    <div class="position-absolute start-0">
-                                      <img src="../assets/images/icons/zip.png" class="w-35 h-35" alt="">
-                                    </div>
-                                    <div class="flex-grow-1 mg-s-40">
-                                      <h6 class="mb-0">Campaign Reporting</h6>
-                                      <p class="text-secondary mb-0">18 Files</p>
-                                    </div>
-                                    <p class="file-data text-secondary f-w-500 mb-0">32GB</p>
-                                  </div>
-                                </div>
-                                <div>
-                                  <a href="file_manager.html" role="button" class="btn btn-primary w-100">View More</a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- end Project Documents -->
-                        </div>
-                      </div>
-                      <!-- Project Details end -->
+        <!-- Campaign Summary -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Campaign Information</h5>
                     </div>
-                </main>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Orphanage:</strong> {{ $campaign->orphanage->name ?? 'N/A' }}</p>
+                                <p><strong>Goal Amount:</strong> {{ number_format($campaign->goal_amount, 2) }} FCFA</p>
+                                <p><strong>Raised Amount:</strong> {{ number_format($campaign->raised_amount, 2) }} FCFA</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Start Date:</strong> {{ \Carbon\Carbon::parse($campaign->start_date)->format('M d, Y') }}</p>
+                                <p><strong>End Date:</strong> {{ \Carbon\Carbon::parse($campaign->end_date)->format('M d, Y') }}</p><p><strong>Status:</strong> 
+                                    <span class="badge bg-{{ 
+                                        $campaign->status === 'approved' ? 'success' : 
+                                        ($campaign->status === 'rejected' ? 'danger' : 'warning') 
+                                    }}">
+                                        {{ ucfirst($campaign->status) }}
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <hr>
+                        <p><strong>Description:</strong></p>
+                        <p>{{ $campaign->description }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Card -->
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Funding Progress</h5>
+                    </div>
+                    <div class="card-body">
+                        @php
+                            $progress = $campaign->goal_amount > 0 
+                                ? ($campaign->raised_amount / $campaign->goal_amount) * 100 
+                                : 0;
+                        @endphp
+                        <div class="progress mb-3" style="height: 30px;">
+                            <div class="progress-bar bg-success progress-bar-striped" 
+                                 role="progressbar" 
+                                 style="width: {{ $progress }}%" 
+                                 aria-valuenow="{{ $progress }}" 
+                                 aria-valuemin="0" 
+                                 aria-valuemax="100">
+                                {{ round($progress, 2) }}%
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-md-6">
+                                <h6>Raised</h6>
+                                <p class="text-success">{{ number_format($campaign->raised_amount, 2) }} FCFA</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Goal</h6>
+                                <p>{{ number_format($campaign->goal_amount, 2) }} FCFA</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Volunteer Management Section -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5>Volunteer Management</h5>
+                        <div>
+                            <input type="text" id="volunteerSearch" class="form-control" placeholder="Search volunteers...">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @if($campaign->volunteers->isEmpty())
+                            <div class="alert alert-info">No volunteers have applied for this campaign yet.</div>
+                        @else
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Status</th>
+                                            <th>Applied On</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($campaign->volunteers as $volunteer)
+                                        <tr>
+                                            <td>{{ $volunteer->user->first_name }} {{ $volunteer->user->last_name }}</td>
+                                            <td>{{ $volunteer->user->email }}</td>
+                                            <td>{{ $volunteer->user->phone ?? 'N/A' }}</td>
+                                            <td>
+                                                <span class="badge bg-{{ 
+                                                    $volunteer->status === 'approved' ? 'success' : 
+                                                    ($volunteer->status === 'rejected' ? 'danger' : 'warning') 
+                                                }}">
+                                                    {{ ucfirst($volunteer->status) }}
+                                                </span>
+                                            </td>
+                                            <td>{{ $volunteer->created_at->format('M d, Y') }}</td>
+                                           <td>
+                                                @if($volunteer->status === 'pending')
+                                                <form action="{{ route('admin.volunteers.approve', $volunteer->id) }}" method="POST" style="display:inline">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-success">
+                                                        <i class="fa-solid fa-thumbs-up fa-fw"></i>
+                                                    </button>
+                                                </form>
+                                                
+                                                <form action="{{ route('admin.volunteers.reject', $volunteer->id) }}" method="POST" style="display:inline">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="fa-solid fa-thumbs-down fa-fw"></i>
+                                                    </button>
+                                                </form>
+                                                @elseif($volunteer->status === 'approved' && !$volunteer->reward_granted)
+                                                <form action="{{ route('admin.volunteers.grant-reward', $volunteer->id) }}" method="POST" style="display:inline">
+                                                    @csrf
+                                                    <button   type="submit" class="btn btn-light-success icon-btn b-r-4" 
+                                                            data-id="{{ $volunteer->id }}">
+                                                        <i class="fa-solid  fa-gift fa-fw"></i>
+                                                    </button>
+                                                </form>
+
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
 @endsection

@@ -8,7 +8,8 @@ class CampaignController extends Controller
 {
     public function index()
     {
-        $campaigns = Campaign::all(); // Get all campaigns from database
+        // Only get campaigns with status 'approved'
+        $campaigns = Campaign::where('status', 'approved')->get();
 
         return view('frontend.campaigns', compact('campaigns'));
     }

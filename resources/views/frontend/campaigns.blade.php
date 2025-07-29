@@ -1,5 +1,12 @@
 @extends('layouts.frontend.header')
 @section('home')
+<style>
+    .program-content p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+</style>
     <!-- Page Header Start -->
     <div class="page-header parallaxie">
         <div class="container">
@@ -40,7 +47,9 @@
                         <div class="program-body">
                             <div class="program-content">
                                 <h3><a href="{{ route('campaign.details', $campaign->id) }}">{{ $campaign->name }}</a></h3>
-                                <p>{{ Str::limit($campaign->objectif, 100) }}...</p>
+                                    <p style="word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
+                                        {{ Str::limit($campaign->objectif, 100) }}...
+                                    </p>
                             </div>
                             <div class="program-button">
                                 <a href="{{ route('campaign.details', $campaign->id) }}" class="readmore-btn">read more</a>

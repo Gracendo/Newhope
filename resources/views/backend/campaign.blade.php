@@ -253,8 +253,8 @@
         <div class="tab-wrapper mb-3">
           <ul class="tabs">
             <li class="tab-link active" data-tab="1">All Campaigns</li>
-            <li class="tab-link" data-tab="2">Agricultural Campaigns</li>
-            <li class="tab-link" data-tab="3">Retailing Campaigns</li>
+            <li class="tab-link" data-tab="2">Pending Campaigns</li>
+            <li class="tab-link" data-tab="3"> Approved Campaigns</li>
             <li class="ms-auto">
               <div class="text-end">
                 <button class="btn btn-primary w-45 h-45 icon-btn b-r-10 m-2" data-bs-toggle="modal" data-bs-target="#projectCard"><i class="ti ti-plus f-s-18"></i></button>
