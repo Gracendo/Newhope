@@ -167,9 +167,10 @@ Route::prefix('admin-dash')->middleware(['auth:admin','setlanguage:backend', 'ad
          
     Route::post('/admin/volunteers/{volunteer}/reject', [AdminDashboardController::class, 'rejectVolunteer'])
          ->name('admin.volunteers.reject');
-         
-    Route::post('/admin/volunteers/{volunteer}/grant-reward', [AdminDashboardController::class, 'grantReward'])
-         ->name('admin.volunteers.grant-reward');
+        
+    Route::post('/admin-dash/admin/volunteers/{volunteer}/grant-reward', [
+            VolunteerController::class, 'grantReward'
+        ])->name('admin.volunteers.grant-reward');
     });
 });
 Route::get('/test-mail-view', function () {

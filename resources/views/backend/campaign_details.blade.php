@@ -146,11 +146,13 @@
                                                 <form action="{{ route('admin.volunteers.grant-reward', $volunteer->id) }}" method="POST" style="display:inline">
                                                     @csrf
                                                     <button   type="submit" class="btn btn-light-success icon-btn b-r-4" 
-                                                            data-id="{{ $volunteer->id }}">
+                                                           >
                                                         <i class="fa-solid  fa-gift fa-fw"></i>
                                                     </button>
                                                 </form>
-
+                                            
+                                                @else
+                                                <span class="badge text-bg-success">rewarded</span>
                                                 @endif
                                             </td>
                                         </tr>

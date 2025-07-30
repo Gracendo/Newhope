@@ -373,48 +373,48 @@ class AdminDashboardController extends Controller
         }
     }
 
-    public function grantReward(Request $request, $volunteerId)
-    {
-        DB::beginTransaction();
+    // public function grantReward(Request $request, $volunteerId)
+    // {
+       
 
-        try {
-            $volunteer = Volunteer::findOrFail($volunteerId);
+    //     try {
+    //         $volunteer = Volunteer::findOrFail($volunteerId);
 
-            // Verify campaign belongs to this admin/orphanage manager
-            if (auth()->user()->role === 'orphanagemanager'
-                && $volunteer->campaign->admin_id !== auth()->id()) {
-                abort(403, 'Unauthorized action.');
-            }
+    //         // Verify campaign belongs to this admin/orphanage manager
+    //         if (auth()->user()->role === 'orphanagemanager'
+    //             && $volunteer->campaign->admin_id !== auth()->id()) {
+    //             abort(403, 'Unauthorized action.');
+    //         }
 
-            // Mark reward as granted
-            $volunteer->update(['reward_granted' => true]);
+    //         // Mark reward as granted
+    //         $volunteer->update(['reward_granted' => true]);
 
-            // Add points to user
-            $userPoint = UserPoint::firstOrCreate(
-                ['user_id' => $volunteer->user_id],
-                ['points' => 0]
-            );
-            $userPoint->increment('points', 10);
+    //         // Add points to user
+    //         $userPoint = UserPoint::firstOrCreate(
+    //             ['user_id' => $volunteer->user_id],
+    //             ['points' => 0]
+    //         );
+    //         $userPoint->increment('points', 10);
 
-            Log::info('Reward granted to volunteer', [
-                'volunteer_id' => $volunteerId,
-                'user_id' => $volunteer->user_id,
-                'points_added' => 10,
-                'admin_id' => auth()->id(),
-            ]);
+    //         Log::info('Reward granted to volunteer', [
+    //             'volunteer_id' => $volunteerId,
+    //             'user_id' => $volunteer->user_id,
+    //             'points_added' => 10,
+    //             'admin_id' => auth()->id(),
+    //         ]);
 
-            DB::commit();
+    //         DB::commit();
 
-            return response()->json(['success' => true]);
-        } catch (\Exception $e) {
-            DB::rollBack();
+    //         return response()->json(['success' => true]);
+    //     } catch (\Exception $e) {
+    //         DB::rollBack();
 
-            Log::error('Reward granting failed', [
-                'error' => $e->getMessage(),
-                'volunteer_id' => $volunteerId,
-            ]);
+    //         Log::error('Reward granting failed', [
+    //             'error' => $e->getMessage(),
+    //             'volunteer_id' => $volunteerId,
+    //         ]);
 
-            return response()->json(['error' => 'Reward granting failed'], 500);
-        }
-    }
+    //         return response()->json(['error' => 'Reward granting failed'], 500);
+    //     }
+    // }
 }
