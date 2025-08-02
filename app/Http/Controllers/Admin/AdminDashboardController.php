@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Auth; // Add this line
 use Illuminate\Support\Facades\Hash; // Add this
 use Illuminate\Support\Facades\Log; // Add this
 use Illuminate\Support\Facades\Mail;
+use App\Exports\CampaignVolunteersExport;
+use App\Exports\CampaignVolunteersPdf;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminDashboardController extends Controller
 {
@@ -372,49 +376,86 @@ class AdminDashboardController extends Controller
         ], 500);
         }
     }
+public function exportVolunteersExcel(Campaign $campaign)
+{
+    try {
+        Log::info('Starting Excel export for campaign', ['campaign_id' => $campaign->id]);
+        
+        $volunteers = $campaign->volunteers()
+            ->with(['user' => function($query) {
+                $query->select('id', 'first_name', 'last_name', 'email', 'phone');
+            }])
+            ->get();
 
-    // public function grantReward(Request $request, $volunteerId)
-    // {
-       
+        if ($volunteers->isEmpty()) {
+            Log::warning('No volunteers found for export', ['campaign_id' => $campaign->id]);
+            return back()->with('warning', 'No volunteers found to export.');
+        }
 
-    //     try {
-    //         $volunteer = Volunteer::findOrFail($volunteerId);
+        $filename = str_replace(' ', '_', strtolower($campaign->name)) . '_volunteers_' . now()->format('Ymd_His') . '.xlsx';
+        
+        Log::info('Exporting volunteers to Excel', [
+            'campaign_id' => $campaign->id,
+            'volunteer_count' => $volunteers->count(),
+            'filename' => $filename
+        ]);
 
-    //         // Verify campaign belongs to this admin/orphanage manager
-    //         if (auth()->user()->role === 'orphanagemanager'
-    //             && $volunteer->campaign->admin_id !== auth()->id()) {
-    //             abort(403, 'Unauthorized action.');
-    //         }
+        return Excel::download(
+            new CampaignVolunteersExport($campaign, $volunteers), 
+            $filename
+        );
 
-    //         // Mark reward as granted
-    //         $volunteer->update(['reward_granted' => true]);
+    } catch (\Exception $e) {
+        Log::error('Excel export failed', [
+            'campaign_id' => $campaign->id,
+            'error' => $e->getMessage(),
+            'trace' => $e->getTraceAsString()
+        ]);
+        
+        return back()->with('error', 'Failed to generate Excel export. Please try again.');
+    }
+}
 
-    //         // Add points to user
-    //         $userPoint = UserPoint::firstOrCreate(
-    //             ['user_id' => $volunteer->user_id],
-    //             ['points' => 0]
-    //         );
-    //         $userPoint->increment('points', 10);
+public function exportVolunteersPdf(Campaign $campaign)
+{
+    try {
+        Log::info('Starting PDF export for campaign', ['campaign_id' => $campaign->id]);
+        
+        $volunteers = $campaign->volunteers()
+            ->with(['user' => function($query) {
+                $query->select('id', 'first_name', 'last_name', 'email', 'phone');
+            }])
+            ->get();
 
-    //         Log::info('Reward granted to volunteer', [
-    //             'volunteer_id' => $volunteerId,
-    //             'user_id' => $volunteer->user_id,
-    //             'points_added' => 10,
-    //             'admin_id' => auth()->id(),
-    //         ]);
+        if ($volunteers->isEmpty()) {
+            Log::warning('No volunteers found for PDF export', ['campaign_id' => $campaign->id]);
+            return back()->with('warning', 'No volunteers found to export.');
+        }
 
-    //         DB::commit();
+        $filename = str_replace(' ', '_', strtolower($campaign->name)) . '_volunteers_' . now()->format('Ymd_His') . '.pdf';
+        
+        Log::info('Exporting volunteers to PDF', [
+            'campaign_id' => $campaign->id,
+            'volunteer_count' => $volunteers->count(),
+            'filename' => $filename
+        ]);
 
-    //         return response()->json(['success' => true]);
-    //     } catch (\Exception $e) {
-    //         DB::rollBack();
+        $pdf = PDF::loadView('exports.volunteers-pdf', [
+            'campaign' => $campaign,
+            'volunteers' => $volunteers
+        ])->setPaper('a4', 'landscape');
 
-    //         Log::error('Reward granting failed', [
-    //             'error' => $e->getMessage(),
-    //             'volunteer_id' => $volunteerId,
-    //         ]);
+        return $pdf->download($filename);
 
-    //         return response()->json(['error' => 'Reward granting failed'], 500);
-    //     }
-    // }
+    } catch (\Exception $e) {
+        Log::error('PDF export failed', [
+            'campaign_id' => $campaign->id,
+            'error' => $e->getMessage(),
+            'trace' => $e->getTraceAsString()
+        ]);
+        
+        return back()->with('error', 'Failed to generate PDF export. Please try again.');
+    }
+}
+    
 }

@@ -15,7 +15,26 @@
              
             </div> 
         </div> 
+                    @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
 
+                @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                @if(session('warning'))
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {{ session('warning') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
         <!-- Campaign Summary -->
         <div class="row">
             <div class="col-md-6">
@@ -92,6 +111,16 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5>Volunteer Management</h5>
+                        <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Export
+                                </button>
+                                <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('admin.campaigns.export.pdf', $campaign->id) }}"><i class="fa-solid fa-file-pdf fa-fw"></i>Pdf</a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.campaigns.export.excel', $campaign->id) }}"><i class="fa-solid fa-file-excel fa-fw"></i>Excell</a></li>
+                                </ul>
+                        </div>
                         <div>
                             <input type="text" id="volunteerSearch" class="form-control" placeholder="Search volunteers...">
                         </div>

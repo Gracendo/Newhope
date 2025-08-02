@@ -167,10 +167,17 @@ Route::prefix('admin-dash')->middleware(['auth:admin','setlanguage:backend', 'ad
          
     Route::post('/admin/volunteers/{volunteer}/reject', [AdminDashboardController::class, 'rejectVolunteer'])
          ->name('admin.volunteers.reject');
+        //volunteer grant reward route
+    Route::post('/admin-dash/admin/volunteers/{volunteer}/grant-reward', [  VolunteerController::class, 'grantReward'])
+        ->name('admin.volunteers.grant-reward');
+        //export volunteer table routes
+        Route::get('/admin-dash/campaigns/{campaign}/export-excel', 
+        [AdminDashboardController::class, 'exportVolunteersExcel'])
+        ->name('admin.campaigns.export.excel');
         
-    Route::post('/admin-dash/admin/volunteers/{volunteer}/grant-reward', [
-            VolunteerController::class, 'grantReward'
-        ])->name('admin.volunteers.grant-reward');
+         Route::get('/admin-dash/campaigns/{campaign}/export-pdf', 
+        [AdminDashboardController::class, 'exportVolunteersPdf'])
+        ->name('admin.campaigns.export.pdf');
     });
 });
 Route::get('/test-mail-view', function () {
