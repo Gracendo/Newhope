@@ -28,17 +28,68 @@ class AdminDashboardController extends Controller
         $this->middleware('permission:home_variant', ['only' => ['home_variant', 'update_home_variant']]);
     }
 
+    // public function adminIndex()
+    // {
+    //     $total_admin = Admin::count();
+    //     $total_user = User::count();
+
+    //     return view('backend.admin_dashboard')->with([
+    //         'total_admin' => $total_admin,
+    //         'total_user' => $total_user,
+    //     ]);
+    // }
     public function adminIndex()
     {
-        $total_admin = Admin::count();
-        $total_user = User::count();
+        $query = Campaign::with(['orphanage', 'volunteers']);
 
-        return view('backend.admin_dashboard')->with([
-            'total_admin' => $total_admin,
-            'total_user' => $total_user,
+        // If user is orphanage manager, only show their campaigns
+        if (auth()->user()->role === 'orphanagemanager') {
+            $query->where('admin_id', auth()->id());
+        }
+
+        // 3. Handle search
+        if (request()->has('search')) {
+            $search = request()->input('search');
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%$search%")
+                  ->orWhere('status', 'like', "%$search%");
+            });
+        }
+        // 4. Get statistics
+        // Get current date for comparison
+        $today = now()->format('Y-m-d');
+
+        // Status counts for the stats cards
+        $statusCounts = [
+            'total' => (clone $query)->count(),
+            'pending' => (clone $query)->where('status', 'pending')->count(),
+            'active' => (clone $query)->where('status', 'approved')
+                                     ->where('end_date', '>=', $today)
+                                     ->count(),
+            'completed' => (clone $query)->where('status', 'approved')
+                                       ->where('end_date', '<', $today)
+                                       ->count(),
+            'rejected' => (clone $query)->where('status', 'rejected')->count(),
+        ];
+         // 5. Paginate results (10 per page)
+       
+        $campaigns = $query->paginate(10)->withQueryString();
+        $orphanages = Orphanage::all();
+
+        Log::info('Campaign dashboard loaded successfully', [
+            'total_campaigns' => $statusCounts['total'],
+            'pending' => $statusCounts['pending'],
+            'active' => $statusCounts['active'],
+            'completed' => $statusCounts['completed'],
+            'rejected' => $statusCounts['rejected']
         ]);
-    }
+        // return view('backend.campaign', compact('campaigns', 'statusCounts'));
 
+        // $campaigns = $query->get();
+        // $orphanages = Orphanage::all();
+
+        return view('backend.admin_dashboard', compact('campaigns', 'orphanages','statusCounts'));
+    }
     public function manageUsers()
     {
         $all_user = Admin::all()->except(Auth::id());
@@ -63,9 +114,10 @@ class AdminDashboardController extends Controller
         return view('backend.profile');
     }
 
+   
     public function campaign()
     {
-        $query = Campaign::with('orphanage');
+        $query = Campaign::with(['orphanage', 'volunteers']);
 
         // If user is orphanage manager, only show their campaigns
         if (auth()->user()->role === 'orphanagemanager') {
