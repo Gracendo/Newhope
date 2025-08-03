@@ -61,398 +61,188 @@
                   </div>
                 </div>
               </div>
-             
-         
-              
-              <!-- order 1 -->
+               
+              <!-- table start -->
               <div class="col-xxl-19 order-1-md">
-                <div class="card">
-                      
-                  <div class="card-body p-0">
-                    <!-- <h5>Projects</h5> -->
-
-                    <div class="table-responsive Projects-datatable  app-datatable-default app-scroll">
-                      <table id="ProjectsDatatable" class="display">
-                        <thead>
-                        <tr>
-                          <th>
-                            <label class="check-box">
-                              <input type="checkbox">
-                              <span class="checkmark outline-secondary ms-2"></span>
-                            </label>
-                          </th>
-                          <th>Campaign</th>
-                          <th>Status</th>
-                          <th>Objectif</th>
-                          <th>Volunteers</th>
-                          <th>Goal amount</th>
-                          <th>Duration</th>
-                          <th>Raised Amount </th>
-                          <th>End Date</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>
-                              <label class="check-box">
-                                <input type="checkbox">
-                                <span class="checkmark outline-secondary ms-2"></span>
-                              </label>
-                            </td>
-                            <td>
-                              <div class="position-relative">
-                                <div class="h-35 w-35 d-flex-center b-r-50 overflow-hidden bg-light-primary b-1-primary p-1 position-absolute">
-                                  <i class="ph-duotone  ph-swap f-s-16"></i>
-                                </div>
-                                <div class="ms-5">
-                                  <h6 class="f-s-15 f-w-600 mb-0">Website Redesign</h6>
-                                  <p class="f-s-13 text-secondary mb-0">John Mandela</p>
-                                </div>
+                  <div class="card">
+                      <div class="card-header d-flex justify-content-between align-items-center">
+                          <h5>Campaigns Management</h5>
+                          <div class="d-flex">
+                              <!-- Search Box -->
+                              <form method="GET" class="me-3">
+                                  <div class="input-group">
+                                      <input type="text" name="search" class="form-control" 
+                                            placeholder="Search campaigns..." 
+                                            value="{{ request()->input('search') }}">
+                                      <button class="btn btn-primary" type="submit">
+                                          <i class="fa fa-search"></i>
+                                      </button>
+                                  </div>
+                              </form>
+                
+                <!-- Export Buttons -->
+                              <div class="dropdown">
+                                  <button class="btn btn-success dropdown-toggle" type="button" 
+                                          data-bs-toggle="dropdown" aria-expanded="false">
+                                      <i class="fa fa-download me-1"></i> Export
+                                  </button>
+                                  <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item" href="#"><i class="fa fa-file-excel me-2"></i> Excel</a></li>
+                                      <li><a class="dropdown-item" href="#"><i class="fa fa-file-pdf me-2"></i> PDF</a></li>
+                                              </ul>
+                                          </div>
+                                      </div>
                               </div>
-                            </td>
-                            <td>
-                              <span class="badge text-light-warning"> <i class="ti ti-download me-1"></i> In Progress</span>
-                            </td>
-                            <td>Front-end</td>
-                            <td>
-                              <ul class="avatar-group justify-content-start">
-                                <li class="h-35 w-35 d-flex-center b-r-50 overflow-hidden text-bg-primary b-2-light" data-bs-toggle="tooltip" data-bs-title="Sabrina Torres">
-                                  <img src="../assets/images/avtar/4.png" alt="" class="img-fluid">
-                                </li>
-                                <li class="h-35 w-35 d-flex-center b-r-50 overflow-hidden text-bg-success b-2-light" data-bs-toggle="tooltip" data-bs-title="Eva Bailey">
-                                  <img src="../assets/images/avtar/5.png" alt="" class="img-fluid">
-                                </li>
-                                <li class="h-35 w-35 d-flex-center b-r-50 overflow-hidden text-bg-danger b-2-light" data-bs-toggle="tooltip" data-bs-title="Michael Hughes">
-                                  <img src="../assets/images/avtar/6.png" alt="" class="img-fluid">
-                                </li>
-                                <li class="text-bg-secondary h-25 w-25 d-flex-center b-r-50" data-bs-toggle="tooltip" data-bs-title="10 More">
-                                  10+
-                                </li>
-                              </ul>
-                            </td>
-                            <td>
-                              <a href="#">www.web.com</a>
-                            </td>
-                            <td>
-                              <div class="time-tracking-box">
-                                  <i class="ph-duotone  ph-clock f-s-12"></i>
-                                  <span class="f-s-12">20 hours</span> 
-                                  <span class="badge text-bg-warning"><i class="ph ph-play-pause text-white f-s-13"></i></span>
-                              </div>
-                            </td>
-                            <td>
-                              50%
-                            </td>
-                            <td>2024-06-15</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <label class="check-box">
-                                <input type="checkbox">
-                                <span class="checkmark outline-secondary ms-2"></span>
-                              </label>
-                            </td>
-                            <td>
-                              <div class="position-relative">
-                                <div class="h-35 w-35 d-flex-center b-r-50 overflow-hidden bg-light-info b-1-info p-1 position-absolute">
-                                  <i class="ph-duotone  ph-arrows-in-cardinal f-s-16"></i>
-                                </div>
-                                <div class="ms-5">
-                                  <h6 class="f-s-15 f-w-600 mb-0"> Marketing Campaign</h6>
-                                  <p class="f-s-13 text-secondary mb-0">John Mandela</p>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <span class="badge text-light-success"> <i class="ti ti-download me-1"></i>Completed</span>
-                            </td>
-                            <td>Marketing</td>
-                            <td>
-                              <ul class="avatar-group justify-content-start">
-                                <li class="h-35 w-35 d-flex-center b-r-50 overflow-hidden text-bg-secondary b-2-light" data-bs-toggle="tooltip" data-bs-title="Sabrina Torres">
-                                  <img src="../assets/images/avtar/2.png" alt="" class="img-fluid">
-                                </li>
-                                <li class="h-35 w-35 d-flex-center b-r-50 overflow-hidden text-bg-primary b-2-light" data-bs-toggle="tooltip" data-bs-title="Eva Bailey">
-                                  <img src="../assets/images/avtar/4.png" alt="" class="img-fluid">
-                                </li>
-                                <li class="text-bg-secondary h-25 w-25 d-flex-center b-r-50" data-bs-toggle="tooltip" data-bs-title="10 More">
-                                  15+
-                                </li>
-                              </ul>
-                            </td>
-                            <td>
-                              <a href="#">www.marketing.com</a>
-                            </td>
-                            <td>
-                              <div class="time-tracking-box">
-                                <i class="ph-duotone  ph-clock f-s-12"></i>
-                                <span class="f-s-12">40 hours</span> 
-                                <span class="badge text-bg-warning"><i class="ph ph-play-pause text-white f-s-13"></i></span>
+        
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th width="5%">#</th>
+                                        <th>Campaign</th>
+                                        <th>Status</th>
+                                        <th>Orphanage</th>
+                                        <th>Volunteers</th>
+                                        <th>Goal (FCFA)</th>
+                                        <th>Raised (FCFA)</th>
+                                        <th>Progress</th>
+                                        <th>End Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($campaigns as $campaign)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                @if($campaign->image)
+                                                <div class="flex-shrink-0 me-3">
+                                                    <img src="{{ asset('storage/'.$campaign->image) }}" 
+                                                        alt="{{ $campaign->name }}" 
+                                                        class="rounded-circle" width="40" height="40">
+                                                </div>
+                                                @endif
+                                                <div class="flex-grow-1">
+                                                    <h6 class="mb-0">{{ $campaign->name }}</h6>
+                                                    <small class="text-muted">
+                                                        {{ $campaign->created_at->format('M d, Y') }}
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @php
+                                                $isCompleted = $campaign->status === 'approved' && 
+                                                              $campaign->end_date < now()
+                                            @endphp
+                                            
+                                            
+                                            <span class="badge rounded-pill bg-{{ 
+                                                $isCompleted ? 'info' : 
+                                                ($campaign->status === 'approved' ? 'success' : 
+                                                ($campaign->status === 'pending' ? 'warning' : 'danger'))
+                                            }}">
+                                                {{ $isCompleted ? 'Completed' : ucfirst($campaign->status) }}
+                                            </span>
+                                        </td>
+                                        <td>{{ optional($campaign->orphanage)->name ?? 'N/A' }}</td>
+                                        <td>
+                                            <div class="avatar-group">
+                                                @foreach($campaign->volunteers->take(3) as $volunteer)
+                                                <div class="avatar-xs" data-bs-toggle="tooltip" 
+                                                    title="{{ $volunteer->user->name ?? 'Volunteer' }}">
+                                                    <span class="avatar-title rounded-circle bg-{{ 
+                                                        $volunteer->status === 'approved' ? 'success' : 
+                                                        ($volunteer->status === 'pending' ? 'warning' : 'secondary')
+                                                    }}">
+                                                        {{ substr($volunteer->user->name ?? 'V', 0, 1) }}
+                                                    </span>
+                                                </div>
+                                                @endforeach
+                                                @if($campaign->volunteers->count() > 3)
+                                                <div class="avatar-xs" data-bs-toggle="tooltip" 
+                                                    title="{{ $campaign->volunteers->count() - 3 }} more">
+                                                    <span class="avatar-title rounded-circle bg-secondary">
+                                                        +{{ $campaign->volunteers->count() - 3 }}
+                                                    </span>
+                                                </div>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td>{{ number_format($campaign->goal_amount) }}</td>
+                                        <td>{{ number_format($campaign->raised_amount) }}</td>
+                                        <td>
+                                            @php
+                                                $progress = $campaign->goal_amount > 0 
+                                                    ? ($campaign->raised_amount / $campaign->goal_amount) * 100 
+                                                    : 0;
+                                            @endphp
+                                            <div class="d-flex align-items-center">
+                                                <div class="progress flex-grow-1" style="height: 6px;">
+                                                    <div class="progress-bar bg-{{ 
+                                                        $progress >= 100 ? 'success' : 
+                                                        ($progress > 50 ? 'primary' : 'warning')
+                                                    }}" role="progressbar" style="width: {{ $progress }}%"></div>
+                                                </div>
+                                                <small class="ms-2">{{ round($progress) }}%</small>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="{{ $campaign->end_date < now() ? 'text-danger' : '' }}">
+                                                {{ $campaign->end_date }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-light dropdown-toggle" 
+                                                        type="button" data-bs-toggle="dropdown">
+                                                    Actions
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item" 
+                                                          href="{{ route('admin.campaignDetails', $campaign->id) }}">
+                                                            <i class="fa fa-eye me-2"></i> View
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">
+                                                            <i class="fa fa-edit me-2"></i> Edit
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @empty
+                                    <tr>
+                                        <td colspan="10" class="text-center py-4">
+                                            <div class="d-flex flex-column align-items-center">
+                                                <i class="fa fa-folder-open fa-2x text-muted mb-2"></i>
+                                                No campaigns found
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Pagination -->
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <div class="text-muted">
+                                Showing {{ $campaigns->firstItem() }} to {{ $campaigns->lastItem() }} 
+                                of {{ $campaigns->total() }} entries
                             </div>
-                            </td>
-                            <td>
-                              100%
-                            </td>
-                            <td>2024-04-30</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <label class="check-box">
-                                <input type="checkbox">
-                                <span class="checkmark outline-secondary ms-2"></span>
-                              </label>
-                            </td>
-                            <td>
-                              <div class="position-relative">
-                                <div class="h-35 w-35 d-flex-center b-r-50 overflow-hidden bg-light-danger b-1-danger p-1 position-absolute">
-                                  <i class="ph-duotone  ph-airplay f-s-16"></i>
-                                </div>
-                                <div class="ms-5">
-                                  <h6 class="f-s-15 f-w-600 mb-0">Product Launch</h6>
-                                  <p class="f-s-13 text-secondary mb-0">John Mandela</p>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <span class="badge text-light-info"> <i class="ti ti-download me-1"></i>Pending</span>
-                            </td>
-                            <td>Launch</td>
-                            <td>
-                              <ul class="avatar-group justify-content-start">
-                                <li class="h-35 w-35 d-flex-center b-r-50 overflow-hidden text-bg-dark b-2-light" data-bs-toggle="tooltip" data-bs-title="Sabrina Torres">
-                                  <img src="../assets/images/avtar/6.png" alt="" class="img-fluid">
-                                </li>
-                                <li class="text-bg-secondary h-25 w-25 d-flex-center b-r-50" data-bs-toggle="tooltip" data-bs-title="10 More">
-                                  20+
-                                </li>
-                              </ul>
-                            </td>
-                            <td>
-                              <a href="#">www.webappdev.com</a>
-                            </td>
-                            <td>
-                              <div class="time-tracking-box">
-                                <i class="ph-duotone  ph-clock f-s-12"></i>
-                                <span class="f-s-12">0 hours</span> 
-                                <span class="badge text-bg-warning"><i class="ph ph-play-pause text-white f-s-13"></i></span>
-                              </div>
-                            </td>
-                            <td>
-                              0%
-                            </td>
-                            <td>2024-07-10</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <label class="check-box">
-                                <input type="checkbox">
-                                <span class="checkmark outline-secondary ms-2"></span>
-                              </label>
-                            </td>
-                            <td>
-                              <div class="position-relative">
-                                <div class="h-35 w-35 d-flex-center b-r-50 overflow-hidden bg-light-success b-1-success p-1 position-absolute">
-                                  <i class="ph-duotone  ph-codesandbox-logo f-s-16"></i>
-                                </div>
-                                <div class="ms-5">
-                                  <h6 class="f-s-15 f-w-600 mb-0">App Development</h6>
-                                  <p class="f-s-13 text-secondary mb-0">John Mandela</p>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <span class="badge text-light-danger"> <i class="ti ti-download me-1"></i>On Hold</span>
-                            </td>
-                            <td>Development</td>
-                            <td>
-                              <ul class="avatar-group justify-content-start">
-                                <li class="h-35 w-35 d-flex-center b-r-50 overflow-hidden text-bg-secondary b-2-light" data-bs-toggle="tooltip" data-bs-title="Sabrina Torres">
-                                  <img src="../assets/images/avtar/08.png" alt="" class="img-fluid">
-                                </li>
-                                <li class="h-35 w-35 d-flex-center b-r-50 overflow-hidden text-bg-success b-2-light" data-bs-toggle="tooltip" data-bs-title="Eva Bailey">
-                                  <img src="../assets/images/avtar/07.png" alt="" class="img-fluid">
-                                </li>
-                                <li class="h-35 w-35 d-flex-center b-r-50 overflow-hidden text-bg-warning b-2-light" data-bs-toggle="tooltip" data-bs-title="Michael Hughes">
-                                  <img src="../assets/images/avtar/6.png" alt="" class="img-fluid">
-                                </li>
-                                <li class="text-bg-secondary h-25 w-25 d-flex-center b-r-50" data-bs-toggle="tooltip" data-bs-title="10 More">
-                                  5+
-                                </li>
-                              </ul>
-                            </td>
-                            <td>
-                              <a href="#">www.appdev.com</a>
-                            </td>
-                            <td>
-                              <div class="time-tracking-box">
-                                <i class="ph-duotone  ph-clock f-s-12"></i>
-                                <span class="f-s-12">10 hours</span> 
-                                <span class="badge text-bg-warning"><i class="ph ph-play-pause text-white f-s-13"></i></span>
+                            <div>
+                                {{ $campaigns->links() }}
                             </div>
-                            </td>
-                            <td>
-                              20%
-                            </td>
-                            <td>2024-08-20</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <label class="check-box">
-                                <input type="checkbox">
-                                <span class="checkmark outline-secondary ms-2"></span>
-                              </label>
-                            </td>
-                            <td>
-                              <div class="position-relative">
-                                <div class="h-35 w-35 d-flex-center b-r-50 overflow-hidden bg-light-warning b-1-warning p-1 position-absolute">
-                                  <i class="ph-duotone  ph-folder-notch f-s-16"></i>
-                                </div>
-                                <div class="ms-5">
-                                  <h6 class="f-s-15 f-w-600 mb-0">Content Creation</h6>
-                                  <p class="f-s-13 text-secondary mb-0">John Mandela</p>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <span class="badge text-light-warning"> <i class="ti ti-download me-1"></i>In Progress</span>
-                            </td>
-                            <td>Content</td>
-                            <td>
-                              <ul class="avatar-group justify-content-start">
-                                <li class="h-35 w-35 d-flex-center b-r-50 overflow-hidden text-bg-primary b-2-light" data-bs-toggle="tooltip" data-bs-title="Sabrina Torres">
-                                  <img src="../assets/images/avtar/4.png" alt="" class="img-fluid">
-                                </li>
-                                <li class="h-35 w-35 d-flex-center b-r-50 overflow-hidden text-bg-success b-2-light" data-bs-toggle="tooltip" data-bs-title="Eva Bailey">
-                                  <img src="../assets/images/avtar/5.png" alt="" class="img-fluid">
-                                </li>
-                                <li class="text-bg-secondary h-25 w-25 d-flex-center b-r-50" data-bs-toggle="tooltip" data-bs-title="10 More">
-                                  10+
-                                </li>
-                              </ul>
-                            </td>
-                            <td>
-                              <a href="#">www.site.com</a>
-                            </td>
-                            <td>
-                              <div class="time-tracking-box">
-                                <i class="ph-duotone  ph-clock f-s-12"></i>
-                                <span class="f-s-12">30 hours</span> 
-                                <span class="badge text-bg-warning"><i class="ph ph-play-pause text-white f-s-13"></i></span>
-                              </div>
-                            </td>
-                            <td>
-                              70%
-                            </td>
-                            <td>2024-05-25</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <label class="check-box">
-                                <input type="checkbox">
-                                <span class="checkmark outline-secondary ms-2"></span>
-                              </label>
-                            </td>
-                            <td>
-                              <div class="position-relative">
-                                <div class="h-35 w-35 d-flex-center b-r-50 overflow-hidden bg-light-secondary b-1-secondary p-1 position-absolute">
-                                  <i class="ph-duotone  ph-text-outdent f-s-16"></i>
-                                </div>
-                                <div class="ms-5">
-                                  <h6 class="f-s-15 f-w-600 mb-0">Training Workshop</h6>
-                                  <p class="f-s-13 text-secondary mb-0">John Mandela</p>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <span class="badge text-light-success"> <i class="ti ti-download me-1"></i>Completed</span>
-                            </td>
-                            <td>Training</td>
-                            <td>
-                              <ul class="avatar-group justify-content-start">
-                                <li class="h-35 w-35 d-flex-center b-r-50 overflow-hidden text-bg-primary b-2-light" data-bs-toggle="tooltip" data-bs-title="Sabrina Torres">
-                                  <img src="../assets/images/avtar/4.png" alt="" class="img-fluid">
-                                </li>
-                                <li class="h-35 w-35 d-flex-center b-r-50 overflow-hidden text-bg-success b-2-light" data-bs-toggle="tooltip" data-bs-title="Eva Bailey">
-                                  <img src="../assets/images/avtar/5.png" alt="" class="img-fluid">
-                                </li>
-                                <li class="h-35 w-35 d-flex-center b-r-50 overflow-hidden text-bg-danger b-2-light" data-bs-toggle="tooltip" data-bs-title="Michael Hughes">
-                                  <img src="../assets/images/avtar/6.png" alt="" class="img-fluid">
-                                </li>
-                                <li class="text-bg-secondary h-25 w-25 d-flex-center b-r-50" data-bs-toggle="tooltip" data-bs-title="10 More">
-                                  10+
-                                </li>
-                              </ul>
-                            </td>
-                            <td>
-                              <a href="#">www.training.com</a>
-                            </td>
-                            <td>
-                              <div class="time-tracking-box">
-                                <i class="ph-duotone  ph-clock f-s-12"></i>
-                                <span class="f-s-12">50 hours</span> 
-                                <span class="badge text-bg-warning"><i class="ph ph-play-pause text-white f-s-13"></i></span>
-                              </div>
-                            </td>
-                            <td>
-                              100%
-                            </td>
-                            <td>2024-03-15</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <label class="check-box">
-                                <input type="checkbox">
-                                <span class="checkmark outline-secondary ms-2"></span>
-                              </label>
-                            </td>
-                            <td>
-                              <div class="position-relative">
-                                <div class="h-35 w-35 d-flex-center b-r-50 overflow-hidden bg-light-dark b-1-dark p-1 position-absolute">
-                                  <i class="ph-duotone  ph-presentation-chart f-s-16"></i>
-                                </div>
-                                <div class="ms-5">
-                                  <h6 class="f-s-15 f-w-600 mb-0">Research Initiative</h6>
-                                  <p class="f-s-13 text-secondary mb-0">John Mandela</p>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <span class="badge text-light-success"> <i class="ti ti-download me-1"></i>Progress</span>
-                            </td>
-                            <td>Research</td>
-                            <td>
-                              <ul class="avatar-group justify-content-start">
-                                <li class="h-35 w-35 d-flex-center b-r-50 overflow-hidden text-bg-primary b-2-light" data-bs-toggle="tooltip" data-bs-title="Sabrina Torres">
-                                  <img src="../assets/images/avtar/09.png" alt="" class="img-fluid">
-                                </li>
-                                <li class="text-bg-secondary h-25 w-25 d-flex-center b-r-50" data-bs-toggle="tooltip" data-bs-title="10 More">
-                                  15+
-                                </li>
-                              </ul>
-                            </td>
-                            <td>
-                              <a href="#">www.initiative.com</a>
-                            </td>
-                            <td>
-                              <div class="time-tracking-box">
-                                <i class="ph-duotone  ph-clock f-s-12"></i>
-                                <span class="f-s-12">15 hours</span> 
-                                <span class="badge text-bg-warning"><i class="ph ph-play-pause text-white f-s-13"></i></span>
-                              </div>
-                            </td>
-                            <td>
-                              40%
-                            </td>
-                            <td>2024-09-05</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                        </div>
                     </div>
-                     
-                     </div>
-                    
-                </div>
-              </div>
+            </div>
+        </div>
               
             
             </div>

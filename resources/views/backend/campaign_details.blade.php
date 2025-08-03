@@ -111,18 +111,26 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5>Volunteer Management</h5>
+                        <div class="d-flex ">
+                            <div class="me-3">
+                         <div class="input-group">
+                            <input type="text" id="volunteerSearch" class="form-control" placeholder="Search volunteers...">
+                            <button class="btn btn-primary" type="submit">
+                                          <i class="fa fa-search"></i>
+                                      </button>
+                        </div>
+                        </div>
+                        
                         <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                Export
+                               <i class="fa fa-download me-1"></i> Export
                                 </button>
                                 <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{{ route('admin.campaigns.export.pdf', $campaign->id) }}"><i class="fa-solid fa-file-pdf fa-fw"></i>Pdf</a></li>
                                 <li><a class="dropdown-item" href="{{ route('admin.campaigns.export.excel', $campaign->id) }}"><i class="fa-solid fa-file-excel fa-fw"></i>Excell</a></li>
                                 </ul>
                         </div>
-                        <div>
-                            <input type="text" id="volunteerSearch" class="form-control" placeholder="Search volunteers...">
                         </div>
                     </div>
                     <div class="card-body">
