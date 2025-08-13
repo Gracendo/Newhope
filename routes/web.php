@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\CampaignDetailController;
+use App\Http\Controllers\CampayController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\HomeController;
@@ -44,12 +45,23 @@ Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
 Route::get('/signup', [SignupController::class, 'index'])->name('signup');
 
 // Donation routes
-Route::get('/donation', [DonationController::class, 'index'])->name('donation');
-Route::get('/donations/create', [DonationController::class, 'create'])->name('donations.create');
-Route::post('/donations/store', [DonationController::class, 'store'])->name('donation.store');
-Route::post('/donations/initiate', [DonationController::class, 'initiate'])->name('donations.initiate');
-Route::post('/donation', [DonationController::class, 'initiate'])->name('donations.initiate1');
-Route::post('/donations/confirm', [DonationController::class, 'confirmDonation'])->name('donations.confirm');
+// Donation routes
+// Add this route for orphanage-specific donations
+
+Route::get('/orphanage/{orphanage}/donate', [DonationController::class, 'create'])
+    ->name('orphanage.donate');
+
+Route::get('/campaign/{campaign}/donate', [DonationController::class, 'create1'])
+    ->name('campaign.donate');
+
+Route::get('/donation', [DonationController::class, 'index'])->name('donations.create');
+Route::post('/donation/initiate', [DonationController::class, 'initiatePayment'])->name('donations.initiate');
+Route::get('/donation/thank-you', [DonationController::class, 'thankYou'])->name('donations.thankyou');
+
+// API routes for status checking and webhooks
+Route::post('/donation/webhook', [DonationController::class, 'handleWebhook']);
+Route::get('/donation/status/{reference}', [DonationController::class, 'checkCollectStatus'])
+     ->name('donations.check-status');
 
 // Orphanage routes
 Route::get('/orphanage', [OrphanageController::class, 'index'])->name('orphanage');
@@ -221,4 +233,17 @@ Route::post('/admin-dash/approve-om/{admin}', [RegisterController::class, 'appro
 Route::middleware(['auth'])->group(function () {
     Route::post('/volunteer', [VolunteerController::class, 'store'])
          ->name('volunteer.store');
+});
+
+Route::prefix('campay')->group(function () {
+    // Initiate money exchange with fee
+    Log::info('--- Step 1: Initiating Collect from Sender ---1');
+    Route::post('/exchange-with-fee', [CampayController::class, 'exchangeWithFee'])->name('campay.collect');
+
+    // Webhook for Campay status updates
+    Route::post('/webhook/status', [CampayController::class, 'handleCampayWebhook']);
+
+    // Check collect status (alternative to webhook)
+    Route::get('/check-collect-status/{collectReference}', [CampayController::class, 'checkCollectStatus']);
+    Route::get('/check-status/{reference}', [DonationController::class, 'checkCollectStatus'])->name('campay.check-status');
 });

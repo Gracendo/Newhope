@@ -73,8 +73,7 @@
                                     <div class="post-tags wow fadeInUp" data-wow-delay="0.5s">
                                         <span class="tag-links">
                                             
-                                            <a href="{{ route('donation') }}">Support Orphanage</a>
-                                            
+                                            <a href="{{ route('orphanage.donate', $orphanage->id) }}">Support Orphanage</a>
                                         </span>
                                     </div>
                                     <!-- Post Tags End -->
