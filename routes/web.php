@@ -15,8 +15,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrphanageController;
 use App\Http\Controllers\OrphanageDetailController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\VolunteerController;
+use App\Http\Controllers\SignupController;
 use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\VolunteerController;
 use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -123,7 +124,7 @@ Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) 
 })->middleware(['signed'])->name('verification.verify');
 // Admin Dashboard
 
-Route::prefix('admin-dash')->middleware(['auth:admin','setlanguage:backend', 'adminGlobalVar'])->group(function () {
+Route::prefix('admin-dash')->middleware(['auth:admin', 'setlanguage:backend', 'adminGlobalVar'])->group(function () {
     Route::group(['namespace' => 'Admin'], function () {
         Route::get('/', [AdminDashboardController::class, 'adminIndex'])->name('admin.home');
         Route::get('/manageusers', [AdminDashboardController::class, 'manageUsers'])->name('admin.manageUsers');
@@ -135,15 +136,15 @@ Route::prefix('admin-dash')->middleware(['auth:admin','setlanguage:backend', 'ad
         Route::post('/password-change', [AdminDashboardController::class, 'admin_password_chagne'])->name('admin.password.change');
         Route::get('/donation_management', [DonationAdminController::class, 'index'])->name('donation_management');
         Route::post('/donations', [DonationAdminController::class, 'store'])->name('donations.store');
-       
-        //campaign routes
+
+        // campaign routes
         Route::get('/campaign', [AdminDashboardController::class, 'campaign'])->name('admin.campaign');
         Route::get('/campaign_details', [AdminDashboardController::class, 'campaignDetails'])->name('admin.campaignDetails');
         Route::post('/campaigns', [CampaignsController::class, 'store'])->name('campaigns.store');
         Route::get('campaigns/{campaign}/edit', [AdminDashboardController::class, 'edit'])->name('campaigns.edit');
         Route::put('campaigns/{campaign}', [CampaignsController::class, 'update'])->name('campaigns.update');
         Route::delete('campaigns/{campaign}', [CampaignsController::class, 'destroy'])->name('campaigns.destroy');
-        
+
         // Campaign approval routes
         Route::post('/campaigns/{campaign}/approve', [CampaignsController::class, 'approve'])
             ->name('admin.campaigns.approve');
@@ -151,32 +152,32 @@ Route::prefix('admin-dash')->middleware(['auth:admin','setlanguage:backend', 'ad
             ->name('admin.campaigns.reject');
         Route::get('/campaigns/{campaign}/download', [CampaignsController::class, 'downloadBusinessPlan'])
             ->name('admin.campaigns.download');
-       
-        //user approval routes
+
+        // user approval routes
         Route::post('/users/{user}/approve', [AdminDashboardController::class, 'approveUser'])
         ->name('admin.users.approve');
         Route::post('/users/{user}/reject', [AdminDashboardController::class, 'rejectUser'])
         ->name('admin.users.reject');
 
-        //volunteer approval routes
+        // volunteer approval routes
         Route::get('/admin-dash/campaigns/{id}/details', [AdminDashboardController::class, 'campaignDetails'])
          ->name('admin.campaignDetails');
-         
-    Route::post('/admin/volunteers/{volunteer}/approve', [AdminDashboardController::class, 'approveVolunteer'])
-         ->name('admin.volunteers.approve');
-         
-    Route::post('/admin/volunteers/{volunteer}/reject', [AdminDashboardController::class, 'rejectVolunteer'])
-         ->name('admin.volunteers.reject');
-        //volunteer grant reward route
-    Route::post('/admin-dash/admin/volunteers/{volunteer}/grant-reward', [  VolunteerController::class, 'grantReward'])
-        ->name('admin.volunteers.grant-reward');
-        //export volunteer table routes
-        Route::get('/admin-dash/campaigns/{campaign}/export-excel', 
-        [AdminDashboardController::class, 'exportVolunteersExcel'])
+
+        Route::post('/admin/volunteers/{volunteer}/approve', [AdminDashboardController::class, 'approveVolunteer'])
+             ->name('admin.volunteers.approve');
+
+        Route::post('/admin/volunteers/{volunteer}/reject', [AdminDashboardController::class, 'rejectVolunteer'])
+             ->name('admin.volunteers.reject');
+        // volunteer grant reward route
+        Route::post('/admin-dash/admin/volunteers/{volunteer}/grant-reward', [VolunteerController::class, 'grantReward'])
+            ->name('admin.volunteers.grant-reward');
+        // export volunteer table routes
+        Route::get('/admin-dash/campaigns/{campaign}/export-excel',
+            [AdminDashboardController::class, 'exportVolunteersExcel'])
         ->name('admin.campaigns.export.excel');
-        
-         Route::get('/admin-dash/campaigns/{campaign}/export-pdf', 
-        [AdminDashboardController::class, 'exportVolunteersPdf'])
+
+        Route::get('/admin-dash/campaigns/{campaign}/export-pdf',
+            [AdminDashboardController::class, 'exportVolunteersPdf'])
         ->name('admin.campaigns.export.pdf');
     });
 });
@@ -209,7 +210,7 @@ Route::prefix('user-home')->middleware([
     Route::get('/profilesetting', [UserDashboardController::class, 'profilesetting'])->name('user.profile');
     Route::get('/myrewards', [UserDashboardController::class, 'myrewards'])->name('user.rewards');
     Route::get('/changepassword', [UserDashboardController::class, 'changepassword'])->name('user.changepassword');
-    Route::put('/user/profile/update', [UserDashboardController::class, 'updateProfile']) ->name('user.profile.update');
+    Route::put('/user/profile/update', [UserDashboardController::class, 'updateProfile'])->name('user.profile.update');
     Route::post('/logout', [UserDashboardController::class, 'logout'])->name('user.logout');
 });
 // Admin approval route
@@ -217,7 +218,7 @@ Route::post('/admin-dash/approve-om/{admin}', [RegisterController::class, 'appro
     ->name('admin.approve.om');
 //
 // volunteer route
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth'])->group(function () {
     Route::post('/volunteer', [VolunteerController::class, 'store'])
          ->name('volunteer.store');
 });
