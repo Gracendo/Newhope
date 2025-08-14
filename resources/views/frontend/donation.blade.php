@@ -9,8 +9,8 @@
                 <div class="donation-box">
                     <!-- Section Title Start -->
                     <div class="section-title">
-                        <h3 class="wow fadeInUp">donate now</h3>
-                        <h2 class="text-anime-style-2" data-cursor="-opaque">Your donation</h2>
+                        <h3 class="wow fadeInUp"> @isset($campaign) fund now @else donate now @endisset</h3>
+                        <h2 class="text-anime-style-2" data-cursor="-opaque"> @isset($campaign) Your funding @else Your donation @endisset</h2>
                         <p class="wow fadeInUp" data-wow-delay="0.2s">
                             Your donation is more than just financial support; it is a powerful act of kindness that drives meaningful change. 
                             Every contribution helps Cameroon orphanages become more autonomous.
@@ -85,7 +85,7 @@
                             <div id="donor-info-section">
                                 <div class="form-group mb-4">
                                     <input type="text" name="name" class="form-control" placeholder="Your name" 
-                                           value="{{ auth()->check() ? auth()->user()->name : old('name') }}"
+                                           value="{{ auth()->check() ? auth()->user()->first_name : old('name') }}"
                                            {{ auth()->check() ? 'readonly' : '' }}>
                                 </div>
                                 <div class="form-group mb-4">
@@ -100,7 +100,7 @@
                                 <textarea name="description" class="form-control" placeholder="Message (optional)">{{ old('description') }}</textarea>
                             </div>
 
-                            <button type="submit" id="donate-button" class="btn btn-primary">Donate Now</button>
+                            <button type="submit" id="donate-button" class="btn btn-primary"> @isset($campaign) fund now @else donate now @endisset</button>
                         </form>
                     </div>
                 </div>

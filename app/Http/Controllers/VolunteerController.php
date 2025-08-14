@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserPoint;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use App\Models\UserPoint;
 
 class VolunteerController extends Controller
 {
@@ -14,7 +14,7 @@ class VolunteerController extends Controller
     {
         // Validate the request
         $validated = $request->validate([
-            'campaign_id' => 'required|exists:campaigns,id'
+            'campaign_id' => 'required|exists:campaigns,id',
         ]);
 
         try {
@@ -24,33 +24,31 @@ class VolunteerController extends Controller
                 'campaign_id' => $validated['campaign_id'],
                 'phone' => Auth::user()->phone,
                 'address' => Auth::user()->address,
-                'status' => 'pending'
+                'status' => 'pending',
             ]);
 
             // Log success
             Log::info('New volunteer created', [
                 'user_id' => Auth::id(),
-                'campaign_id' => $validated['campaign_id']
+                'campaign_id' => $validated['campaign_id'],
             ]);
 
             return redirect()->back()
                 ->with('success', 'Volunteer application submitted!');
-
         } catch (\Exception $e) {
             // Log error
             Log::error('Volunteer creation failed', [
                 'error' => $e->getMessage(),
-                'user_id' => Auth::id()
+                'user_id' => Auth::id(),
             ]);
 
             return redirect()->back()
                 ->with('error', 'Failed to submit volunteer application');
         }
     }
+
     public function grantReward(Request $request, $volunteerId)
     {
-       
-
         try {
             $volunteer = Volunteer::findOrFail($volunteerId);
 

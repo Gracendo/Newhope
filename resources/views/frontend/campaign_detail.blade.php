@@ -75,7 +75,7 @@
 
                             <!-- Cta Appointment Button Start -->
                             <div class="sidebar-cta-btn">
-                                <a href="{{ route('donation') }}" class="btn-default">Donate Now</a>
+                                <a href="{{ route('orphanage.donate',$campaign->orphanage->id) }}" class="btn-default">Donate Now</a>
                             </div>
                             <!-- Cta Appointment Button End -->
                         </div>
@@ -202,11 +202,11 @@
                                     @endauth
                                     @if (session('status'))
                                     <p><span>1000FCFA</span> Can greatly help this orphanage in becoming autonomous. 
-                                    <a href="{{ route('donation') }}">Contribute now</a></p>
+                                    <a href="{{ route('campaign.donate',$campaign->id) }}">Contribute now</a></p>
                             
                                     @else 
                                     <p><span>1000FCFA</span> Can greatly help this orphanage in becoming autonomous. 
-                                    <a href="{{ route('donation') }}">Fund now</a></p>
+                                    <a href="{{ route('campaign.donate',$campaign->id) }}">Fund now</a></p>
                                     @endif
                                 </div>
                                 <!-- Service Contact Text End -->

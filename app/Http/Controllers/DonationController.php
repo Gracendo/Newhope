@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campaign;
 use App\Models\Donation;
+use App\Models\Orphanage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use App\Models\Orphanage;
-use App\Models\Campaign;
 
 class DonationController extends Controller
 {
@@ -22,38 +22,39 @@ class DonationController extends Controller
         $this->campayAppUsername = env('CAMPAY_APP_USERNAME');
         $this->campayAppPassword = env('CAMPAY_APP_PASSWORD');
     }
+
     public function index()
     {
         return view('frontend.donation');
     }
-public function create(Orphanage $orphanage = null)
-{
-    // Pass the orphanage to the view
-    return view('frontend.donation', [
-        'orphanage' => $orphanage,
-        'campaign' => null // You can add campaign support similarly
-    ]);
-}
-public function create1(Campaign $campaign=null)
-{
-    // Pass the orphanage to the view
-    return view('frontend.donation', [
-        'orphanage' => null,
-        'campaign' => $campaign // You can add campaign support similarly
-    ]);
-}
-  
+
+    public function create(?Orphanage $orphanage = null)
+    {
+        // Pass the orphanage to the view
+        return view('frontend.donation', [
+            'orphanage' => $orphanage,
+            'campaign' => null, // You can add campaign support similarly
+        ]);
+    }
+
+    public function create1(?Campaign $campaign = null)
+    {
+        // Pass the orphanage to the view
+        return view('frontend.donation', [
+            'orphanage' => null,
+            'campaign' => $campaign, // You can add campaign support similarly
+        ]);
+    }
+
     public function initiatePayment(Request $request)
     {
-       try {
+        try {
             $accessToken = $this->getCampayAccessToken();
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
 
-
         try {
-
             $collectReference = 'DONATE_'.time().'_'.substr(md5(uniqid()), 0, 8);
 
             Log::info("Requesting  from $ $request->phone_number...");
@@ -62,7 +63,7 @@ public function create1(Campaign $campaign=null)
                 'Authorization' => "Token $accessToken",
                 'Content-Type' => 'application/json',
             ];
-              $collectPayload = [
+            $collectPayload = [
                 'amount' => $request->amount,
                 'currency' => 'XAF',
                 'from' => $request->phone_number,
@@ -84,8 +85,8 @@ public function create1(Campaign $campaign=null)
                     'amount' => $request->amount,
                     'reference' => $collectReference,
                     'status' => 'pending',
-                    'orphanage_id' => $request->orphanage_id, 
-                    'campaign_id' => $request->campaign_id ,
+                    'orphanage_id' => $request->orphanage_id,
+                    'campaign_id' => $request->campaign_id,
                     'anonymous' => $request->anonymous,
                     'donor_name' => $request->anonymous ? null : $request->name,
                     'donor_email' => $request->anonymous ? null : $request->email,
@@ -108,13 +109,12 @@ public function create1(Campaign $campaign=null)
                 'message' => 'Failed to initiate payment',
                 'error' => $response->json(),
             ], 400);
-
         } catch (\Exception $e) {
             Log::info('Donation processing error:', [
                 'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
             ]);
-            
+
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred while processing your donation',
@@ -133,6 +133,7 @@ public function create1(Campaign $campaign=null)
 
         if (!$reference || !$status) {
             Log::error('Invalid webhook payload:', $payload);
+
             return response()->json(['message' => 'Invalid payload'], 400);
         }
 
@@ -140,6 +141,7 @@ public function create1(Campaign $campaign=null)
 
         if (!$donation) {
             Log::error('Donation not found for reference:', ['reference' => $reference]);
+
             return response()->json(['message' => 'Donation not found'], 404);
         }
 
@@ -165,7 +167,7 @@ public function create1(Campaign $campaign=null)
         if (!$donation) {
             return response()->json([
                 'success' => false,
-                'message' => 'Donation not found'
+                'message' => 'Donation not found',
             ], 404);
         }
 
@@ -203,13 +205,12 @@ public function create1(Campaign $campaign=null)
                 'message' => 'Failed to check status',
                 'error' => $response->json(),
             ], 400);
-
         } catch (\Exception $e) {
             Log::error('Error checking collect status:', [
                 'reference' => $reference,
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ]);
-            
+
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred',
@@ -224,17 +225,17 @@ public function create1(Campaign $campaign=null)
             // Implement your email notification logic here
             // Example:
             // Mail::to($donation->donor_email)->send(new DonationConfirmation($donation));
-            
+
             Log::info('Donation confirmation sent for:', ['donation_id' => $donation->id]);
         } catch (\Exception $e) {
             Log::error('Failed to send donation confirmation:', [
                 'donation_id' => $donation->id,
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ]);
         }
     }
 
-   private function getCampayAccessToken()
+    private function getCampayAccessToken()
     {
         try {
             $response = Http::withOptions([
