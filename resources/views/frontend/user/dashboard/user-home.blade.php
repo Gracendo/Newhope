@@ -32,7 +32,7 @@
                         <div class="service-content">
                             <h3><a href="{{route('user.mycampaigns')}}">Total Campaigns</a></h3>
                             <p>You participated in <b style="color:
-                            rgb(251,109,2)">100</b> Campaigns</p>
+                            rgb(251,109,2)">{{ $volunteerStats['totalCampaigns'] ?? 0 }}</b> Campaigns</p>
                         </div>
                         <div class="service-btn">
                             <a href="{{route('user.mycampaigns')}}" class="readmore-btn">see all</a> <!-- href to my campaigns-->
@@ -47,7 +47,7 @@
                         <div class="service-content">
                             <h3><a href="{{route('user.mycampaigns')}}">Pending Volunteering Request</a></h3>
                             <p>You have <b style="color:
-                            rgb(251,109,2)">10</b> pending request </p>
+                            rgb(251,109,2)">{{ $volunteerStats['pendingRequests'] ?? 0 }}</b> pending request </p>
                         </div>
                          <div class="service-btn">
                             <a href="{{route('user.mycampaigns')}}" class="readmore-btn">see all</a> <!-- href to my campaigns-->
@@ -62,7 +62,7 @@
                         <div class="service-content">
                             <h3><a href="{{route('user.mycampaigns')}}">Approved Volunteering Request</a></h3>
                              <p>You have <b style="color:
-                            rgb(251,109,2)">10</b> approved request </p>
+                            rgb(251,109,2)">{{$volunteerStats['approvedRequests'] ?? 0 }}</b> approved request </p>
                         </div>
                          <div class="service-btn">
                             <a href="{{route('user.mycampaigns')}}" class="readmore-btn">see all</a> <!-- href to my campaigns-->
@@ -76,7 +76,7 @@
                         <div class="service-content">
                             <h3><a href="{{route('user.mycampaigns')}}">Total Volunteering Experience</a></h3>
                             <p>You volunteered  in <b style="color:
-                            rgb(251,109,2)">100</b> Campaigns</p>
+                            rgb(251,109,2)">{{ $volunteerStats['totalExperience'] ?? 0 }}</b> Campaigns</p>
                         </div>
                         <div class="service-btn">
                             <a href="{{route('user.mycampaigns')}}" class="readmore-btn">see all</a> <!-- href to my campaigns-->
@@ -91,7 +91,7 @@
                         <div class="service-content">
                             <h3><a href="{{route('user.donations')}}">Donnations</a></h3>
                              <p>You donated a total of <b style="color:
-                            rgb(251,109,2)">100000</b> this month !</p>
+                            rgb(251,109,2)">{{ number_format($donationStats['monthlyDonations'] ?? 0) }} FCFA</b> this month !</p>
                         </div>
                          <div class="service-btn">
                             <a href="{{route('user.donations')}}" class="readmore-btn">see all</a> <!-- href to donations-->
@@ -106,7 +106,7 @@
                         <div class="service-content">
                             <h3><a href="{{route('user.rewards')}}">Rewards</a></h3>
                             <p>You won a total of <b style="color:
-                            rgb(251,109,2)">3</b> Rewards this month</p>
+                            rgb(251,109,2)">0 </b> Rewards this month</p>
                         </div> 
                          <div class="service-btn">
                             <a href="{{route('user.rewards')}}" class="readmore-btn">see all</a> <!-- href to my rewards-->

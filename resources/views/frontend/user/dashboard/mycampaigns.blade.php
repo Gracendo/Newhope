@@ -50,56 +50,62 @@
                             rgb(251,109,2)">Status</th>
                             <th style="color:
                             rgb(251,109,2)">Reward</th>
+                            <th style="color:
+                            rgb(251,109,2)">Date</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>Chicken Farming</td>
-                            <td ><span class="badge bg-info" >Donation</span></td>
-                            <td>6000</td>
-                            <td><span class="badge bg-success">Done</span></td>
-                            <td><span class="badge bg-success">5 points</span></td>
-
-                           
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>Vegetable farming</td>
-                            <td ><span class="badge bg-warning text-dark" >Volunteer</span></td>
-                            <td>-</td>
-                            <td><span class="badge bg-danger">Rejected</span></td>
-                            <td><span class="badge bg-danger">0 points</span></td>
+                              @forelse($campaigns as $campaign)
+                              <tr>
+                                  <td>{{ $campaign['number'] }}</td>
+                                  <td>{{ $campaign['name'] }}</td>
+                                  <td>
+                                      <span class="badge {{ $campaign['badge_class'] }}">
+                                          {{ $campaign['type'] }}
+                                      </span>
+                                  </td>
+                                  <td>{{ $campaign['amount'] }}</td>
+                                  <td>
+                                      <span class="badge {{ $campaign['status_class'] }}">
+                                          {{ $campaign['status'] }}
+                                      </span>
+                                  </td>
+                                  <td>
+                                      <span class="badge  text-bg-success">
+                                          {{ $campaign['points'] }}
+                                      </span>
+                                  </td>
+                                  <td>{{ $campaign['date'] }}</td>
+                              </tr>
+                              @empty
+                              <tr>
+                                  <td colspan="7" class="text-center">No campaign participation found</td>
+                              </tr>
+                              @endforelse
+                          </tbody>
+                                    </table>
+                                </div>
+                            </div>
                             
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td>Aqua farm</td>
-                            <td><span class="badge bg-warning text-dark" >Volunteer</span></td>
-                            <td>-</td>
-                            <td><span class="badge bg-primary">Pending</span></td>
-                            <td><span class="badge bg-danger">0 points</span></td>
-                            
-                          </tr>
-                          <tr>
-                            <td>4</td>
-                            <td>Tomato Farming</td>
-                            <td><span class="badge bg-warning text-dark" >Volunteer</span></td>
-                            <td>-</td>
-                            <td><span class="badge bg-success">Done</span></td>
-                            <td><span class="badge bg-success">10 points</span></td>
-                            
-                          </tr>
-                           
-                          
-                          
-                        </tbody>
-                      </table>
+                            <!-- Pagination -->
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    @if($donations->count())
+                                    <div class="d-flex justify-content-start">
+                                        {{ $donations->links('pagination::bootstrap-4') }}
+                                    </div>
+                                    @endif
+                                <div class="col-md-6">
+                                    @if($volunteers->count())
+                                    <div class="d-flex justify-content-end">
+                                        {{ $volunteers->links('pagination::bootstrap-4') }}
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Default Datatable end -->
+                    <!-- Default Datatable end -->
                     </div>
                     <!-- Services Item End -->
                 </div>
@@ -109,5 +115,25 @@
     </div>
     <!-- Page Services End -->
     <!-- js -->
-   
+   <style>
+    /* Custom Pagination Styles */
+.pagination {
+    margin-top: 20px;
+}
+
+.page-item.active .page-link {
+    background-color: rgb(251,109,2);
+    border-color: rgb(251,109,2);
+}
+
+.page-link {
+    color: rgb(251,109,2);
+}
+
+.page-link:hover {
+    color: #fff;
+    background-color: rgba(251,109,2,0.8);
+    border-color: rgba(251,109,2,0.8);
+}
+   </style>
     @endsection

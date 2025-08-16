@@ -51,49 +51,46 @@
                             
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>Chicken Farming Campaign</td>
-                            <td >2025-04-25</td>
-                            <td>1000</td>
-                            <td><span class="badge bg-success">5 points</span></td>
-                           
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>Newhope Orphanage</td>
-                            <td >2025-05-05</td>
-                            <td>5000</td>
-                            <td><span class="badge bg-success">5 points</span></td>
+                       <tbody>
+                                        @forelse($donations as $index => $donation)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>
+                                                @if($donation->campaign)
+                                                    {{ $donation->campaign->title }} Campaign
+                                                @elseif($donation->orphanage)
+                                                    {{ $donation->orphanage->name }} Orphanage
+                                                @else
+                                                    Unknown Recipient
+                                                @endif
+                                            </td>
+                                            <td>{{ $donation->created_at->format('Y-m-d') }}</td>
+                                            <td>{{ number_format($donation->amount) }}</td>
+                                            <td>
+                                              <span class="badge bg-success">5 points</span>
+                                            </td>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center">No donations found</td>
+                                        </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
                             
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td>Aqua farm Campaign</td>
-                            <td>2025-05-21</td>
-                            <td>4000</td>
-                            <td><span class="badge bg-success">5 points</span></td>
-                            
-                          </tr>
-                          <tr>
-                            <td>4</td>
-                            <td>Tomato Farming Campaign</td>
-                            <td>2025-07-25</td>
-                            <td>40000</td>
-                            <td><span class="badge bg-success">5 points</span></td>
-                           
-                          </tr>
-                           
-                          
-                          
-                        </tbody>
-                      </table>
+                            <!-- Pagination -->
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+
+                      <div class="d-flex justify-content-center">
+                                        {{ $donations->links('pagination::bootstrap-4') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Default Datatable end -->
+                    <!-- Default Datatable end -->
                     </div>
                     <!-- Services Item End -->
                 </div>
