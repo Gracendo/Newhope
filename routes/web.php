@@ -25,6 +25,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 // test controller
 use Illuminate\Support\Facades\Route;
+//chat bot controllers
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +45,7 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
 Route::get('/signup', [SignupController::class, 'index'])->name('signup');
-
+Route::get('/legal-chat', [ChatController::class, 'view'])->name('chat.view');
 // Donation routes
 // Donation routes
 // Add this route for orphanage-specific donations

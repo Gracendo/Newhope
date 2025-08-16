@@ -117,6 +117,11 @@ return [
             'facility' => LOG_USER,
             'replace_placeholders' => true,
         ],
+        'chatbot' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/chatbot.log'),
+            'level' => 'debug',
+        ],
 
         'errorlog' => [
             'driver' => 'errorlog',

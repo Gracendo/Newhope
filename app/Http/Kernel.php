@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'userEmailVerify' => \App\Http\Middleware\UserEmailVerify::class,
         'maintains_mode' => \App\Http\Middleware\MaintainsMode::class,
         'globalVariable' => \App\Http\Middleware\GlobalVariableMiddleware::class,
+          'chat.domain' => \App\Http\Middleware\DomainGuard::class,
     ];
 }

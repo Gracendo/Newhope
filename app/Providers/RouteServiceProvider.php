@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
+
 class RouteServiceProvider extends ServiceProvider
 {
     /**
@@ -36,5 +37,12 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
+        RateLimiter::for('chat', function (Request $request) {
+            return [
+                Limit::perMinute(15)->by($request->ip()),
+                Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip()),
+            ];
+        });
     }
+    
 }
