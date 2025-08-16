@@ -25,7 +25,7 @@ class Donation extends Model
         'campay_response',
         'network_transaction_id',
         'orphanage_id',
-        'campaign_id'
+        'campaign_id',
     ];
 
     protected $casts = [
@@ -35,16 +35,16 @@ class Donation extends Model
     ];
 
     // Status constants
-    const STATUS_PENDING = 'pending';
-    const STATUS_SUCCESSFUL = 'successful';
-    const STATUS_FAILED = 'failed';
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_SUCCESSFUL = 'successful';
+    public const STATUS_FAILED = 'failed';
 
     // Payment method constants
-    const METHOD_MTN = 'MTN';
-    const METHOD_ORANGE = 'ORANGE';
+    public const METHOD_MTN = 'MTN';
+    public const METHOD_ORANGE = 'ORANGE';
 
     /**
-     * Get the user who made the donation
+     * Get the user who made the donation.
      */
     public function user()
     {
@@ -52,7 +52,7 @@ class Donation extends Model
     }
 
     /**
-     * Check if donation is successful
+     * Check if donation is successful.
      */
     public function isSuccessful()
     {
@@ -60,7 +60,7 @@ class Donation extends Model
     }
 
     /**
-     * Scope for successful donations
+     * Scope for successful donations.
      */
     public function scopeSuccessful($query)
     {
@@ -68,7 +68,7 @@ class Donation extends Model
     }
 
     /**
-     * Scope for pending donations
+     * Scope for pending donations.
      */
     public function scopePending($query)
     {
@@ -76,7 +76,7 @@ class Donation extends Model
     }
 
     /**
-     * Get the donor name (returns "Anonymous" if donation is anonymous)
+     * Get the donor name (returns "Anonymous" if donation is anonymous).
      */
     public function getDonorDisplayNameAttribute()
     {
@@ -84,13 +84,39 @@ class Donation extends Model
     }
     // app/Models/Donation.php
 
-public function orphanage()
-{
-    return $this->belongsTo(Orphanage::class);
-}
+    public function orphanage()
+    {
+        return $this->belongsTo(Orphanage::class);
+    }
 
-public function campaign()
-{
-    return $this->belongsTo(Campaign::class);
-}
+    public function campaign()
+    {
+        return $this->belongsTo(Campaign::class);
+    }
+    // relations to handle donation on the side of the admin
+    // In app/Models/Donation.php
+
+    // Add this method to display the correct amount based on role
+    public function getDisplayAmountAttribute()
+    {
+        if (auth('admin')->check() && auth('admin')->user()->role === 'orphanagemanager') {
+            return $this->amount * 0.9;
+        }
+
+        return $this->amount;
+    }
+
+    public function getDisplayRaisedAttribute()
+    {
+        if (auth('admin')->check() && auth('admin')->user()->role === 'orphanagemanager') {
+            return $this->raised * 0.9;
+        }
+
+        return $this->raised;
+    }
+
+    public function scopeFailed($query)
+    {
+        return $query->where('status', self::STATUS_FAILED);
+    }
 }

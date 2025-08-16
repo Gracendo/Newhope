@@ -2,25 +2,92 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use App\Models\Donation;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class DonationAdminController extends Controller
 {
-    public function index()
+    public function index(Request $request) // Add Request $request parameter
     {
-        $admin = auth('admin')->user();
+        try {
+            $admin = auth('admin')->user();
+            $perPage = $request->input('per_page', 15); // Now configurable via request
+            $search = $request->input('search'); // Get search term
+        
+            Log::info('Admin donation access', [
+                'admin_id' => $admin->id,
+                'role' => $admin->role,
+            ]);
+            // Get donation statistics
+            $totalDonations = Donation::successful()->sum('amount');
+            $successfulCount = Donation::successful()->count();
+            $pendingCount = Donation::pending()->count();
+            $failedCount = Donation::failed()->count();
 
-        if ($admin->hasRole('Super Admin')) {
-            $donations = Donation::with(['user', 'admin'])->latest()->get();
-        } else {
-            $donations = Donation::where('admin_id', $admin->id)->with('user')->latest()->get();
+          
+           
+             if ($admin->role === 'admin') {
+            $donations = Donation::with(['user', 'orphanage', 'campaign'])
+                ->when($search, function($query) use ($search) { // Add this line for search
+                    $query->where(function($q) use ($search) {
+                        $q->where('reference', 'like', "%$search%")
+                          ->orWhere('donor_name', 'like', "%$search%")
+                          ->orWhere('donor_email', 'like', "%$search%")
+                          ->orWhereHas('orphanage', fn($q) => $q->where('name', 'like', "%$search%"))
+                          ->orWhereHas('campaign', fn($q) => $q->where('title', 'like', "%$search%"));
+                    });
+                })
+                ->latest()
+                ->paginate($perPage);
+        }
+            else {
+            $donations = Donation::where(function ($query) use ($admin) {
+                    $query->whereHas('orphanage', function ($q) use ($admin) {
+                        $q->where('admin_id', $admin->id);
+                    })
+                    ->orWhereHas('campaign', function ($q) use ($admin) {
+                        $q->where('admin_id', $admin->id);
+                    });
+                })
+                ->when($search, function($query) use ($search) { // Add this line for search
+                    $query->where(function($q) use ($search) {
+                        $q->where('reference', 'like', "%$search%")
+                          ->orWhere('donor_name', 'like', "%$search%")
+                          ->orWhere('donor_email', 'like', "%$search%");
+                    });
+                })
+                 ->with(['user', 'orphanage', 'campaign'])
+                ->latest()
+                ->paginate($perPage)
+                ->through(function ($donation) {
+                    $donation->amount = $donation->amount * 0.9;
+                    $donation->raised = $donation->raised * 0.9;
+                    return $donation;
+                });
+
+            Log::info('Orphanage manager donations filtered', [
+                'original_count' => Donation::count(),
+                'filtered_count' => $donations->total(),
+            ]);
         }
 
-        return view('backend.donation', compact('donations'));
+                  
+            return view('backend.donation', [
+                'donations' => $donations,
+                'admin' => $admin,
+                'totalDonations' => $totalDonations,
+               
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Donation index error: '.$e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return back()->with('error', 'An error occurred while loading donations.');
+        }
     }
 
     public function store(Request $request)
@@ -52,7 +119,7 @@ class DonationAdminController extends Controller
         $donation->amount = $request->amount;
         $donation->raised = $request->raised ?? 0;
         $donation->status = $request->status ?? 'pending';
-        $donation->slug = $request->slug ?? Str::slug($request->title) . '-' . Str::random(5);
+        $donation->slug = $request->slug ?? Str::slug($request->title).'-'.Str::random(5);
         $donation->excerpt = $request->excerpt;
         $donation->meta_title = $request->meta_title;
         $donation->meta_tags = $request->meta_tags;
@@ -90,4 +157,23 @@ class DonationAdminController extends Controller
 
         return redirect()->route('donation_management')->with('success', 'Donation created successfully!');
     }
+
+    // public function chartData(Request $request)
+    // {
+    //     $days = $request->input('days', 30);
+
+    //     $data = Donation::successful()
+    //         ->selectRaw('DATE(created_at) as date, SUM(amount) as total')
+    //         ->where('created_at', '>=', now()->subDays($days))
+    //         ->groupBy('date')
+    //         ->orderBy('date')
+    //         ->get();
+
+    //     return response()->json([
+    //         'labels' => $data->pluck('date')->map(function ($date) {
+    //             return \Carbon\Carbon::parse($date)->format('M d');
+    //         }),
+    //         'data' => $data->pluck('total'),
+    //     ]);
+    // }
 }

@@ -148,7 +148,7 @@ Route::prefix('admin-dash')->middleware(['auth:admin', 'setlanguage:backend', 'a
         Route::post('/password-change', [AdminDashboardController::class, 'admin_password_chagne'])->name('admin.password.change');
         Route::get('/donation_management', [DonationAdminController::class, 'index'])->name('donation_management');
         Route::post('/donations', [DonationAdminController::class, 'store'])->name('donations.store');
-
+        Route::get('/admin/donations/chart-data', [DonationAdminController::class, 'chartData'])->name('admin.donations.chart-data');
         // campaign routes
         Route::get('/campaign', [AdminDashboardController::class, 'campaign'])->name('admin.campaign');
         Route::get('/campaign_details', [AdminDashboardController::class, 'campaignDetails'])->name('admin.campaignDetails');

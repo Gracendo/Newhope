@@ -1,209 +1,242 @@
 @extends('layouts.backend.app_admin_dashboard')
 @section('content')
- <!-- Modal -->
-<div class="modal fade" id="donationModal" tabindex="-1" aria-labelledby="donationModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="donationModalLabel">Add Donation</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body">
-        <form class="app-form" method="POST" action="{{ route('donations.store') }}" enctype="multipart/form-data">
-          @csrf
-
-          <div class="mb-3">
-            <label class="form-label">Title</label>
-            <input type="text" class="form-control" name="title" placeholder="Donation title" required>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Amount Goal</label>
-            <input type="number" step="0.01" class="form-control" name="amount" placeholder="e.g. 50000" required>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Raised Amount</label>
-            <input type="number" step="0.01" class="form-control" name="raised" value="0">
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Status</label>
-            <select name="status" class="form-control">
-              <option value="pending">Pending</option>
-              <option value="active">Active</option>
-              <option value="completed">Completed</option>
-            </select>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Donation Description</label>
-            <textarea class="form-control" rows="3" name="donation_content" placeholder="Enter details..."></textarea>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Slug</label>
-            <input type="text" class="form-control" name="slug" placeholder="unique-slug">
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Excerpt</label>
-            <input type="text" class="form-control" name="excerpt" placeholder="Short summary">
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Deadline</label>
-            <input type="date" class="form-control" name="deadline">
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Image</label>
-            <input type="file" class="form-control" name="image" accept=".jpg,.jpeg,.png">
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Gallery Images</label>
-            <input type="file" class="form-control" name="image_gallery[]" multiple accept=".jpg,.jpeg,.png">
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">FAQ</label>
-            <textarea class="form-control" name="faq" rows="3" placeholder="Questions fréquentes..."></textarea>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Meta Title</label>
-            <input type="text" class="form-control" name="meta_title">
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Meta Tags (comma-separated)</label>
-            <input type="text" class="form-control" name="meta_tags">
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Meta Description</label>
-            <textarea class="form-control" name="meta_description" rows="2"></textarea>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Featured?</label>
-            <select name="featured" class="form-control">
-              <option value="no">No</option>
-              <option value="yes">Yes</option>
-            </select>
-          </div>
-
-          <!-- Optional: Meta Open Graph -->
-          <div class="mb-3">
-            <label class="form-label">OG Meta Title</label>
-            <input type="text" class="form-control" name="og_meta_title">
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">OG Meta Description</label>
-            <textarea class="form-control" name="og_meta_description" rows="2"></textarea>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">OG Meta Image</label>
-            <input type="file" class="form-control" name="og_meta_image" accept=".jpg,.jpeg,.png">
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-success">Add Donation</button>
-          </div>
-        </form>
+   
+<main>
+<!-- Breadcrumb with role indicator -->
+  <div class="container-fluid">
+    <div class="row m-1">
+      <div class="col-12">
+        <h4 class="main-title">Donations Management</h4>
+        <ul class="app-line-breadcrumbs mb-3">
+          <li>
+            <a href="#" class="f-s-14 f-w-500">
+              <span>
+                <i class="ph-duotone ph-hand-heart f-s-16"></i> Donations
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="f-s-14 f-w-500">Donation Management</a>
+          </li>
+        </ul>
+        @if(auth('admin')->user()->role === 'orphanagemanager')
+            <div class="alert alert-info">
+              <i class="ph-info-fill me-2"></i> 
+              You are viewing only donations to your orphanage/campaigns. 
+              Amounts displayed reflect 90% of actual donations (10% platform fee deducted).
+            </div>
+        @endif
       </div>
     </div>
-  </div>
-</div>
-
-
-
-<main>
-  <div class="container-fluid">
-    <!-- Breadcrumb start -->
-    <div class="row m-1">
-  <div class="col-12">
-    <h4 class="main-title">Donations</h4>
-    <ul class="app-line-breadcrumbs mb-3">
-      <li>
-        <a href="#" class="f-s-14 f-w-500">
-          <span>
-            <i class="ph-duotone ph-hand-heart f-s-16"></i> Donations
-          </span>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="f-s-14 f-w-500">Manage Donations</a>
-      </li>
-    </ul>
-  </div>
-</div>
 <!-- Breadcrumb end -->
-
 
     <!-- Projects start -->
     <div class="row">
-      <div class="col-12">
-
-        
-        <div class="tab-wrapper mb-3">
-          <ul class="tabs">
-            <li class="tab-link active" data-tab="1">All Donations</li>
-            <li class="ms-auto">
-              <div class="text-end">
-                <button class="btn btn-primary w-45 h-45 icon-btn b-r-10 m-2" data-bs-toggle="modal" data-bs-target="#donationModal"><i class="ti ti-plus f-s-18"></i></button>
-              </div>
-            </li>
-          </ul>
+      <!-- Donation Statistics Card -->
+      
+      <!-- Summary Stats Card -->
+      <div class="col-xl-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Quick Stats</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <div class="stat-card bg-primary-light">
+                            <h6>Total Donations</h6>
+                            <h3>{{ number_format($totalDonations, 2) }} FCFA</h3>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
         </div>
-        <div class="content-wrapper" id="card-container">
-          <div id="tab-1" class="tabs-content active">
-            <div class="row">
-              @foreach($donations as $donation)
-                <div class="col-md-6 col-xl-4">
-                  <div class="card hover-effect">
-                    <div class="card-header">
-                      <div class="d-flex align-items-center">
-                        <div class="h-40 w-40 d-flex-center b-r-50 overflow-hidden">
-                          <img src="{{ asset('storage/' . $donation->image) }}" alt="Donation Image" class="img-fluid">
-                        </div>
-                        <div class="flex-grow-1 ps-2">
-                          <h6 class="m-0 text-dark f-w-600">{{ $donation->title }}</h6>
-                          <div class="text-muted f-s-14">{{ $donation->created_by }}</div>
-                        </div>
-                        <!-- Dropdown actions -->
+      </div>
+    </div>
+    <!-- start here    -->
+<!-- Default Datatable start -->
+              <div class="col-12">
+                <div class="card ">
+                  <div class="card-header d-flex  justify-content-between align-items-center ">
+                     <h5>Donations Management</h5>
+                     <div class="me-3">
+                      <div class=" dropdown ">
+                        <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                          <i class="fa fa-download me-1"></i> Export
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#"><i class="fa-solid fa-file-pdf fa-fw"></i>Pdf</a></li>
+                          <li><a class="dropdown-item" href="#"><i class="fa-solid fa-file-excel fa-fw"></i>Excell</a></li>
+                        </ul>
                       </div>
+                     </div>
+                     
                     </div>
-                    <div class="card-body">
-                      <p>{{ Str::limit($donation->donation_content, 100) }}</p>
-                      <div class="text-end mb-2">
-                        <span class="badge bg-primary">{{ $donation->status }}</span>
-                      </div>
-                      <div class="progress w-100">
-                        @php
-                          $progress = $donation->amount > 0 ? round(($donation->raised / $donation->amount) * 100) : 0;
-                        @endphp
-                        <div class="progress-bar bg-success" style="width: {{ $progress }}%">{{ $progress }}%</div>
-                      </div>
-                    </div>
-                    <div class="card-footer text-end">
-                      <small>Deadline: {{ $donation->deadline }}</small>
+                  <div class="card-body p-0">
+                    <div class="app-datatable-default overflow-auto">
+                      <table id="example" class="display app-data-table default-data-table">
+                        <thead>
+                          <tr>
+                            
+                            <th>Reference</th>
+                            <th>Donor</th>
+                            <th>Amount</th>
+                            <th>Destination</th>
+                            <th>Method</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                   
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach($donations as $donation)
+                          <tr>
+                            <td>{{ $donation->reference ?? 'N/A' }}</td>
+                            <td>
+                              @if($donation->anonymous)
+                                <span class="badge bg-secondary">Anonymous</span>
+                              @else
+                                {{ $donation->donor_name ?? 'Guest' }}
+                              @endif
+                            </td>
+                            <td>
+                              @if(auth('admin')->user()->role === 'orphanagemanager')
+                                {{ number_format($donation->amount * 0.9, 2) }} FCFA
+                              @else
+                                {{ number_format($donation->amount, 2) }} FCFA
+                              @endif
+                            </td>
+                            <td>
+                              @if($donation->orphanage)
+                                <span class="badge bg-info">Orphanage: {{ Str::limit($donation->orphanage->name, 15) }}</span>
+                              @elseif($donation->campaign)
+                                <span class="badge bg-primary">Campaign: {{ Str::limit($donation->campaign->name, 15) }}</span>
+                              @else
+                                <span class="badge bg-secondary">General</span>
+                              @endif
+                            </td>
+                            <td>
+                              <span class="badge bg-{{ $donation->payment_method === 'MTN' ? 'dark' : 'warning text-dark' }}">
+                                {{ $donation->payment_method }}
+                              </span>
+                            </td>
+                            <td>
+                              <span class="badge bg-{{ 
+                                $donation->status === 'successful' ? 'success' : 
+                                ($donation->status === 'failed' ? 'danger' : 'warning') 
+                              }}">
+                                {{ ucfirst($donation->status) }}
+                              </span>
+                            </td>
+                            <td>{{ $donation->created_at->format('M d, Y') }}</td>
+                            <td>
+                              <button class="btn btn-sm btn-info" data-bs-toggle="modal" 
+                                data-bs-target="#donationDetailsModal{{ $donation->id }}">
+                                <i class="fa fa-eye"></i>
+                              </button>
+                            </td>
+                          </tr>
+                          @endforeach
+                  </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
-              @endforeach
+              </div>
+              <!-- Default Datatable end -->
 
+    <!--///////-->
+    
+    <!-- Projects end -->
+    
+    <!-- Donation Details Modal -->
+    @foreach($donations as $donation)
+    <div class="modal fade" id="donationDetailsModal{{ $donation->id }}" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Donation Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row mb-3">
+              <div class="col-6">
+                <p class="mb-1"><strong>Reference:</strong></p>
+                <p>{{ $donation->reference ?? 'N/A' }}</p>
+              </div>
+              <div class="col-6">
+                <p class="mb-1"><strong>Date:</strong></p>
+                <p>{{ $donation->created_at->format('M d, Y H:i') }}</p>
+              </div>
             </div>
+            
+            <div class="row mb-3">
+              <div class="col-6">
+                <p class="mb-1"><strong>Donor:</strong></p>
+                <p>
+                  @if($donation->anonymous)
+                    Anonymous
+                  @else
+                    {{ $donation->donor_name }}<br>
+                    <small>{{ $donation->donor_email }}</small>
+                  @endif
+                </p>
+              </div>
+              <div class="col-6">
+                <p class="mb-1"><strong>Amount:</strong></p>
+                <p>
+                  {{ number_format($donation->amount, 2) }} FCFA
+                  @if(auth('admin')->user()->role === 'orphanagemanager')
+                    <br><small class="text-success">You receive: {{ number_format($donation->amount * 0.9, 2) }} FCFA</small>
+                  @endif
+                </p>
+              </div>
+            </div>
+            
+            <div class="row mb-3">
+              <div class="col-12">
+                <p class="mb-1"><strong>Destination:</strong></p>
+                <p>
+                  @if($donation->orphanage)
+                    Orphanage: {{ $donation->orphanage->name }}
+                  @elseif($donation->campaign)
+                    Campaign: {{ $donation->campaign->title }}
+                  @else
+                    General Donation
+                  @endif
+                </p>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-6">
+                <p class="mb-1"><strong>Payment Method:</strong></p>
+                <p>{{ $donation->payment_method }}</p>
+              </div>
+              <div class="col-6">
+                <p class="mb-1"><strong>Status:</strong></p>
+                <p>
+                  <span class="badge bg-{{ 
+                    $donation->status === 'successful' ? 'success' : 
+                    ($donation->status === 'failed' ? 'danger' : 'warning') 
+                  }}">
+                    {{ ucfirst($donation->status) }}
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
     </div>
-    <!-- Projects end -->
+    @endforeach
   </div>
 </main>
+
 @endsection
