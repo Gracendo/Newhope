@@ -77,7 +77,7 @@
             @yield('content')
         </main>
     </div>
-
+<x-floating-assistant />
 
 </body>
 </html>
