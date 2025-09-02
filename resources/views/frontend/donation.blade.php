@@ -47,7 +47,7 @@
                             <!-- Amount -->
                             <div class="form-group mb-4">
                                 <input type="number" name="amount" class="form-control" 
-                                       placeholder="Amount (min: 100 FCFA)" required min="100" 
+                                       placeholder="Amount (min: 1 FCFA)" required min="1" 
                                        value="{{ old('amount') }}">
                             </div>
 
@@ -172,10 +172,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: JSON.stringify(data)
             });
-
+            
             const responseData = await response.json();
+            console.log(responseData)
 
             if (!response.ok) {
+                console.log(response)
                 throw new Error(responseData.message || 'Payment initiation failed');
             }
 
@@ -187,6 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 pollPaymentStatus(responseData.reference);
             }
         } catch (error) {
+            console.log(error)
             alert('Error: ' + error.message);
             button.disabled = false;
             button.innerHTML = 'Donate Now';
@@ -194,25 +197,71 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Poll payment status every 10 seconds
-    function pollPaymentStatus(reference) {
-        const interval = setInterval(async () => {
-            try {
-                const response = await fetch(`/campay/check-collect-status/${reference}`);
-                const data = await response.json();
+   // Enhanced polling with communication strategy
+function pollPaymentStatus(reference, attempt = 1) {
+    const statusElement = document.createElement('div');
+    statusElement.id = 'payment-status';
+    statusElement.style.cssText = 'padding: 15px; margin: 15px 0; border-radius: 5px; background: #f8f9fa; border: 1px solid #e9ecef;';
+    document.querySelector('.donate-form').appendChild(statusElement);
 
-                if (data.collectStatus === 'SUCCESSFUL') {
-                    clearInterval(interval);
+    const poll = async () => {
+        try {
+            const response = await fetch(`/donation/status/${reference}`);
+            const data = await response.json();
+
+            // Update status message for user
+            statusElement.innerHTML = `
+                <div style="font-weight: bold; color: ${data.status === 'successful' ? '#28a745' : data.status === 'failed' ? '#dc3545' : '#17a2b8'}">
+                    ${data.message || 'Processing payment...'}
+                </div>
+                ${data.status === 'processing' ? `<div style="margin-top: 10px; font-size: 0.9em; color: #6c757d;">
+                    Next check in ${data.retry_after || 30} seconds...
+                </div>` : ''}
+            `;
+
+            if (data.status === 'successful') {
+                // Success! Show confirmation and redirect
+                statusElement.style.background = '#d4edda';
+                statusElement.style.borderColor = '#c3e6cb';
+                statusElement.style.color = '#155724';
+                
+                setTimeout(() => {
                     window.location.href = "{{ route('donations.thankyou') }}";
-                } else if (data.collectStatus === 'FAILED') {
-                    clearInterval(interval);
+                }, 2000);
+                
+            } else if (data.status === 'failed') {
+                // Failure
+                statusElement.style.background = '#f8d7da';
+                statusElement.style.borderColor = '#f5c6cb';
+                
+                setTimeout(() => {
                     alert('Payment failed. Please try again.');
                     window.location.reload();
-                }
-            } catch (error) {
-                console.error('Polling error:', error);
+                }, 3000);
+                
+            } else if (data.status === 'processing') {
+                // Continue polling with progressive backoff
+                const waitTime = (data.retry_after || 30) * 1000;
+                setTimeout(() => poll(), waitTime);
             }
-        }, 10000); // 10 seconds
-    }
+            
+        } catch (error) {
+            console.error('Polling error:', error);
+            statusElement.innerHTML = `
+                <div style="color: #856404;">
+                    Connection issue. Retrying in 30 seconds...
+                </div>
+            `;
+            
+            // Exponential backoff for errors
+            const waitTime = Math.min(30000, 1000 * Math.pow(2, attempt));
+            setTimeout(() => pollPaymentStatus(reference, attempt + 1), waitTime);
+        }
+    };
+
+    // Start polling
+    poll();
+}
 });
 </script>
 @endsection

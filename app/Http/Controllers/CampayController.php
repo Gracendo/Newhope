@@ -24,22 +24,50 @@ class CampayController extends Controller
     private function getCampayAccessToken()
     {
         try {
-            $response = Http::withOptions([
-                'verify' => 'C:\Users\Emie\Desktop\Newhope\certification\cacert.pem',
-                // 'verify' => 'certification/cacert.pem',
-            ])->post($this->campayApiBaseUrl.'/token/', [
-                'username' => $this->campayAppUsername,
-                'password' => $this->campayAppPassword,
+            Log::info('Requesting Campay access token', [
+                'url' => $this->campayApiBaseUrl.'/token/',
+                'username' => $this->campayAppUsername
+            ]);
+
+            // REMOVED: 'verify' => false - Let PHP use system SSL configuration
+            $response = Http::asForm() // Use form data for token endpoint
+                ->timeout(30)
+                ->post($this->campayApiBaseUrl.'/token/', [
+                    'username' => $this->campayAppUsername,
+                    'password' => $this->campayAppPassword,
+                ]);
+
+            // Log the token response
+            Log::info('Campay Token API Response:', [
+                'status' => $response->status(),
+                'successful' => $response->successful(),
+                'body' => $response->body(),
             ]);
 
             if ($response->successful()) {
-                return $response->json()['token'];
+                $tokenData = $response->json();
+                $token = $tokenData['token'] ?? null;
+                
+                if ($token) {
+                    Log::info('Campay access token obtained successfully');
+                    return $token;
+                } else {
+                    Log::error('Token not found in response:', ['response' => $tokenData]);
+                    throw new \Exception('Token not found in Campay response');
+                }
             } else {
-                Log::error('Error fetching Campay access token:', $response->json());
-                throw new \Exception('Failed to obtain Campay access token. Please check credentials and base URL.');
+                Log::error('Campay token request failed', [
+                    'status' => $response->status(),
+                    'body' => $response->body(),
+                    'json' => $response->json() ?? 'Invalid JSON response'
+                ]);
+                throw new \Exception('Unable to retrieve Campay token. HTTP Status: ' . $response->status());
             }
         } catch (\Exception $e) {
-            Log::error('Exception fetching Campay access token:', ['error' => $e->getMessage()]);
+            Log::error('Exception fetching Campay access token:', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
             throw $e;
         }
     }
@@ -65,6 +93,7 @@ class CampayController extends Controller
         $headers = [
             'Authorization' => "Token $accessToken",
             'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
         ];
 
         $disbursePayload = [
@@ -76,29 +105,47 @@ class CampayController extends Controller
         ];
 
         try {
+            Log::info('Campay Disburse Request:', [
+                'url' => $this->campayApiBaseUrl.'/withdraw/',
+                'headers' => $headers,
+                'payload' => $disbursePayload
+            ]);
+
+            // REMOVED: 'verify' => false - Let PHP use system SSL configuration
             $response = Http::withHeaders($headers)
+                ->timeout(30)
                 ->post($this->campayApiBaseUrl.'/withdraw/', $disbursePayload);
 
-            if ($response->successful() && $response->json()['status'] === 'SUCCESSFUL') {
-                Log::info('Disbursement successful:', $response->json());
+            // Log disburse response
+            Log::info('Campay Disburse Response:', [
+                'status' => $response->status(),
+                'successful' => $response->successful(),
+                'body' => $response->body(),
+                'json' => $response->json() ?? 'Invalid JSON response'
+            ]);
 
+            $responseData = $response->json();
+            
+            if ($response->successful() && ($responseData['status'] ?? '') === 'SUCCESSFUL') {
+                Log::info('Disbursement successful:', $responseData);
                 return [
                     'success' => true,
                     'message' => 'Disbursement completed successfully.',
-                    'disburseDetails' => $response->json(),
+                    'disburseDetails' => $responseData,
                 ];
             } else {
-                Log::error('Campay Disburse failed:', $response->json());
-
+                Log::error('Campay Disburse failed:', $responseData);
                 return [
                     'success' => false,
                     'message' => 'Disbursement failed or is pending Campay processing.',
-                    'disburseDetails' => $response->json(),
+                    'disburseDetails' => $responseData,
                 ];
             }
         } catch (\Exception $e) {
-            Log::error('Error during Campay disbursement:', ['error' => $e->getMessage()]);
-
+            Log::error('Error during Campay disbursement:', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
             return [
                 'success' => false,
                 'message' => 'An error occurred during disbursement API call.',
@@ -110,7 +157,6 @@ class CampayController extends Controller
     // --- POST /api/campay/exchange-with-fee ---
     public function exchangeWithFee(Request $request)
     {
-        // dd($request);
         $request->validate([
             'senderPhoneNumber' => 'required|string',
             'receiverPhoneNumber' => 'required|string',
@@ -148,6 +194,7 @@ class CampayController extends Controller
             $headers = [
                 'Authorization' => "Token $accessToken",
                 'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
             ];
 
             $collectPayload = [
@@ -158,28 +205,43 @@ class CampayController extends Controller
                 'external_reference' => $collectReference,
             ];
 
-            $response = Http::withHeaders($headers)->withOptions([
-                'verify' => 'C:\Users\Emie\Desktop\Newhope\certification\cacert.pem',
-                // 'verify' => '../../../certification/cacert.pem',
-            ])
+            Log::info('Campay Collect Request:', [
+                'url' => $this->campayApiBaseUrl.'/collect/',
+                'headers' => $headers,
+                'payload' => $collectPayload
+            ]);
+
+            // REMOVED: 'verify' => false - Let PHP use system SSL configuration
+            $response = Http::withHeaders($headers)
+                ->timeout(30)
                 ->post($this->campayApiBaseUrl.'/collect/', $collectPayload);
 
-            if ($response->successful()) {
-                Log::info('Campay Collect Initiation successful:', $response->json());
+            // Log collect response
+            Log::info('Campay Collect Response:', [
+                'status' => $response->status(),
+                'successful' => $response->successful(),
+                'body' => $response->body(),
+                'json' => $response->json() ?? 'Invalid JSON response'
+            ]);
 
-                // Here you would typically store the transaction in your database
-                // with status 'PENDING_COLLECTION'
+            if ($response->successful()) {
+                $responseData = $response->json();
+                Log::info('Campay Collect Initiation successful:', $responseData);
 
                 return response()->json([
                     'message' => 'Money collection initiated. Awaiting sender confirmation and Campay processing.',
-                    'status' => $response->json()['status'] ?? 'PENDING',
+                    'status' => $responseData['status'] ?? 'PENDING',
                     'collectReference' => $collectReference,
-                    'details' => $response->json(),
+                    'details' => $responseData,
                     'receiverPhoneNumber' => $receiverPhoneNumber,
                     'nextSteps' => 'Monitor transaction status using the collectReference or await webhook for completion.',
                 ], 202);
             } else {
-                Log::error('Campay Collect Initiation failed with unexpected status:', $response->json());
+                Log::error('Campay Collect Initiation failed:', [
+                    'status' => $response->status(),
+                    'body' => $response->body(),
+                    'json' => $response->json() ?? 'Invalid JSON response'
+                ]);
 
                 return response()->json([
                     'message' => 'Failed to initiate money collection from sender.',
@@ -187,7 +249,10 @@ class CampayController extends Controller
                 ], 400);
             }
         } catch (\Exception $e) {
-            Log::error('Error during Campay collect initiation:', ['error' => $e->getMessage()]);
+            Log::error('Error during Campay collect initiation:', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
 
             return response()->json([
                 'message' => 'An unexpected error occurred during the collection initiation.',
@@ -207,6 +272,7 @@ class CampayController extends Controller
         $status = $transaction['status'] ?? null;
 
         if (!$paymentReference || !$status) {
+            Log::error('Invalid webhook payload:', $request->all());
             return response()->json(['message' => 'Invalid webhook payload'], 400);
         }
 
@@ -228,25 +294,23 @@ class CampayController extends Controller
 
                 if ($disburseResult['success']) {
                     Log::info("Disbursement for $paymentReference completed.");
-
                     return response()->json(['message' => 'Webhook processed: Disbursement successful.']);
                 } else {
                     Log::error("Disbursement for $paymentReference failed:", $disburseResult['message']);
-
                     return response()->json(['message' => 'Webhook processed: Disbursement failed (reconciliation needed).']);
                 }
             } catch (\Exception $e) {
-                Log::error("Webhook: Failed to process disbursement for $paymentReference:", ['error' => $e->getMessage()]);
-
+                Log::error("Webhook: Failed to process disbursement for $paymentReference:", [
+                    'error' => $e->getMessage(),
+                    'trace' => $e->getTraceAsString()
+                ]);
                 return response()->json(['message' => 'Failed to process webhook: Token error.'], 500);
             }
         } elseif (in_array($status, ['FAILED', 'CANCELLED'])) {
             Log::info("Collect transaction $paymentReference $status. No disbursement needed.");
-
             return response()->json(['message' => 'Webhook processed: Collection failed.']);
         } else {
             Log::info("Collect transaction $paymentReference is $status. Waiting for final status.");
-
             return response()->json(['message' => 'Webhook processed: Status updated.']);
         }
     }
@@ -258,6 +322,8 @@ class CampayController extends Controller
             return response()->json(['message' => 'Missing collectReference parameter.'], 400);
         }
 
+        Log::info("Checking collect status for reference: $collectReference");
+
         try {
             $accessToken = $this->getCampayAccessToken();
         } catch (\Exception $e) {
@@ -267,13 +333,32 @@ class CampayController extends Controller
         $headers = [
             'Authorization' => "Token $accessToken",
             'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
         ];
 
         try {
+            Log::info('Campay Transaction Status Request:', [
+                'url' => $this->campayApiBaseUrl."/transaction/$collectReference/",
+                'headers' => $headers
+            ]);
+
+            // REMOVED: 'verify' => false - Let PHP use system SSL configuration
             $response = Http::withHeaders($headers)
+                ->timeout(30)
                 ->get($this->campayApiBaseUrl."/transaction/$collectReference/");
 
-            $transactionStatus = $response->json()['status'] ?? null;
+            // Log status check response
+            Log::info('Campay Transaction Status Response:', [
+                'reference' => $collectReference,
+                'status' => $response->status(),
+                'successful' => $response->successful(),
+                'body' => $response->body(),
+                'json' => $response->json() ?? 'Invalid JSON response'
+            ]);
+
+            $responseData = $response->json();
+            $transactionStatus = $responseData['status'] ?? null;
+            
             Log::info("Status for $collectReference: $transactionStatus");
 
             if ($transactionStatus === 'SUCCESSFUL') {
@@ -292,17 +377,20 @@ class CampayController extends Controller
                     'message' => 'Collection successful. Disbursement '.($disburseResult['success'] ? 'initiated' : 'failed to initiate').'.',
                     'collectStatus' => $transactionStatus,
                     'disburseStatus' => $disburseResult['disburseDetails']['status'] ?? 'N/A',
-                    'details' => $response->json(),
+                    'details' => $responseData,
                 ]);
             } else {
                 return response()->json([
                     'message' => 'Collection status checked.',
                     'collectStatus' => $transactionStatus,
-                    'details' => $response->json(),
+                    'details' => $responseData,
                 ]);
             }
         } catch (\Exception $e) {
-            Log::error("Error checking status for $collectReference:", ['error' => $e->getMessage()]);
+            Log::error("Error checking status for $collectReference:", [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
 
             return response()->json([
                 'message' => 'Failed to check transaction status.',

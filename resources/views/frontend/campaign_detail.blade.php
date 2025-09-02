@@ -32,6 +32,10 @@
                                 <li class="breadcrumb-item active" aria-current="page">{{ $campaign->name }}</li>
                             </ol>
                         </nav>
+                        <br>
+                         <div class="sidebar-cta-btn">
+                                <a href="{{ route('campaign.donate',$campaign->id) }}" class="btn-default">Donate Now</a>
+                         </div>
                     </div>
                     <!-- Page Header Box End -->
                 </div>

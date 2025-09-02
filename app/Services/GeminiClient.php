@@ -75,7 +75,10 @@ $context
             $response = Http::timeout($timeout)
             ->retry(2, 200)
             ->withOptions([
-                'verify' => false, //  disables SSL verification (testing only!)
+                // 'verify' => false,//  disables SSL verification (testing only!) 
+                'verify' => 'C:\Users\Emie\Desktop\Newhope\certification\cacert.pem',
+
+                
             ])
             ->withHeaders([
                 'Content-Type' => 'application/json',
