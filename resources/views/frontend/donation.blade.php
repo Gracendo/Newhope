@@ -47,7 +47,7 @@
                             <!-- Amount -->
                             <div class="form-group mb-4">
                                 <input type="number" name="amount" class="form-control" 
-                                       placeholder="Amount (min: 1 FCFA)" required min="1" 
+                                       placeholder="Amount (min: 25 FCFA)" required min="25" 
                                        value="{{ old('amount') }}">
                             </div>
 
@@ -65,7 +65,7 @@
                                 <input type="text" name="phone_number" class="form-control" 
                                        placeholder="Phone number (e.g., 2376XXXXXX)" required 
                                        value="{{ auth()->check() && auth()->user()->phone ? auth()->user()->phone : old('phone_number') }}"
-                                       {{ auth()->check() && auth()->user()->phone ? 'readonly' : '' }}>
+                                       {{ auth()->check() && auth()->user()->phone ? '' : '' }}>
                             </div>
 
                             <!-- Anonymous Donation -->

@@ -369,10 +369,10 @@
                     <div class="card-footer">
                         <div class="row align-items-center">
                             <div class="col-6">
-                                <span class="text-dark f-w-600">
+                                <!-- <span class="text-dark f-w-600">
                                     <i class="ti ti-brand-wechat f-s-18"></i> 
                                     {{ $campaign->volunteers_count ?? 0 }} Volunteers
-                                </span>
+                                </span> -->
                             </div>
                             
                             <!-- Details Button (Only for approved campaigns) -->
